@@ -31,7 +31,6 @@
   }
   select:focus, textarea:focus { outline: none; border-color: #0668E1; }
   
-  /* LinkedIn Paste Box Styling */
   .profile-paste-box { margin-bottom: 1.5rem; }
   textarea#profile-text { min-height: 120px; font-family: inherit; resize: vertical; background: #fcfcfc; border-style: dashed; }
 
@@ -54,6 +53,7 @@
   .badge-neutral { background: #f1f3f5; color: #495057; }
 
   .insight-box { padding: 16px; background: #f8f9fa; border-top: 1px solid #eee; font-size: 13px; }
+  .insight-title { font-weight: 700; color: #0668E1; margin-bottom: 8px; display: block; }
   .tag { display: inline-block; background: #eee; padding: 2px 6px; border-radius: 4px; font-size: 10px; margin-right: 5px; color: #666; font-weight: 600; }
   .empty-state { text-align: center; padding: 3rem; color: #aaa; background: #fff; border: 1px dashed #ccc; border-radius: 12px; }
 </style>
@@ -68,11 +68,11 @@
 
   <div class="form-card">
     <div class="profile-paste-box">
-        <span class="section-label">LinkedIn Profile / Experience Paste (Optional)</span>
-        <textarea id="profile-text" placeholder="Paste LinkedIn 'About' section, job descriptions, or CV text here for deeper context analysis..."></textarea>
+        <span class="section-label">LinkedIn Profile / Bio Paste (Keyword Intelligence)</span>
+        <textarea id="profile-text" placeholder="Paste LinkedIn 'About' section or experience here. Example: 'I managed a team of 10 and launched an AI product...'"></textarea>
     </div>
 
-    <span class="section-label">Standardized Signals</span>
+    <span class="section-label">Manual Calibration</span>
     <div class="form-row">
       <div class="field">
         <label>Current Company</label>
@@ -92,16 +92,17 @@
             <option value="ByteDance">ByteDance / TikTok</option>
             <option value="Palantir">Palantir</option>
           </optgroup>
-          <optgroup label="Product Schools (SaaS/Fintech)">
+          <optgroup label="SaaS & Fintech">
             <option value="Salesforce">Salesforce</option>
             <option value="Atlassian">Atlassian</option>
             <option value="Adobe">Adobe</option>
             <option value="Square">Square / Block</option>
             <option value="Coinbase">Coinbase</option>
           </optgroup>
-          <optgroup label="Content & Social">
+          <optgroup label="Social & Content">
             <option value="Netflix">Netflix</option>
             <option value="Snap">Snap</option>
+            <option value="Pinterest">Pinterest</option>
           </optgroup>
         </select>
       </div>
@@ -131,17 +132,22 @@
       </div>
     </div>
     <div class="btn-row">
-      <button class="primary" onclick="computeLevel()">Analyze Profile & Level</button>
-      <button class="secondary" onclick="location.reload()">Clear</button>
+      <button class="primary" onclick="computeLevel()">Generate Researcher Insights</button>
+      <button class="secondary" onclick="location.reload()">Clear All</button>
     </div>
   </div>
 
   <div id="results">
-    <div class="empty-state">Paste a profile or enter details to generate a cross-company leveling report.</div>
+    <div class="empty-state">Paste a profile or select manual signals to generate a report.</div>
   </div>
 </div>
 
 <script>
+/**
+ * DATA DICTIONARY
+ * To update levels: Edit the strings in the arrays below.
+ * Position 0 = Meta IC3 equivalent, Position 1 = IC4, etc.
+ */
 const levelMap = {
   "Google": ["APM","PM II","Senior PM","Staff PM","Group PM","Director"],
   "Amazon": ["L4 PM","L5 PM","L6 (Senior)","L7 (Principal)","L8 (Director)","L10 (VP)"],
@@ -159,7 +165,8 @@ const levelMap = {
   "Square": ["L4 PM","L5 PM","L6 (Senior)","L7 (Staff)","L8 (Lead)","Head of"],
   "Coinbase": ["IC4 PM","IC5 (Senior)","IC6 (Staff)","IC7 (Principal)","Director","VP"],
   "Netflix": ["L4 PM","L5 (Senior)","L5 (Senior)","L6 (Director)","L6 (Director)","VP"],
-  "Snap": ["L3 PM","L4 PM","L5 (Senior)","L6 (Staff)","L7 (Director)","VP"]
+  "Snap": ["L3 PM","L4 PM","L5 (Senior)","L6 (Staff)","L7 (Director)","VP"],
+  "Pinterest": ["L3 PM","L4 PM","L5 (Senior)","L6 (Staff)","L7 (Director)","VP"]
 };
 
 const metaLevels = [
@@ -189,48 +196,61 @@ function computeLevel() {
   const srcIdx = parseInt(document.getElementById("level").value);
   const yoeIdx = parseInt(document.getElementById("yoe").value);
   const arch = document.getElementById("archetype").value;
+  
+  // NORMALIZE TEXT FOR KEYWORD SCANNING
   const profileText = document.getElementById("profile-text").value.toLowerCase();
 
-  if (!co) return;
+  if (!co) {
+      alert("Please select a company first.");
+      return;
+  }
 
-  let suggestedIdx = srcIdx;
   let contextNotes = [];
   let velocitySignal = false;
 
-  // 1. Text-Based Insight Extraction (Keyword Analysis)
-  if (profileText.includes("managed a team") || profileText.includes("direct reports") || profileText.includes("hiring")) {
-      contextNotes.push("Leadership Signal: Experience managing people. Consider IC7/M1 track.");
-  }
-  if (profileText.includes("0 to 1") || profileText.includes("launched") || profileText.includes("founding")) {
-      contextNotes.push("Innovation Signal: Experience with high ambiguity and 0-to-1 launches.");
-  }
-  if (profileText.includes("scale") || profileText.includes("billion") || profileText.includes("global")) {
-      contextNotes.push("Scope Signal: Experience operating at massive scale (Meta-relevant).");
+  // --- KEYWORD INTELLIGENCE LOGIC ---
+  if (profileText.length > 5) {
+      if (profileText.includes("managed") || profileText.includes("hiring") || profileText.includes("reports") || profileText.includes("directs")) {
+          contextNotes.push("📊 **Leadership Signal:** Mention of people management. Candidate may be suitable for M1/M2 management tracks rather than just IC.");
+      }
+      if (profileText.includes("sql") || profileText.includes("python") || profileText.includes("api") || profileText.includes("technical")) {
+          contextNotes.push("⚙️ **Technical Rigor:** Signal of technical fluency. Strong candidate for Platform or Infra orgs.");
+      }
+      if (profileText.includes("ai") || profileText.includes("ml") || profileText.includes("machine learning") || profileText.includes("llm")) {
+          contextNotes.push("🤖 **Specialized Talent:** AI/ML experience detected. High priority for Meta's GenAI or Ranking initiatives.");
+      }
+      if (profileText.includes("0 to 1") || profileText.includes("launched") || profileText.includes("founding")) {
+          contextNotes.push("🚀 **Innovation Signal:** Experience with high-ambiguity product launches. Maps well to Meta's New Product Experimentation.");
+      }
+      if (profileText.includes("b2b") || profileText.includes("enterprise") || profileText.includes("saas")) {
+          contextNotes.push("🏢 **SaaS Background:** Primarily B2B experience. Evaluate 'Product Sense' for consumer-facing speed.");
+      }
   }
 
-  // 2. High Velocity Filter
+  // --- VELOCITY LOGIC ---
   if (["Stripe", "Uber", "ByteDance", "Netflix"].includes(co)) {
     if (yoeIdx <= 2 && srcIdx >= 2) {
       velocitySignal = true;
-      contextNotes.push("High Velocity: Rapid progression at an elite tech firm.");
+      contextNotes.push("⚡ **Velocity Alert:** High-ranking role achieved early at a top-tier firm. Potential for higher level placement.");
     }
   }
 
-  // 3. Archetype Alignment
-  if (arch === "growth") contextNotes.push("Cultural Fit: Archetype aligns with Meta's core Growth/Product Sense DNA.");
-  if (arch === "infra") contextNotes.push("Technical Bar: Higher technical complexity; ensure 'Product Sense' is equally strong.");
+  // --- ARCHETYPE LOGIC ---
+  if (arch === "growth") contextNotes.push("🎯 **Archetype Fit:** Growth PMs are a core 'Meta DNA' match for execution speed.");
+  if (arch === "infra") contextNotes.push("🛠️ **Archetype Note:** Infrastructure PMs should be vetted for 'Product Sense' during the loop.");
 
+  // GENERATE TABLE ROWS
   let html = `<div class="result-card">
     <table>
-      <thead><tr><th>Meta Target</th><th>Fit Strength</th><th>Strategic Context</th></tr></thead>
+      <thead><tr><th>Meta Target</th><th>Fit Strength</th><th>Contextual Signals</th></tr></thead>
       <tbody>`;
 
   metaLevels.forEach((m, i) => {
-    let isMatch = (i === suggestedIdx);
-    let fitText = isMatch ? "Primary Target" : (Math.abs(i - suggestedIdx) === 1 ? "Secondary" : "Reach");
+    let isMatch = (i === srcIdx);
+    let fitText = isMatch ? "Primary Match" : (Math.abs(i - srcIdx) === 1 ? "Secondary" : "Reach");
     let badge = isMatch ? "badge-match" : "badge-neutral";
     
-    if (velocitySignal && i === suggestedIdx + 1) {
+    if (velocitySignal && i === srcIdx + 1) {
         fitText = "Velocity Stretch";
         badge = "badge-velocity";
     }
@@ -239,7 +259,7 @@ function computeLevel() {
       <td><span style="font-size:16px; font-weight:700;">${m.lv}</span><br><span style="color:#666; font-size:11px;">${m.desc}</span></td>
       <td><span class="badge ${badge}">${fitText}</span></td>
       <td>
-        ${i < 3 ? '<span class="tag">Execution Focus</span>' : '<span class="tag">Strategic Scope</span>'}
+        ${i < 3 ? '<span class="tag">Execution focus</span>' : '<span class="tag">Strategic focus</span>'}
         ${i >= 4 ? '<span class="tag">Org Leadership</span>' : ''}
       </td>
     </tr>`;
@@ -247,9 +267,9 @@ function computeLevel() {
 
   html += `</tbody></table>
     <div class="insight-box">
-      <strong>Deep Research Insights:</strong><br>
-      <ul style="margin-top:8px; padding-left:18px;">
-        ${contextNotes.length > 0 ? contextNotes.map(n => `<li style="margin-bottom:4px;">${n}</li>`).join('') : '<li>Standard leveling applied. No additional text signals detected.</li>'}
+      <span class="insight-title">Deep Talent Research Summary</span>
+      <ul style="padding-left:18px;">
+        ${contextNotes.length > 0 ? contextNotes.map(n => `<li style="margin-bottom:6px;">${n}</li>`).join('') : '<li>No additional text signals detected. Leveling based on company norms.</li>'}
       </ul>
     </div>
   </div>`;
