@@ -1,164 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Meta PM Leveling Tool - Advanced Researcher Edition</title>
-<style>
-  /* [Keeping your original styles...] */
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f4f0; color: #1a1a1a; min-height: 100vh; padding: 2rem 1rem; }
-  .container { max-width: 920px; margin: 0 auto; }
-  h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; color: #1a1a1a; }
-  .subtitle { font-size: 14px; color: #666; margin-bottom: 1.5rem; }
-  .section-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #888; margin-bottom: 8px; }
-  .form-card { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; margin-bottom: 1rem; }
-  @media (max-width: 800px) { .form-row { grid-template-columns: 1fr 1fr; } }
-  .field { display: flex; flex-direction: column; gap: 6px; }
-  .field label { font-size: 10px; color: #999; font-weight: 600; text-transform: uppercase; }
-  .field select, textarea { width: 100%; padding: 8px 10px; border: 0.5px solid #ccc; border-radius: 8px; font-size: 13px; }
-  .btn-row { display: flex; gap: 10px; margin-top: 15px; }
-  button { padding: 8px 16px; border: 0.5px solid #ccc; border-radius: 8px; font-size: 13px; cursor: pointer; }
-  button.primary { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
-  .result-card { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 1.25rem 1.5rem; }
-  .badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; }
-  .badge-match { background: #E1F5EE; color: #085041; }
-  .badge-high-velocity { background: #E6F1FB; color: #0C447C; border: 1px solid #B5D4F4; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
-  th { text-align: left; font-size: 11px; color: #888; border-bottom: 1px solid #eee; padding: 8px; }
-  td { padding: 12px 8px; border-bottom: 1px solid #f9f9f9; }
-  .highlight-row { background: #fdfdfd; font-weight: 500; }
-  .tag { font-size: 10px; background: #eee; padding: 2px 6px; border-radius: 4px; margin-right: 4px; color: #666; }
-</style>
-</head>
-<body>
-<div class="container">
-  <h1>Meta PM Leveling Tool <span style="font-weight: 300; font-size: 14px; color: #378ADD;">(Researcher Edition)</span></h1>
-  <p class="subtitle">Contextual mapping based on company DNA, archetype, and promotion velocity.</p>
-
-  <div class="form-card">
-    <div class="section-label">Candidate Signal Inputs</div>
-    <div class="form-row">
-      <div class="field">
-        <label>Company</label>
-        <select id="company" onchange="populateLevels()">
-          <option value="">— Select —</option>
-          <option value="Google">Google</option>
-          <option value="Amazon">Amazon</option>
-          <option value="Stripe">Stripe (High Velocity)</option>
-          <option value="Uber">Uber</option>
-          <option value="Airbnb">Airbnb</option>
-          <option value="ByteDance">ByteDance / TikTok</option>
-          <option value="Startup">Early Stage Startup</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Source Level</label>
-        <select id="level"><option value="">— Select Company First —</option></select>
-      </div>
-      <div class="field">
-        <label>Total PM YoE</label>
-        <select id="yoe">
-          <option value="0">0–2</option>
-          <option value="1">2–4</option>
-          <option value="2">4–6</option>
-          <option value="3">6–9</option>
-          <option value="4">9–12</option>
-          <option value="5">12+</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Product Archetype</label>
-        <select id="archetype">
-          <option value="growth">Growth (Metric Driven)</option>
-          <option value="infra">Infrastructure (Technical)</option>
-          <option value="zero-to-one">0-to-1 (Ambiguous)</option>
-          <option value="platform">Core Platform</option>
-        </select>
-      </div>
-    </div>
-    <div class="btn-row">
-      <button class="primary" onclick="computeLevel()">Calculate Researcher Match</button>
-      <button onclick="location.reload()">Reset</button>
-    </div>
-  </div>
-
-  <div id="results"><div class="result-card" style="color:#aaa; text-align:center;">Results will appear here.</div></div>
-</div>
-
-<script>
 const levelMap = {
+  // --- The Big Tech Standards ---
   "Google": ["APM","PM II","Senior PM","Staff PM","Group PM","Director"],
   "Amazon": ["L4 PM","L5 PM","L6 (Senior)","L7 (Principal)","L8 (Director)","VP"],
+  "Apple": ["ICT2 (Junior)","ICT3 (PM)","ICT4 (Senior)","ICT5 (Lead)","Director","VP"],
+  "Microsoft": ["L59 (PM)","L61 (PM II)","L63 (Senior)","L65 (Principal)","L68 (Partner)","CVP"],
+  
+  // --- High-Velocity / High-Bar Growth ---
   "Stripe": ["L1 PM","L2 PM","L3 (Senior)","L4 (Staff)","L5 (Lead)","Head of"],
   "Uber": ["APM","PM II","Senior PM","Staff PM","Group PM","Director"],
+  "Airbnb": ["L1 PM","L2 PM","Senior PM","Staff PM","Director","VP"],
+  "DoorDash": ["PM","Senior PM","Staff PM","Principal PM","Director","VP"],
+  "Instacart": ["PM","Senior PM","Staff PM","Principal PM","Director","VP"],
+  "Palantir": ["Forward Deployed PM","Lead FDP","Area Lead","Product Director","VP"],
+
+  // --- SaaS & Platform "Product Schools" ---
+  "Salesforce": ["Associate PM","PM","Senior PM","Lead PM","Principal PM","VP"],
+  "Adobe": ["PM","Senior PM","Group PM","Principal PM","Director","VP"],
+  "Atlassian": ["APM","PM","Senior PM","Principal PM","Group PM","Head of"],
+  "Intuit": ["PM","Senior PM","Principal PM","Group PM","Director","VP"],
+  "ServiceNow": ["PM","Senior PM","Staff PM","Advisory PM","Director","VP"],
+
+  // --- Fintech & Technical Infrastructure ---
+  "Square / Block": ["L4 PM","L5 PM","L6 (Senior)","L7 (Staff)","L8 (Lead)","Head of"],
+  "PayPal": ["PM","Senior PM","Staff PM","Principal PM","Director","VP"],
+  "Coinbase": ["IC4 PM","IC5 (Senior)","IC6 (Staff)","IC7 (Principal)","Director","VP"],
+
+  // --- Entertainment & Social ---
+  "Netflix": ["L4 PM","L5 (Senior)","L5 (Senior)","L6 (Director)","VP","CPO"],
+  "Snap": ["L3 PM","L4 (PM II)","L5 (Senior)","L6 (Staff)","L7 (Director)","VP"],
   "ByteDance": ["1-1 PM","1-2 PM","2-1 (Senior)","2-2 (Lead)","3-1 (Director)","3-2 (VP)"],
-  "Startup": ["PM","Senior PM","Lead PM","Head of Product","VP of Product","CPO"]
+
+  // --- Emerging & Regional Giants ---
+  "Grab": ["L4 PM","L5 (Senior)","L6 (Staff)","L7 (Principal)","Head of","VP"],
+  "Mercado Libre": ["Analyst","Supervisor","Manager","Senior Manager","Director","VP"]
 };
-
-const metaLevels = ["IC3", "IC4", "IC5", "IC6", "IC7", "IC8"];
-
-function populateLevels() {
-  const co = document.getElementById("company").value;
-  const sel = document.getElementById("level");
-  sel.innerHTML = '';
-  if (levelMap[co]) {
-    levelMap[co].forEach((l, i) => {
-      let opt = document.createElement("option");
-      opt.value = i; opt.textContent = l;
-      sel.appendChild(opt);
-    });
-  }
-}
-
-function computeLevel() {
-  const co = document.getElementById("company").value;
-  const srcIdx = parseInt(document.getElementById("level").value);
-  const yoeIdx = parseInt(document.getElementById("yoe").value);
-  const arch = document.getElementById("archetype").value;
-
-  if (!co) return;
-
-  // 1. Base Leveling Logic
-  let targetIdx = srcIdx; 
-  
-  // 2. Velocity Adjustment (Researcher Layer)
-  // If at a high-tier company (Stripe/ByteDance) with low YoE, they are "High Velocity"
-  let isHighVelocity = (co === "Stripe" || co === "ByteDance") && yoeIdx <= 2 && srcIdx >= 2;
-  
-  // 3. Archetype Adjustment
-  // Meta highly values Growth DNA; Infra PMs from Google often level down due to culture shift
-  let archetypeNote = "";
-  if (arch === "growth") archetypeNote = "Strong Meta DNA alignment.";
-  if (arch === "infra" && co === "Google") {
-    archetypeNote = "High technical bar; potential 'level-down' risk for culture fit.";
-  }
-
-  let html = `<div class="result-card">
-    <div class="section-label">Researcher Analysis</div>
-    <table>
-      <thead><tr><th>Meta Level</th><th>Confidence</th><th>Contextual Notes</th></tr></thead>
-      <tbody>`;
-
-  metaLevels.forEach((ml, i) => {
-    let diff = Math.abs(i - targetIdx);
-    let fit = "Possible";
-    let badgeClass = "badge";
-
-    if (diff === 0) { fit = "Primary Target"; badgeClass += " badge-match"; }
-    if (isHighVelocity && i === targetIdx + 1) { fit = "Stretch (High Velocity)"; badgeClass += " badge-high-velocity"; }
-
-    html += `<tr class="${diff === 0 ? 'highlight-row' : ''}">
-      <td><strong>${ml}</strong></td>
-      <td><span class="${badgeClass}">${fit}</span></td>
-      <td>${diff === 0 ? archetypeNote : ''} ${i < 3 ? '<span class="tag">Execution focus</span>' : '<span class="tag">Strategy focus</span>'}</td>
-    </tr>`;
-  });
-
-  html += `</tbody></table></div>`;
-  document.getElementById("results").innerHTML = html;
-}
-</script>
-</body>
-</html>
