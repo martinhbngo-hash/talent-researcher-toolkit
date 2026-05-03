@@ -21,4 +21,177 @@
   @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
   .field { display: flex; flex-direction: column; gap: 6px; }
   .field label { font-size: 11px; color: #888; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
-  .fi
+  .field select { width: 100%; padding: 8px 10px; border: 0.5px solid #ccc; border-radius: 8px; font-size: 14px; background: #fff; color: #1a1a1a; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; cursor: pointer; }
+  .field select:focus { outline: none; border-color: #378ADD; }
+  .btn-row { display: flex; gap: 10px; }
+  button { padding: 8px 16px; border: 0.5px solid #ccc; border-radius: 8px; font-size: 13px; background: #fff; color: #1a1a1a; cursor: pointer; transition: background 0.15s; }
+  button:hover { background: #f5f4f0; }
+  button.primary { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+  button.primary:hover { background: #333; }
+  .result-header { font-size: 13px; color: #666; margin-bottom: 12px; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #f5f4f0; padding: 10px 14px; text-align: left; font-weight: 500; font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 0.5px solid #ddd; }
+  td { padding: 11px 14px; border-bottom: 0.5px solid #eee; color: #1a1a1a; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .highlight-row { background: #E6F1FB; }
+  .highlight-row td { color: #0C447C; font-weight: 500; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
+  .badge-match { background: #E1F5EE; color: #085041; }
+  .badge-stretch { background: #FAEEDA; color: #633806; }
+  .badge-reach { background: #FCEBEB; color: #791F1F; }
+  .level-pill { font-size: 12px; font-weight: 500; padding: 3px 10px; border-radius: 20px; background: #f0efe9; color: #555; border: 0.5px solid #ddd; display: inline-block; white-space: nowrap; }
+  .empty { text-align: center; padding: 2.5rem; color: #aaa; font-size: 14px; background: #fff; border: 0.5px solid #ddd; border-radius: 12px; }
+  .note { font-size: 12px; color: #666; margin-top: 1rem; line-height: 1.7; background: #f5f4f0; padding: 12px 16px; border-radius: 8px; }
+  .result-card { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 1.25rem 1.5rem; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Meta PM Leveling Tool</h1>
+  <p class="subtitle">Cross-company level mapping for Product Management roles at Meta</p>
+  <div class="form-card">
+    <div class="form-row">
+      <div class="field">
+        <label>Current Company</label>
+        <select id="company">
+          <option value="">— Select company —</option>
+          <option>Google</option>
+          <option>Apple</option>
+          <option>Amazon</option>
+          <option>Microsoft</option>
+          <option>Salesforce</option>
+          <option>Uber</option>
+          <option>Airbnb</option>
+          <option>Stripe</option>
+          <option>LinkedIn</option>
+          <option>Netflix</option>
+          <option>Twitter / X</option>
+          <option>Snap</option>
+          <option>ByteDance / TikTok</option>
+          <option>Other (large tech)</option>
+          <option>Other (startup / mid-size)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Current Title / Level</label>
+        <select id="level">
+          <option value="">— Select level —</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Years of PM Experience</label>
+        <select id="yoe">
+          <option value="">— Select —</option>
+          <option>0–1</option>
+          <option>1–2</option>
+          <option>2–4</option>
+          <option>4–6</option>
+          <option>6–9</option>
+          <option>9–12</option>
+          <option>12+</option>
+        </select>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="primary" onclick="computeLevel()">Show Meta leveling</button>
+      <button onclick="reset()">Clear</button>
+    </div>
+  </div>
+  <div id="results">
+    <div class="empty">Fill in the fields above to see the cross-company level mapping.</div>
+  </div>
+</div>
+<script>
+const levelMap = {
+  "Google": ["APM","PM II","Senior PM","Staff PM","Group PM","Director of PM","VP of Product"],
+  "Apple": ["New Grad PM","PM","Senior PM","Lead PM","Principal PM","Director of PM","VP of Product"],
+  "Amazon": ["PM I","PM II","Senior PM","Principal PM","Sr. Principal PM","Director of PM","VP of Product"],
+  "Microsoft": ["PM","PM II","Senior PM","Principal PM","Group PM","Director of PM","CVP / VP"],
+  "Salesforce": ["Associate PM","PM","Senior PM","Lead PM","Principal PM","Director of PM","VP of Product"],
+  "Uber": ["APM","PM","Senior PM","Staff PM","Group PM","Director of PM","VP of Product"],
+  "Airbnb": ["New Grad PM","PM","Senior PM","Staff PM","Director of PM","VP of Product","CPO"],
+  "Stripe": ["PM","PM","Senior PM","Staff PM","Group PM","Director of PM","VP of Product"],
+  "LinkedIn": ["APM","PM","Senior PM","Staff PM","Group PM","Director of PM","VP of Product"],
+  "Netflix": ["PM","PM","Senior PM","Senior PM","Director of PM","VP of Product","VP of Product"],
+  "Twitter / X": ["PM","PM","Senior PM","Staff PM","Group PM","Director of PM","VP of Product"],
+  "Snap": ["APM","PM","Senior PM","Staff PM","Group PM","Director of PM","VP of Product"],
+  "ByteDance / TikTok": ["PM","PM","Senior PM","Senior PM","PM Lead","Director of PM","VP of Product"],
+  "Other (large tech)": ["Junior PM","PM","Senior PM","Staff PM","Group PM","Director of PM","VP of Product"],
+  "Other (startup / mid-size)": ["PM","PM","Senior PM","Senior PM / PM Lead","Head of Product","Director of PM","VP / CPO"],
+};
+const metaLevels = ["IC3 (APM)","IC4 (PM)","IC5 (Senior PM)","IC6 (Staff PM)","IC7 (Group PM / Director)","IC8 (Director)","IC9+ (VP)"];
+const metaDescriptions = [
+  "Typically entry-level. Works on defined problems with close mentorship.",
+  "Executes independently on a product area. Drives scoped roadmaps.",
+  "Owns a product surface area. Influences cross-functional teams and strategy.",
+  "Drives complex, ambiguous product bets. Strong org-wide influence.",
+  "Manages PMs or leads a large product domain. Sets team-level strategy.",
+  "Owns a major product pillar. Significant business and org impact.",
+  "Executive-level. Defines company-level product vision and strategy.",
+];
+const yoeGrid = [
+  [0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,1,1,0,0,0,0],[0,1,1,2,1,0,0],
+  [0,0,2,2,2,1,0],[0,0,1,3,3,2,0],[0,0,0,2,4,4,2],[0,0,0,1,3,5,3],
+  [0,0,0,0,2,4,5],[0,0,0,0,1,3,5],
+];
+const yoeMap = {"0–1":0,"1–2":1,"2–4":2,"4–6":3,"6–9":4,"9–12":5,"12+":6};
+const fitLabels = ["Strong match","Likely match","Possible match","Stretch","Reach"];
+const fitBadge = ["badge-match","badge-match","badge-match","badge-stretch","badge-reach"];
+
+function populateLevels() {
+  const co = document.getElementById("company").value;
+  const sel = document.getElementById("level");
+  sel.innerHTML = '<option value="">— Select level —</option>';
+  if (co && levelMap[co]) {
+    levelMap[co].forEach((l, i) => {
+      const opt = document.createElement("option");
+      opt.value = i; opt.textContent = l; sel.appendChild(opt);
+    });
+  }
+}
+function computeLevel() {
+  const co = document.getElementById("company").value;
+  const li = document.getElementById("level").value;
+  const yoe = document.getElementById("yoe").value;
+  if (!co || li === "" || !yoe) {
+    document.getElementById("results").innerHTML = '<div class="empty">Please fill in all three fields.</div>';
+    return;
+  }
+  const srcIdx = parseInt(li);
+  const yoeIdx = yoeMap[yoe];
+  const srcLabel = levelMap[co][srcIdx];
+  const scores = metaLevels.map((_, metaIdx) => {
+    let score = 0;
+    const diff = Math.abs(metaIdx - srcIdx);
+    if (diff === 0) score += 3;
+    else if (diff === 1) score += 2;
+    else if (diff === 2) score += 1;
+    const yoeBonus = yoeGrid[Math.min(yoeIdx * 2, yoeGrid.length - 1)][metaIdx] || 0;
+    score += yoeBonus;
+    return score;
+  });
+  const maxScore = Math.max(...scores);
+  const rows = metaLevels.map((ml, i) => {
+    const delta = maxScore - scores[i];
+    let fitIdx = delta === 0 ? 0 : delta === 1 ? 1 : delta === 2 ? 2 : delta === 3 ? 3 : 4;
+    return { ml, i, fitIdx, isTop: delta === 0 };
+  });
+  const topMeta = rows.find(r => r.isTop);
+  let html = `<div class="result-card"><p class="result-header">Showing Meta PM level mapping for <strong>${srcLabel}</strong> at <strong>${co}</strong> &middot; <strong>${yoe} years</strong> of PM experience</p><div class="table-wrap"><table><thead><tr><th style="width:28%">Meta level</th><th style="width:17%">Fit</th><th>What this level means at Meta</th></tr></thead><tbody>`;
+  rows.forEach(({ ml, i, fitIdx, isTop }) => {
+    html += `<tr${isTop ? ' class="highlight-row"' : ''}><td><span class="level-pill">${ml}</span></td><td><span class="badge ${fitBadge[fitIdx]}">${fitLabels[fitIdx]}</span></td><td>${metaDescriptions[i]}</td></tr>`;
+  });
+  html += `</tbody></table></div><p class="note"><strong>Recommended target:</strong> ${topMeta.ml} — ${metaDescriptions[topMeta.i]}<br><br>Leveling at Meta is highly dependent on interview performance and scope signal. This tool reflects general market norms; final level decisions are made by the hiring committee.</p></div>`;
+  document.getElementById("results").innerHTML = html;
+}
+function reset() {
+  document.getElementById("company").value = "";
+  document.getElementById("level").innerHTML = '<option value="">— Select level —</option>';
+  document.getElementById("yoe").value = "";
+  document.getElementById("results").innerHTML = '<div class="empty">Fill in the fields above to see the cross-company level mapping.</div>';
+}
+document.getElementById("company").addEventListener("change", populateLevels);
+</script>
+</body>
+</html>
