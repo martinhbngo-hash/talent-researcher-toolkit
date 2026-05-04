@@ -8,19 +8,25 @@
   :root {
     --bg: #0a0a0b;
     --card-bg: #141416;
-    --primary: #e5e5e1; 
-    --secondary: #27272a; 
-    --accent: #d4d4d8; 
+    --primary: #e5e5e1;
+    --secondary: #27272a;
+    --accent: #d4d4d8;
     --warning: #facc15;
     --text-main: #f4f4f5;
     --text-dim: #71717a;
     --border: #262626;
+    --blue: #378ADD;
+    --blue-light: #E6F1FB;
+    --blue-border: #B5D4F4;
+    --green-bg: #E1F5EE;
+    --green-border: #9FE1CB;
+    --green-text: #085041;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  
+
   body {
-    font-family: 'Inter', -apple-system, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background-color: var(--bg);
     color: var(--text-main);
     min-height: 100vh;
@@ -28,178 +34,397 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  .container { max-width: 850px; margin: 0 auto; }
-  
-  header { margin: 1.5rem 0 2.5rem; text-align: left; border-left: 1px solid var(--primary); padding-left: 1.5rem; }
-  header h1 { font-size: 24px; font-weight: 500; letter-spacing: -0.05em; color: var(--primary); }
-  header p { color: var(--text-dim); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; }
+  .container { max-width: 880px; margin: 0 auto; }
 
-  .tabs { 
-    display: flex; gap: 4px; margin-bottom: 2rem; padding: 4px;
+  header { margin: 1.5rem 0 2rem; border-left: 2px solid var(--primary); padding-left: 1.5rem; }
+  header h1 { font-size: 22px; font-weight: 500; letter-spacing: -0.04em; color: var(--primary); }
+  header p { color: var(--text-dim); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 3px; }
+
+  .tabs {
+    display: flex; gap: 4px; margin-bottom: 1.5rem; padding: 4px;
     background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border);
     overflow-x: auto;
   }
-  
   .tab-btn {
-    flex: 1; padding: 12px; background: transparent; border: none;
-    border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: 600; 
-    color: var(--text-dim); transition: 0.2s; white-space: nowrap;
+    flex: 1; padding: 10px 12px; background: transparent; border: none;
+    border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: 600;
+    color: var(--text-dim); transition: 0.2s; white-space: nowrap; letter-spacing: 0.02em;
   }
-
   .tab-btn.active { background: var(--secondary); color: var(--primary); }
 
-  .tab-content {
-    background: var(--card-bg); border: 1px solid var(--border);
-    border-radius: 20px; padding: 1.5rem; display: none;
-    box-shadow: 0 40px 100px -20px rgba(0,0,0,0.7);
-  }
-  
+  .tab-content { display: none; }
   .tab-content.active { display: block; }
 
-  .field { margin-bottom: 1.2rem; }
-  label { font-size: 10px; font-weight: 700; color: var(--text-dim); margin-bottom: 8px; display: block; text-transform: uppercase; }
-  
-  select, textarea {
-    width: 100%; padding: 12px; background: var(--bg);
-    border: 1px solid var(--border); border-radius: 10px;
-    font-size: 16px; color: var(--text-main);
-  }
-  
-  .btn-primary { 
-    background: var(--primary); color: var(--bg); border: none; 
-    padding: 16px; border-radius: 10px; font-weight: 700; 
-    cursor: pointer; width: 100%; font-size: 14px; margin-top: 0.5rem;
+  .card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem;
+    box-shadow: 0 20px 60px -10px rgba(0,0,0,0.5);
   }
 
-  .result-card { margin-top: 1.5rem; padding: 20px; border-radius: 14px; background: var(--bg); border: 1px solid var(--border); }
-  
-  .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
-  .stat-card { background: var(--card-bg); padding: 15px; border-radius: 12px; border: 1px solid var(--border); }
-  .stat-val { font-size: 18px; font-weight: 600; color: var(--primary); display: block; }
-  .stat-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; }
-
-  .alert-box { 
-    margin-top: 15px; padding: 12px; border-radius: 8px; 
-    background: rgba(250, 204, 21, 0.05); border: 1px solid rgba(250, 204, 21, 0.2);
-    font-size: 12px; color: var(--warning); display: flex; gap: 10px;
+  .field { margin-bottom: 1.1rem; }
+  .field:last-child { margin-bottom: 0; }
+  label, .field-label {
+    font-size: 10px; font-weight: 700; color: var(--text-dim);
+    margin-bottom: 7px; display: block; text-transform: uppercase; letter-spacing: 0.08em;
   }
 
-  .nuance-box { border-top: 1px solid var(--border); margin-top: 15px; padding-top: 15px; font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+  select, textarea, input[type="text"] {
+    width: 100%; padding: 11px 12px;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 10px; font-size: 14px; color: var(--text-main);
+    font-family: inherit; transition: border-color 0.15s;
+    appearance: none;
+  }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2371717a' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 12px center; cursor: pointer;
+  }
+  select:focus, textarea:focus { outline: none; border-color: var(--blue); }
+  textarea { resize: vertical; min-height: 110px; line-height: 1.6; font-size: 13px; }
+  textarea::placeholder { color: var(--text-dim); }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  @media (max-width: 620px) { .form-row { grid-template-columns: 1fr; } }
+
+  .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 1rem; }
+  button {
+    padding: 10px 18px; border: 1px solid var(--border);
+    border-radius: 10px; font-size: 12px; font-weight: 600;
+    cursor: pointer; transition: 0.15s; font-family: inherit;
+    letter-spacing: 0.02em;
+  }
+  .btn-primary { background: var(--primary); color: var(--bg); border-color: var(--primary); }
+  .btn-primary:hover { background: var(--accent); }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-ghost { background: transparent; color: var(--text-dim); }
+  .btn-ghost:hover { background: var(--secondary); color: var(--primary); }
+  .btn-ai { background: rgba(55,138,221,0.12); color: #7ab8f0; border-color: rgba(55,138,221,0.25); }
+  .btn-ai:hover { background: rgba(55,138,221,0.2); }
+  .btn-ai:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 1.25rem 0; color: var(--text-dim); font-size: 11px;
+  }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 0.5px; background: var(--border); }
+
+  .section-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 10px;
+  }
+
+  .parsing-status {
+    font-size: 12px; color: var(--blue); margin-top: 8px;
+    min-height: 18px; display: flex; align-items: center; gap: 6px;
+  }
+  .spinner {
+    width: 12px; height: 12px; border: 2px solid rgba(55,138,221,0.3);
+    border-top-color: var(--blue); border-radius: 50%;
+    animation: spin 0.7s linear infinite; display: none;
+  }
+  .spinner.active { display: inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .banner {
+    border-radius: 8px; padding: 10px 14px;
+    font-size: 12px; margin-bottom: 1rem; display: none; line-height: 1.5;
+  }
+  .banner.visible { display: block; }
+  .banner-green { background: rgba(8,80,65,0.15); border: 1px solid rgba(159,225,203,0.3); color: #6ee7c0; }
+  .banner-yellow { background: rgba(250,204,21,0.08); border: 1px solid rgba(250,204,21,0.2); color: var(--warning); }
+
+  .result-wrap { margin-top: 1rem; }
+  .result-header { font-size: 12px; color: var(--text-dim); margin-bottom: 12px; }
+  .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    background: var(--secondary); padding: 10px 14px; text-align: left;
+    font-weight: 600; font-size: 10px; color: var(--text-dim);
+    text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid var(--border);
+  }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--border); color: var(--text-main); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .highlight-row { background: rgba(55,138,221,0.08); }
+  .highlight-row td { color: #7ab8f0; font-weight: 500; }
+
+  .badge {
+    display: inline-block; font-size: 10px; font-weight: 600;
+    padding: 2px 8px; border-radius: 20px; white-space: nowrap; letter-spacing: 0.03em;
+  }
+  .badge-match { background: rgba(8,80,65,0.2); color: #6ee7c0; }
+  .badge-stretch { background: rgba(99,56,6,0.25); color: #fbbf24; }
+  .badge-reach { background: rgba(121,31,31,0.2); color: #fca5a5; }
+
+  .level-pill {
+    font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px;
+    background: var(--secondary); color: var(--accent);
+    border: 1px solid var(--border); display: inline-block; white-space: nowrap;
+  }
+
+  .note {
+    font-size: 12px; color: var(--text-dim); margin-top: 1rem;
+    line-height: 1.7; background: var(--bg);
+    padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border);
+  }
+  .note strong { color: var(--accent); }
+
+  .ai-insight {
+    margin-top: 1rem; background: rgba(55,138,221,0.06);
+    border: 1px solid rgba(55,138,221,0.2); border-radius: 8px;
+    padding: 12px 16px; font-size: 13px; color: var(--accent);
+    line-height: 1.7; display: none;
+  }
+  .ai-insight.visible { display: block; }
+  .ai-insight-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 6px;
+  }
+
+  .empty {
+    text-align: center; padding: 2.5rem;
+    color: var(--text-dim); font-size: 13px;
+    border: 1px dashed var(--border); border-radius: 12px;
+  }
+
+  .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 1rem; }
+  .stat-card {
+    background: var(--bg); padding: 14px 16px;
+    border-radius: 10px; border: 1px solid var(--border);
+  }
+  .stat-val { font-size: 20px; font-weight: 600; color: var(--primary); display: block; margin-top: 4px; }
+  .stat-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .ai-output {
+    margin-top: 1rem; padding: 16px; border-radius: 10px;
+    background: var(--bg); border: 1px solid var(--border);
+    font-size: 13px; color: var(--accent); line-height: 1.8;
+    display: none; white-space: pre-wrap;
+  }
+  .ai-output.visible { display: block; }
+  .ai-output-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 8px;
+  }
 </style>
 </head>
 <body>
-
 <div class="container">
   <header>
-    <h1>Researcher Hub</h1>
-    <p>Market Intelligence & Strategy</p>
+    <h1>Researcher Intelligence Hub</h1>
+    <p>Market Intelligence · PM Calibration · Sourcing Strategy</p>
   </header>
 
   <nav class="tabs">
-    <button class="tab-btn active" onclick="openTab(event, 'tab-intel')">Market Intel</button>
-    <button class="tab-btn" onclick="openTab(event, 'tab-leveling')">Calibration</button>
-    <button class="tab-btn" onclick="openTab(event, 'tab-sourcing')">Sourcing</button>
-    <button class="tab-btn" onclick="openTab(event, 'tab-outreach')">Strategy</button>
+    <button class="tab-btn active" onclick="openTab(event,'tab-intel')">Market Intel</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-leveling')">PM Calibration</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-sourcing')">Sourcing</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-strategy')">Strategy</button>
   </nav>
 
-  <!-- MARKET INTEL -->
-  <section id="tab-intel" class="tab-content active">
-    <div class="field">
-      <label>Domain Focus</label>
-      <select id="intel-domain" onchange="updateIntel()">
-        <option value="">Select Domain—</option>
-        <option value="ai">AI / Machine Learning</option>
-        <option value="product">Product Management</option>
-        <option value="infra">Infrastructure</option>
-      </select>
-    </div>
-    <div id="intel-results" style="display:none;">
+  <!-- TAB 1: MARKET INTEL -->
+  <div id="tab-intel" class="tab-content active">
+    <div class="card">
+      <div class="field">
+        <label>Domain Focus</label>
+        <select id="intel-domain" onchange="updateIntel()">
+          <option value="">— Select domain —</option>
+          <option value="ai">AI / Machine Learning</option>
+          <option value="product">Product Management</option>
+          <option value="infra">Infrastructure / Platform</option>
+          <option value="data">Data / Analytics</option>
+          <option value="design">Design / Research</option>
+        </select>
+      </div>
+      <div id="intel-results" style="display:none;">
         <div class="insight-grid">
-            <div class="stat-card"><span class="stat-label">Scarcity</span><span class="stat-val" id="scarcity-val">-</span></div>
-            <div class="stat-card"><span class="stat-label">Tenure</span><span class="stat-val" id="tenure-val">-</span></div>
+          <div class="stat-card"><span class="stat-label">Talent Scarcity</span><span class="stat-val" id="scarcity-val">—</span></div>
+          <div class="stat-card"><span class="stat-label">Avg Tenure</span><span class="stat-val" id="tenure-val">—</span></div>
+          <div class="stat-card"><span class="stat-label">Top Donor Companies</span><span class="stat-val" id="donor-val" style="font-size:13px;line-height:1.5;margin-top:6px;">—</span></div>
+          <div class="stat-card"><span class="stat-label">Market Trend</span><span class="stat-val" id="trend-val" style="font-size:13px;line-height:1.5;margin-top:6px;">—</span></div>
         </div>
-        <div class="alert-box"><span>⚠</span><span id="market-alert"></span></div>
+        <div class="banner banner-yellow visible" style="margin-top:1rem;margin-bottom:0;" id="market-alert"></div>
+      </div>
     </div>
-  </section>
+  </div>
 
-  <!-- CALIBRATION (Leveling) -->
-  <section id="tab-leveling" class="tab-content">
-    <div class="field">
-      <label>Source Company</label>
-      <select id="compA" onchange="updateLevels()"><option value="">Select Company—</option></select>
-    </div>
-    <div class="field">
-        <label>Reported Title</label>
-        <select id="levelA" onchange="calculateMapping()"><option value="">Select company first—</option></select>
-    </div>
-    <div id="level-result" class="result-card" style="display:none;">
-        <div style="text-align: center;">
-            <div class="stat-label">Calibrated Match</div>
-            <div class="stat-val" id="res-val-meta" style="font-size: 28px;">-</div>
-        </div>
-        <div class="nuance-box">
-            <strong>Nuance:</strong> <span id="nuance-text"></span>
-        </div>
-    </div>
-  </section>
+  <!-- TAB 2: PM CALIBRATION -->
+  <div id="tab-leveling" class="tab-content">
+    <div class="card">
+      <div class="section-label">Option 1 — Paste LinkedIn profile</div>
+      <div class="field">
+        <textarea id="linkedin-text" placeholder="Paste the candidate's LinkedIn About section, experience, or any profile text. The AI will extract company, title, and years of experience automatically..."></textarea>
+      </div>
+      <div class="parsing-status">
+        <div class="spinner" id="spinner"></div>
+        <span id="status-text"></span>
+      </div>
+      <div class="btn-row">
+        <button class="btn-ai" onclick="parseLinkedIn()">Auto-fill from LinkedIn text</button>
+      </div>
 
-  <!-- SOURCING -->
-  <section id="tab-sourcing" class="tab-content">
-    <textarea id="jd-input" rows="5" placeholder="Paste Job Description..."></textarea>
-    <button class="btn-primary" onclick="runSourcing()">Map Talent Clusters</button>
-    <div id="sourcing-result" class="result-card" style="display:none;">
+      <div class="divider">or fill in manually</div>
+
+      <div class="section-label">Option 2 — Enter details manually</div>
+      <div id="parsed-banner" class="banner banner-green"></div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>Current Company</label>
+          <select id="company">
+            <option value="">— Select company —</option>
+            <option>Google</option>
+            <option>Apple</option>
+            <option>Amazon</option>
+            <option>Microsoft</option>
+            <option>Salesforce</option>
+            <option>Uber</option>
+            <option>Airbnb</option>
+            <option>Stripe</option>
+            <option>LinkedIn</option>
+            <option>Netflix</option>
+            <option>Twitter / X</option>
+            <option>Snap</option>
+            <option>ByteDance / TikTok</option>
+            <option>PwC</option>
+            <option>Deloitte</option>
+            <option>McKinsey</option>
+            <option>Accenture</option>
+            <option>JPMorgan</option>
+            <option>Goldman Sachs</option>
+            <option>Other (large tech)</option>
+            <option>Other (consulting / finance)</option>
+            <option>Other (startup / mid-size)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Current Title / Level</label>
+          <select id="level">
+            <option value="">— Select level —</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Years of PM Experience</label>
+          <select id="yoe">
+            <option value="">— Select —</option>
+            <option>0–1</option>
+            <option>1–2</option>
+            <option>2–4</option>
+            <option>4–6</option>
+            <option>6–9</option>
+            <option>9–12</option>
+            <option>12+</option>
+          </select>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-primary" onclick="computeLevel()">Show Meta leveling</button>
+        <button class="btn-ghost" onclick="resetLeveling()">Clear</button>
+      </div>
+    </div>
+
+    <div id="leveling-results">
+      <div class="empty">Fill in the fields above or paste a LinkedIn summary to see the cross-company level mapping.</div>
+    </div>
+  </div>
+
+  <!-- TAB 3: SOURCING -->
+  <div id="tab-sourcing" class="tab-content">
+    <div class="card">
+      <div class="field">
+        <label>Job Description or Role Brief</label>
+        <textarea id="jd-input" rows="6" placeholder="Paste the job description or a brief description of the role you're sourcing for. The AI will identify target talent clusters, competitor companies to source from, and recommended search strategies..."></textarea>
+      </div>
+      <div class="parsing-status">
+        <div class="spinner" id="sourcing-spinner"></div>
+        <span id="sourcing-status"></span>
+      </div>
+      <div class="btn-row">
+        <button class="btn-primary" id="sourcing-btn" onclick="runSourcing()">Map Talent Clusters</button>
+      </div>
+      <div id="sourcing-output" class="ai-output">
+        <div class="ai-output-label">Sourcing Intelligence</div>
         <div id="sourcing-content"></div>
+      </div>
     </div>
-  </section>
+  </div>
 
-  <!-- STRATEGY -->
-  <section id="tab-outreach" class="tab-content">
-    <textarea id="profile-snippet" rows="5" placeholder="Paste Profile Summary..."></textarea>
-    <button class="btn-primary" onclick="generateStrategy()">Synthesize Strategy</button>
-    <div id="outreach-result" class="result-card" style="display:none;">
-        <div id="strategy-list"></div>
+  <!-- TAB 4: STRATEGY -->
+  <div id="tab-strategy" class="tab-content">
+    <div class="card">
+      <div class="field">
+        <label>Candidate Profile Summary</label>
+        <textarea id="profile-snippet" rows="6" placeholder="Paste a candidate's profile summary, LinkedIn bio, or resume snippet. The AI will synthesize a personalized outreach and engagement strategy based on their background..."></textarea>
+      </div>
+      <div class="parsing-status">
+        <div class="spinner" id="strategy-spinner"></div>
+        <span id="strategy-status"></span>
+      </div>
+      <div class="btn-row">
+        <button class="btn-primary" id="strategy-btn" onclick="generateStrategy()">Synthesize Strategy</button>
+      </div>
+      <div id="strategy-output" class="ai-output">
+        <div class="ai-output-label">Engagement Strategy</div>
+        <div id="strategy-content"></div>
+      </div>
     </div>
-  </section>
+  </div>
+
 </div>
 
 <script>
-/* THE INTELLIGENCE DATA */
 const levelMap = {
   "Google": ["APM","PM II","Senior PM","Staff PM","Group PM","Director of PM","VP of Product"],
   "Apple": ["New Grad PM","PM","Senior PM","Lead PM","Principal PM","Director of PM","VP of Product"],
   "Amazon": ["PM I","PM II","Senior PM","Principal PM","Sr. Principal PM","Director of PM","VP of Product"],
   "Microsoft": ["PM","PM II","Senior PM","Principal PM","Group PM","Director of PM","CVP / VP"],
-  "Meta": ["IC3","IC4","IC5","IC6","IC7","D1","D2/VP"]
+  "Salesforce": ["Associate PM","PM","Senior PM","Lead PM","Principal PM","Director of PM","VP of Product"],
+  "Uber": ["APM","PM","Senior PM","Staff PM","Group PM","Director of PM","VP of Product"],
+  "Airbnb": ["New Grad PM","PM","Senior PM","Staff PM","Director of PM","VP of Product","CPO"],
+  "Stripe": ["PM","PM","Senior PM","Staff PM","Group PM","Director of PM","VP of Product"],
+  "LinkedIn": ["APM","PM","Senior PM","Staff PM","Group PM","Director of PM","VP of Product"],
+  "Netflix": ["PM","PM","Senior PM","Senior PM","Director of PM","VP of Product","VP of Product"],
+  "Twitter / X": ["PM","PM","Senior PM","Staff PM","Group PM","Director of PM","VP of Product"],
+  "Snap": ["APM","PM","Senior PM","Staff PM","Group PM","Director of PM","VP of Product"],
+  "ByteDance / TikTok": ["PM","PM","Senior PM","Senior PM","PM Lead","Director of PM","VP of Product"],
+  "PwC": ["Associate","Senior Associate","Manager","Senior Manager","Director","Managing Director","Partner"],
+  "Deloitte": ["Analyst","Consultant","Senior Consultant","Manager","Senior Manager","Director","Partner"],
+  "McKinsey": ["Business Analyst","Associate","Engagement Manager","Associate Principal","Principal","Partner","Senior Partner"],
+  "Accenture": ["Analyst","Consultant","Senior Consultant","Manager","Senior Manager","Associate Director","Managing Director"],
+  "JPMorgan": ["Analyst","Associate","VP","Executive Director","Managing Director","Partner","Managing Director"],
+  "Goldman Sachs": ["Analyst","Associate","VP","Executive Director","Managing Director","Partner","Partner"],
+  "Other (large tech)": ["Junior PM","PM","Senior PM","Staff PM","Group PM","Director of PM","VP of Product"],
+  "Other (consulting / finance)": ["Analyst","Associate / Consultant","Manager","Senior Manager","Director","Managing Director","Partner / VP"],
+  "Other (startup / mid-size)": ["PM","PM","Senior PM","Senior PM / PM Lead","Head of Product","Director of PM","VP / CPO"],
 };
 
-const metaLevels = ["IC3", "IC4", "IC5", "IC6", "IC7", "D1", "D2/VP"];
+const metaLevels = ["IC3 (APM)","IC4 (PM)","IC5 (Senior PM)","IC6 (Staff PM)","IC7 (Group PM / Director)","IC8 (Director)","IC9+ (VP)"];
+const metaDescriptions = [
+  "Typically entry-level. Works on defined problems with close mentorship.",
+  "Executes independently on a product area. Drives scoped roadmaps.",
+  "Owns a product surface area. Influences cross-functional teams and strategy.",
+  "Drives complex, ambiguous product bets. Strong org-wide influence.",
+  "Manages PMs or leads a large product domain. Sets team-level strategy.",
+  "Owns a major product pillar. Significant business and org impact.",
+  "Executive-level. Defines company-level product vision and strategy.",
+];
+const yoeGrid = [
+  [0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,1,1,0,0,0,0],[0,1,1,2,1,0,0],
+  [0,0,2,2,2,1,0],[0,0,1,3,3,2,0],[0,0,0,2,4,4,2],[0,0,0,1,3,5,3],
+  [0,0,0,0,2,4,5],[0,0,0,0,1,3,5],
+];
+const yoeMap = {"0–1":0,"1–2":1,"2–4":2,"4–6":3,"6–9":4,"9–12":5,"12+":6};
+const fitLabels = ["Strong match","Likely match","Possible match","Stretch","Reach"];
+const fitBadge = ["badge-match","badge-match","badge-match","badge-stretch","badge-reach"];
 
 const marketData = {
-    "ai": { scarcity: "Extreme", tenure: "1.8 yrs", alert: "High competition from OpenAI/Anthropic." },
-    "product": { scarcity: "High", tenure: "2.6 yrs", alert: "Recent focus on technical PMs for Core Infra." },
-    "infra": { scarcity: "Moderate", tenure: "3.2 yrs", alert: "Donor pool: Google Cloud and AWS." }
+  "ai":      { scarcity: "Extreme", tenure: "1.8 yrs", donors: "OpenAI, DeepMind, Anthropic", trend: "Heating up. $500K+ TC common.", alert: "⚠ Intense counter-offer risk from OpenAI & Anthropic. Move fast — top candidates have 2–3 competing offers." },
+  "product": { scarcity: "High",    tenure: "2.6 yrs", donors: "Google, Amazon, Microsoft",   trend: "Stable. Technical PM bar rising.", alert: "⚠ Meta leveling is conservative vs Google. Candidates often expect IC5+ — set expectations early in the process." },
+  "infra":   { scarcity: "Moderate",tenure: "3.2 yrs", donors: "Google Cloud, AWS, Cloudflare", trend: "Growing with AI infra demand.", alert: "⚠ Strong retention at Google Cloud and AWS due to infra-specific RSU refresh cycles. Flag tenure cliffs." },
+  "data":    { scarcity: "High",    tenure: "2.1 yrs", donors: "Snowflake, Databricks, Palantir", trend: "AI/ML overlap increasing demand.", alert: "⚠ Candidates often pivot to AI PM roles. Validate PM vs analyst background carefully." },
+  "design":  { scarcity: "Moderate",tenure: "2.9 yrs", donors: "Apple, Figma, Airbnb",        trend: "Stable. Research talent tight.", alert: "⚠ Design bar at Meta skews toward systems thinking. Portfolio review is critical — filter for scale experience." },
 };
 
-const nuances = [
-    "Execution focus. Check for individual craft bar.",
-    "Early scaling. Meta focuses on 'Influence without Authority' here.",
-    "High complexity. Validate experience with massive user-base scale.",
-    "Strategic leadership. Check for 'Org Impact' vs pure headcount.",
-    "Organizational scope. May map to high-level IC or M2 roles.",
-    "Strategic Visionary. High scrutiny on long-term roadmapping.",
-    "Executive alignment required for D2+ pivots."
-];
-
-/* APP LOGIC */
-function init() {
-  const compSel = document.getElementById("compA");
-  if(!compSel) return;
-  Object.keys(levelMap).sort().forEach(c => {
-    let opt = document.createElement("option");
-    opt.value = c; opt.textContent = c;
-    compSel.appendChild(opt);
-  });
-}
+let aiInsight = null;
 
 function openTab(evt, tabId) {
   document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
@@ -209,47 +434,265 @@ function openTab(evt, tabId) {
 }
 
 function updateIntel() {
-    const d = document.getElementById("intel-domain").value;
-    if(!d) return;
-    document.getElementById("intel-results").style.display = "block";
-    document.getElementById("scarcity-val").innerText = marketData[d].scarcity;
-    document.getElementById("tenure-val").innerText = marketData[d].tenure;
-    document.getElementById("market-alert").innerText = marketData[d].alert;
+  const d = document.getElementById("intel-domain").value;
+  if (!d) return;
+  const data = marketData[d];
+  document.getElementById("intel-results").style.display = "block";
+  document.getElementById("scarcity-val").textContent = data.scarcity;
+  document.getElementById("tenure-val").textContent = data.tenure;
+  document.getElementById("donor-val").textContent = data.donors;
+  document.getElementById("trend-val").textContent = data.trend;
+  const alertEl = document.getElementById("market-alert");
+  alertEl.textContent = data.alert;
+  alertEl.classList.add("visible");
 }
 
-function updateLevels() {
-  const co = document.getElementById("compA").value;
-  const levSel = document.getElementById("levelA");
-  levSel.innerHTML = '<option value="">Select Level—</option>';
-  if(levelMap[co]) {
+function populateLevels(selectedLabel) {
+  const co = document.getElementById("company").value;
+  const sel = document.getElementById("level");
+  sel.innerHTML = '<option value="">— Select level —</option>';
+  if (co && levelMap[co]) {
     levelMap[co].forEach((l, i) => {
-      let opt = document.createElement("option");
+      const opt = document.createElement("option");
       opt.value = i; opt.textContent = l;
-      levSel.appendChild(opt);
+      if (selectedLabel && l.toLowerCase().includes(selectedLabel.toLowerCase())) opt.selected = true;
+      sel.appendChild(opt);
     });
   }
 }
 
-function calculateMapping() {
-    const idx = parseInt(document.getElementById("levelA").value);
-    if (isNaN(idx)) return;
-    document.getElementById("level-result").style.display = "block";
-    document.getElementById("res-val-meta").innerText = metaLevels[idx] || "D2+";
-    document.getElementById("nuance-text").innerText = nuances[idx] || nuances[nuances.length-1];
+async function parseLinkedIn() {
+  const text = document.getElementById("linkedin-text").value.trim();
+  if (!text) { setLevelStatus("Please paste some LinkedIn profile text first.", false); return; }
+  setLevelStatus("Analyzing profile...", true);
+  document.querySelector(".btn-ai").disabled = true;
+
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        messages: [{ role: "user", content: `You are a recruiting specialist. Analyze this LinkedIn profile text and extract the candidate's current information for PM leveling at Meta.
+
+LinkedIn text:
+${text}
+
+Return ONLY a JSON object with no markdown or backticks:
+{
+  "company": "exact company name matching one of: Google, Apple, Amazon, Microsoft, Salesforce, Uber, Airbnb, Stripe, LinkedIn, Netflix, Twitter / X, Snap, ByteDance / TikTok, PwC, Deloitte, McKinsey, Accenture, JPMorgan, Goldman Sachs, Other (large tech), Other (consulting / finance), Other (startup / mid-size)",
+  "title": "their most recent product or consulting title",
+  "yoe": "estimated years of PM or product-adjacent experience as one of: 0–1, 1–2, 2–4, 4–6, 6–9, 9–12, 12+",
+  "insight": "1-2 sentences on how this background translates to Meta PM leveling, noting any non-traditional PM path",
+  "confidence": "high, medium, or low"
+}` }]
+      })
+    });
+
+    const data = await response.json();
+    const raw = data.content.find(b => b.type === "text")?.text || "";
+    let parsed;
+    try { parsed = JSON.parse(raw.replace(/```json|```/g, "").trim()); }
+    catch {
+      setLevelStatus("Could not parse the profile. Try adding more detail.", false);
+      document.querySelector(".btn-ai").disabled = false;
+      return;
+    }
+
+    const compSel = document.getElementById("company");
+    for (let opt of compSel.options) {
+      if (opt.value && parsed.company && opt.value.toLowerCase() === parsed.company.toLowerCase()) { compSel.value = opt.value; break; }
+    }
+    if (!compSel.value && parsed.company) {
+      for (let opt of compSel.options) {
+        if (opt.value && parsed.company && parsed.company.toLowerCase().includes(opt.value.toLowerCase().split(" ")[0])) { compSel.value = opt.value; break; }
+      }
+    }
+
+    populateLevels(parsed.title);
+
+    const yoeSel = document.getElementById("yoe");
+    for (let opt of yoeSel.options) { if (opt.value === parsed.yoe) { yoeSel.value = opt.value; break; } }
+
+    const banner = document.getElementById("parsed-banner");
+    banner.textContent = `Auto-filled: "${parsed.title}" at ${parsed.company} · ${parsed.yoe} yrs · Confidence: ${parsed.confidence}`;
+    banner.classList.add("visible");
+    aiInsight = parsed.insight || null;
+    setLevelStatus("Profile parsed. Review fields below then click Show Meta leveling.", false);
+    document.querySelector(".btn-ai").disabled = false;
+
+  } catch {
+    setLevelStatus("Something went wrong. Check your connection and try again.", false);
+    document.querySelector(".btn-ai").disabled = false;
+  }
 }
 
-function runSourcing() {
-    document.getElementById("sourcing-result").style.display = "block";
-    document.getElementById("sourcing-content").innerHTML = "Analysis complete. Target identified: <b>Tier 1 Tech Alumni (2023-2024 cohorts)</b>.";
+function setLevelStatus(msg, loading) {
+  document.getElementById("status-text").textContent = msg;
+  document.getElementById("spinner").classList.toggle("active", loading);
 }
 
-function generateStrategy() {
-    document.getElementById("outreach-result").style.display = "block";
-    document.getElementById("strategy-list").innerHTML = "• Highlight Meta's 'Builder' culture vs their current 'Maintainer' role.";
+function computeLevel() {
+  const co = document.getElementById("company").value;
+  const li = document.getElementById("level").value;
+  const yoe = document.getElementById("yoe").value;
+  if (!co || li === "" || !yoe) {
+    document.getElementById("leveling-results").innerHTML = '<div class="empty">Please fill in all three fields.</div>';
+    return;
+  }
+
+  const srcIdx = parseInt(li);
+  const yoeIdx = yoeMap[yoe];
+  const srcLabel = levelMap[co][srcIdx];
+
+  const scores = metaLevels.map((_, mi) => {
+    let s = 0;
+    const diff = Math.abs(mi - srcIdx);
+    if (diff === 0) s += 3; else if (diff === 1) s += 2; else if (diff === 2) s += 1;
+    s += (yoeGrid[Math.min(yoeIdx * 2, yoeGrid.length - 1)][mi] || 0);
+    return s;
+  });
+
+  const maxScore = Math.max(...scores);
+  const rows = metaLevels.map((ml, i) => {
+    const delta = maxScore - scores[i];
+    const fitIdx = delta === 0 ? 0 : delta === 1 ? 1 : delta === 2 ? 2 : delta === 3 ? 3 : 4;
+    return { ml, i, fitIdx, isTop: delta === 0 };
+  });
+  const top = rows.find(r => r.isTop);
+
+  let html = `<div class="card result-wrap">
+    <p class="result-header">Meta PM level mapping for <strong>${srcLabel}</strong> at <strong>${co}</strong> · <strong>${yoe} yrs</strong> experience</p>
+    <div class="table-wrap"><table>
+      <thead><tr>
+        <th style="width:30%">Meta level</th>
+        <th style="width:18%">Fit</th>
+        <th>What this means at Meta</th>
+      </tr></thead><tbody>`;
+
+  rows.forEach(({ ml, i, fitIdx, isTop }) => {
+    html += `<tr${isTop ? ' class="highlight-row"' : ''}>
+      <td><span class="level-pill">${ml}</span></td>
+      <td><span class="badge ${fitBadge[fitIdx]}">${fitLabels[fitIdx]}</span></td>
+      <td>${metaDescriptions[i]}</td>
+    </tr>`;
+  });
+
+  html += `</tbody></table></div>
+    <p class="note"><strong>Recommended target:</strong> ${top.ml} — ${metaDescriptions[top.i]}<br><br>
+    Leveling at Meta is highly dependent on interview performance and scope signal. This reflects general market norms; final decisions are made by the hiring committee.</p>`;
+
+  if (aiInsight) {
+    html += `<div class="ai-insight visible"><div class="ai-insight-label">AI Leveling Insight</div>${aiInsight}</div>`;
+  }
+  html += `</div>`;
+  document.getElementById("leveling-results").innerHTML = html;
 }
 
-// Start the app
-window.onload = init;
+function resetLeveling() {
+  document.getElementById("company").value = "";
+  document.getElementById("level").innerHTML = '<option value="">— Select level —</option>';
+  document.getElementById("yoe").value = "";
+  document.getElementById("linkedin-text").value = "";
+  document.getElementById("parsed-banner").classList.remove("visible");
+  document.getElementById("leveling-results").innerHTML = '<div class="empty">Fill in the fields above or paste a LinkedIn summary to see the cross-company level mapping.</div>';
+  setLevelStatus("", false);
+  aiInsight = null;
+}
+
+document.getElementById("company").addEventListener("change", () => populateLevels());
+
+async function runSourcing() {
+  const jd = document.getElementById("jd-input").value.trim();
+  if (!jd) { setSourcingStatus("Please paste a job description first.", false); return; }
+  setSourcingStatus("Mapping talent clusters...", true);
+  document.getElementById("sourcing-btn").disabled = true;
+  document.getElementById("sourcing-output").classList.remove("visible");
+
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        messages: [{ role: "user", content: `You are a senior technical recruiter at Meta. Analyze this job description and produce a sourcing intelligence brief.
+
+Job Description:
+${jd}
+
+Respond in plain text (no markdown) with these sections:
+TARGET TALENT CLUSTERS: 2-3 specific candidate profiles to prioritize
+TOP DONOR COMPANIES: 4-5 companies to source from and why
+SEARCH STRATEGY: Specific Boolean or LinkedIn search tips for this role
+WATCH-OUTS: 1-2 common mistakes when sourcing for this role` }]
+      })
+    });
+
+    const data = await response.json();
+    const text = data.content.find(b => b.type === "text")?.text || "No response received.";
+    document.getElementById("sourcing-content").textContent = text;
+    document.getElementById("sourcing-output").classList.add("visible");
+    setSourcingStatus("", false);
+    document.getElementById("sourcing-btn").disabled = false;
+
+  } catch {
+    setSourcingStatus("Something went wrong. Try again.", false);
+    document.getElementById("sourcing-btn").disabled = false;
+  }
+}
+
+function setSourcingStatus(msg, loading) {
+  document.getElementById("sourcing-status").textContent = msg;
+  document.getElementById("sourcing-spinner").classList.toggle("active", loading);
+}
+
+async function generateStrategy() {
+  const profile = document.getElementById("profile-snippet").value.trim();
+  if (!profile) { setStrategyStatus("Please paste a candidate profile first.", false); return; }
+  setStrategyStatus("Synthesizing engagement strategy...", true);
+  document.getElementById("strategy-btn").disabled = true;
+  document.getElementById("strategy-output").classList.remove("visible");
+
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        messages: [{ role: "user", content: `You are a senior recruiter at Meta. Analyze this candidate profile and create a personalized outreach and engagement strategy.
+
+Candidate Profile:
+${profile}
+
+Respond in plain text (no markdown) with these sections:
+CANDIDATE SNAPSHOT: 2-3 sentences on who this person is and what they care about
+HOOK / OPENING ANGLE: The single most compelling reason Meta would appeal to them specifically
+OUTREACH MESSAGE: A short, personalized 3-4 sentence LinkedIn message to send
+ENGAGEMENT STRATEGY: How to move them through the process — key concerns to address, timing, and objection handling
+RISK FACTORS: Likely reasons they might decline and how to preempt them` }]
+      })
+    });
+
+    const data = await response.json();
+    const text = data.content.find(b => b.type === "text")?.text || "No response received.";
+    document.getElementById("strategy-content").textContent = text;
+    document.getElementById("strategy-output").classList.add("visible");
+    setStrategyStatus("", false);
+    document.getElementById("strategy-btn").disabled = false;
+
+  } catch {
+    setStrategyStatus("Something went wrong. Try again.", false);
+    document.getElementById("strategy-btn").disabled = false;
+  }
+}
+
+function setStrategyStatus(msg, loading) {
+  document.getElementById("strategy-status").textContent = msg;
+  document.getElementById("strategy-spinner").classList.toggle("active", loading);
+}
 </script>
 </body>
 </html>
