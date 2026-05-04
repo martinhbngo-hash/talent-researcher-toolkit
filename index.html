@@ -221,6 +221,48 @@ tr:last-child td{border-bottom:none;}
 .prescreen-probe{font-size:12px;color:var(--text-2);margin-top:4px;line-height:1.5;font-style:italic;}
 .prescreen-flag{font-size:11px;color:#991b1b;background:var(--danger-light);border-radius:5px;padding:3px 8px;margin-top:5px;display:inline-block;font-weight:600;}
 .prescreen-good{font-size:11px;color:#065f46;background:var(--success-light);border-radius:5px;padding:3px 8px;margin-top:5px;display:inline-block;font-weight:600;}
+
+/* ── SCORECARD ── */
+.sc-intake-banner{background:var(--primary-light);border:1px solid var(--border-2);border-radius:10px;padding:10px 14px;margin-bottom:1rem;font-size:12px;color:var(--primary-dark);line-height:1.5;display:flex;align-items:flex-start;gap:8px;}
+.sc-intake-banner strong{color:var(--primary);}
+.sc-jd-box{background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:11px 13px;font-size:13px;color:var(--text-2);line-height:1.6;margin-bottom:1rem;min-height:56px;}
+.sc-jd-box.has-content{color:var(--text);}
+.dim-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
+.dim-row:last-child{border-bottom:none;}
+.dim-name-input{flex:1;padding:7px 10px;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;font-size:13px;color:var(--text);font-family:inherit;}
+.dim-name-input:focus{outline:none;border-color:var(--primary);}
+.dim-weight-input{width:60px;padding:7px 10px;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;font-size:13px;color:var(--text);font-family:inherit;text-align:center;}
+.dim-weight-input:focus{outline:none;border-color:var(--primary);}
+.dim-weight-total{font-size:12px;font-weight:700;margin-top:6px;}
+.cand-col{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;position:relative;}
+.cand-col.ranked-1{border-color:var(--primary);border-width:1.5px;}
+.cand-rank{position:absolute;top:-8px;left:12px;font-size:10px;font-weight:700;background:var(--primary);color:white;padding:2px 8px;border-radius:20px;}
+.cand-name-input{width:100%;padding:8px 10px;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;font-size:13px;color:var(--text);font-family:inherit;font-weight:600;margin-bottom:6px;}
+.cand-name-input:focus{outline:none;border-color:var(--primary);}
+.cand-resume-area{width:100%;padding:8px 10px;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;font-size:12px;color:var(--text);font-family:inherit;resize:vertical;min-height:80px;line-height:1.5;}
+.cand-resume-area:focus{outline:none;border-color:var(--primary);}
+.cand-resume-area::placeholder{color:var(--text-3);font-size:12px;}
+.dim-score-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.dim-score-slider{flex:1;accent-color:var(--primary);}
+.dim-score-val{font-size:12px;font-weight:600;color:var(--primary);min-width:28px;text-align:right;}
+.sc-bar-bg{height:5px;background:var(--border);border-radius:20px;overflow:hidden;margin-bottom:3px;}
+.sc-bar-fill{height:100%;border-radius:20px;transition:width .3s ease;}
+.probe-box{background:var(--warning-light);border:1px solid #fcd34d;border-radius:8px;padding:8px 10px;margin-top:5px;}
+.probe-box-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#92400e;margin-bottom:5px;}
+.probe-q{font-size:11px;color:#633806;line-height:1.5;margin-bottom:3px;padding-left:8px;border-left:2px solid #fcd34d;}
+.probe-q:last-child{margin-bottom:0;}
+.summary-area{width:100%;padding:8px 10px;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;font-size:12px;color:var(--text);font-family:inherit;resize:vertical;min-height:56px;line-height:1.5;margin-top:8px;}
+.summary-area:focus{outline:none;border-color:var(--primary);}
+.summary-area::placeholder{color:var(--text-3);font-size:12px;}
+.overall-score{font-size:26px;font-weight:700;margin:6px 0 2px;}
+.verdict-badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;display:inline-block;}
+.verdict-advance{background:var(--success-light);color:#065f46;}
+.verdict-review{background:var(--warning-light);color:#92400e;}
+.verdict-pass{background:var(--danger-light);color:#991b1b;}
+.sc-cands-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:1rem;}
+.keyword-chip{font-size:11px;background:var(--primary-light);color:var(--primary);border:1px solid var(--border-2);border-radius:20px;padding:2px 8px;display:inline-block;margin:2px;}
+.keyword-miss{background:var(--danger-light);color:#991b1b;border-color:#fca5a5;}
+.detected-banner{background:var(--success-light);border:1px solid #6ee7b7;border-radius:8px;padding:8px 10px;margin-top:6px;font-size:12px;color:#065f46;line-height:1.5;}
 </style>
 </head>
 <body>
@@ -294,6 +336,8 @@ tr:last-child td{border-bottom:none;}
       <div class="sidebar-section-label">Reference</div>
       <button class="tab-btn" onclick="openTab(this,'tab-competitive')"><span class="tab-icon">🏆</span>Competitive</button>
       <button class="tab-btn" onclick="openTab(this,'tab-placements')"><span class="tab-icon">📋</span>Placements</button>
+      <div class="tab-divider"></div>
+      <button class="tab-btn" onclick="openTab(this,'tab-scorecard')"><span class="tab-icon">📝</span>Scorecard</button>
     </nav>
 
     <div class="tab-main">
@@ -546,6 +590,61 @@ tr:last-child td{border-bottom:none;}
           <div class="stat-card"><span class="stat-label">Most Common Level</span><span class="stat-val" id="stat-top-level" style="font-size:12px;margin-top:3px;">—</span></div>
         </div>
         <div id="placement-list" class="placement-list"></div>
+      </div>
+
+    
+      <!-- ═══ SCORECARD ═══ -->
+      <div id="tab-scorecard" class="tab-content">
+
+        <!-- Step 1: JD -->
+        <div class="card">
+          <div class="section-label">Step 1 — Job Description</div>
+          <div id="sc-intake-banner" class="sc-intake-banner" style="display:none;">
+            <span style="font-size:15px;flex-shrink:0;">&#9432;</span>
+            <span><strong>Intake context loaded.</strong> Must-have skills, deal-breakers, and HM preferences from your intake have been applied to scoring signals. Fill in the Sourcing tab intake form to add more signal.</span>
+          </div>
+          <div class="field">
+            <textarea id="sc-jd-input" style="min-height:90px;" placeholder="Paste the job description here. The tool will extract required skills, seniority signals, and role context automatically..." oninput="parseScJD()"></textarea>
+          </div>
+          <div id="sc-jd-parsed" style="display:none;margin-top:6px;">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--primary);margin-bottom:6px;">Detected signals</div>
+            <div id="sc-required-chips" class="chip-row"></div>
+          </div>
+        </div>
+
+        <!-- Step 2: Scoring dimensions -->
+        <div class="card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:8px;">
+            <div class="section-label" style="margin-bottom:0;">Step 2 — Scoring dimensions</div>
+            <button class="btn-ghost" style="font-size:11px;padding:6px 12px;" onclick="resetDimensions()">Reset to defaults</button>
+          </div>
+          <div id="sc-dimensions"></div>
+          <div style="display:flex;justify-content:flex-end;margin-top:8px;">
+            <span id="sc-weight-total" class="dim-weight-total" style="color:var(--text-2);">Total: 100%</span>
+          </div>
+          <p style="font-size:11px;color:var(--text-3);margin-top:6px;line-height:1.5;">Adjust dimension names and weights to match the role. Weights must add up to 100.</p>
+        </div>
+
+        <!-- Step 3: Candidates -->
+        <div class="card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:8px;">
+            <div class="section-label" style="margin-bottom:0;">Step 3 — Candidates (up to 5)</div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn-ghost" style="font-size:11px;padding:6px 12px;" onclick="addCandidate()" id="sc-add-btn">+ Add candidate</button>
+              <button class="btn-primary" style="font-size:11px;padding:6px 14px;" onclick="scoreAll()">Score all</button>
+            </div>
+          </div>
+          <div id="sc-candidates" class="sc-cands-grid"></div>
+        </div>
+
+        <!-- Step 4: Results -->
+        <div id="sc-results" style="display:none;">
+          <div class="card">
+            <div class="section-label" style="margin-bottom:1rem;">Results — ranked by fit</div>
+            <div id="sc-results-content"></div>
+          </div>
+        </div>
+
       </div>
 
     </div><!-- /tab-main -->
@@ -1288,6 +1387,598 @@ function renderPlacements(){
 
 /* ══ INIT WELCOME ══ */
 buildCompanyList('');
+
+/* ══ SCORECARD ══ */
+var SC_DIMENSIONS = [
+  {name:'Skills match',weight:25,probes:{low:['Walk me through which of these specific skills you have hands-on experience with: [skills from JD]','Can you distinguish between academic knowledge and production experience for each skill you listed?','Which of the required skills do you feel least confident in and how would you close that gap?'],mid:['You mention [skill] — walk me through the last time you used it in a production environment. What was the scale?','How deeply have you used [partially matching skill]? Have you led the design or primarily implemented others\' designs?','What skills from this JD do you think would be your fastest ramp, and which would take 3–6 months to reach the bar?']}},
+  {name:'Seniority alignment',weight:20,probes:{low:['Tell me about the most senior technical decision you\ve made independently — without needing approval.','How many engineers have you mentored or unblocked in the last 6 months? Give me a specific example.','Where do you see the gap between your current level and the level this role requires?'],mid:['Your title is [X] — walk me through a decision that required your level of experience to make correctly. What would a more junior engineer have gotten wrong?','How do you define the difference between your current level and the next level up? What\s the signal you\re not there yet?','What\s the most significant scope expansion you\ve had in the last 12 months?']}},
+  {name:'Scope & scale',weight:20,probes:{low:['What\s the largest user base or data volume you\ve operated systems for? How did scale change the engineering decisions you had to make?','Tell me about a time your system failed under load. What caused it and what did you change?','What\s the most significant performance or reliability constraint you\ve designed around?'],mid:['You\ve worked at [smaller scale] — what do you anticipate being the hardest adjustment to working at [target scale]?','Walk me through how your architecture decisions would change if you were serving 10x your current user base.','What monitoring or on-call practices have you owned that prepared you for higher-scale reliability ownership?']}},
+  {name:'Company pedigree',weight:15,probes:{low:['Tell me about the engineering bar at your current company. How do they evaluate technical quality?','What\s the hardest technical interview question or exercise you had to pass to join your current company?','How would you describe the caliber of engineers you work with day to day?'],mid:['Coming from [company type], what do you think will be the biggest cultural or technical adjustment to working here?','How does your current company\s code review, oncall, and incident management compare to what you\ve heard about us?','What\s something your current company does well that you think we could learn from?']}},
+  {name:'Trajectory',weight:10,probes:{low:['Walk me through your last 3 roles — what drove each transition?','I notice [gap / short tenure] — can you walk me through the context around that?','Where do you see yourself in 3 years and how does this role connect to that path?'],mid:['Your career progression has been [observation] — is that intentional? What\s been driving your choices?','What\s the highest-impact thing you\ve accomplished in the last 18 months that isn\t visible on your resume?','How has your technical scope grown in the last 2 years? Give me a concrete before/after.']}},
+  {name:'Red flags',weight:10,probes:{low:['I notice you\ve changed roles [X] times in [Y] years — what\s been driving that?','Can you tell me more about why you\re leaving [current company] after only [tenure]?','Have you had any extended gaps in employment? Walk me through what you were doing during that time.'],mid:['Your resume shows [mixed signals] — help me understand the through-line in your career choices.','You\ve had a mix of individual contributor and leadership roles — which do you prefer and why?','What\s the most honest reason you\re looking right now?']}}
+];
+
+var scCandidates = [];
+var scMaxCandidates = 5;
+
+function initScorecard() {
+  renderDimensions();
+  addCandidate();
+  addCandidate();
+  checkIntakeBanner();
+}
+
+function checkIntakeBanner() {
+  var cb = document.getElementById('intake-cb');
+  var musthave = document.getElementById('intake-musthave') ? document.getElementById('intake-musthave').value.trim() : '';
+  if (cb && cb.checked && musthave) {
+    document.getElementById('sc-intake-banner').style.display = 'flex';
+  }
+}
+
+function parseScJD() {
+  var text = document.getElementById('sc-jd-input').value.trim().toLowerCase();
+  if (!text) { document.getElementById('sc-jd-parsed').style.display = 'none'; return; }
+
+  // Extract keywords: technical terms, tools, languages
+  var techKeywords = ['python','go','java','javascript','typescript','rust','c++','scala','kotlin','swift',
+    'kubernetes','docker','terraform','aws','gcp','azure','spark','kafka','airflow','postgresql','redis','elasticsearch',
+    'machine learning','deep learning','llm','pytorch','tensorflow','distributed systems','microservices','api',
+    'react','node','sql','nosql','ci/cd','git','linux','grpc','protobuf','graphql'];
+  var found = [];
+  for (var i = 0; i < techKeywords.length; i++) {
+    if (text.indexOf(techKeywords[i]) !== -1) found.push(techKeywords[i]);
+  }
+
+  // Also pull from intake musthave
+  var musthave = document.getElementById('intake-musthave') ? document.getElementById('intake-musthave').value.trim() : '';
+  if (musthave) {
+    var mh = musthave.split(',').map(function(s){ return s.trim().toLowerCase(); });
+    for (var i = 0; i < mh.length; i++) { if (mh[i] && found.indexOf(mh[i]) === -1) found.push(mh[i]); }
+  }
+
+  window._scRequiredSkills = found;
+
+  if (found.length) {
+    document.getElementById('sc-jd-parsed').style.display = 'block';
+    var html = '';
+    for (var i = 0; i < found.length; i++) {
+      html += '<span class="keyword-chip">'+found[i]+'</span>';
+    }
+    document.getElementById('sc-required-chips').innerHTML = html;
+  }
+}
+
+function renderDimensions() {
+  var html = '';
+  var totalW = 0;
+  for (var i = 0; i < SC_DIMENSIONS.length; i++) {
+    totalW += SC_DIMENSIONS[i].weight;
+    html += '<div class="dim-row">';
+    html += '<input class="dim-name-input" value="'+SC_DIMENSIONS[i].name+'" onchange="SC_DIMENSIONS['+i+'].name=this.value;scoreAll();" />';
+    html += '<input class="dim-weight-input" type="number" min="0" max="100" value="'+SC_DIMENSIONS[i].weight+'" onchange="SC_DIMENSIONS['+i+'].weight=parseInt(this.value)||0;updateWeightTotal();scoreAll();" />';
+    html += '<span style="font-size:11px;color:var(--text-3);">%</span>';
+    html += '</div>';
+  }
+  document.getElementById('sc-dimensions').innerHTML = html;
+  updateWeightTotal();
+}
+
+function updateWeightTotal() {
+  var total = 0;
+  for (var i = 0; i < SC_DIMENSIONS.length; i++) total += SC_DIMENSIONS[i].weight;
+  var el = document.getElementById('sc-weight-total');
+  el.textContent = 'Total: ' + total + '%';
+  el.style.color = total === 100 ? '#065f46' : '#991b1b';
+}
+
+function resetDimensions() {
+  SC_DIMENSIONS = [
+    {name:'Skills match',weight:25,probes:{low:['Walk me through which of these specific skills you have hands-on experience with: [skills from JD]','Can you distinguish between academic knowledge and production experience for each skill you listed?','Which of the required skills do you feel least confident in and how would you close that gap?'],mid:['You mention [skill] — walk me through the last time you used it in a production environment. What was the scale?','How deeply have you used [partially matching skill]? Have you led the design or primarily implemented others\' designs?','What skills from this JD do you think would be your fastest ramp, and which would take 3–6 months to reach the bar?']}},
+    {name:'Seniority alignment',weight:20,probes:{low:['Tell me about the most senior technical decision you\'ve made independently — without needing approval.','How many engineers have you mentored or unblocked in the last 6 months? Give me a specific example.','Where do you see the gap between your current level and the level this role requires?'],mid:['Your title is [X] — walk me through a decision that required your level of experience to make correctly. What would a more junior engineer have gotten wrong?','How do you define the difference between your current level and the next level up? What\'s the signal you\'re not there yet?','What\'s the most significant scope expansion you\'ve had in the last 12 months?']}},
+    {name:'Scope & scale',weight:20,probes:{low:['What\'s the largest user base or data volume you\'ve operated systems for? How did scale change your engineering decisions?','Tell me about a time your system failed under load. What caused it and what did you change?','What\'s the most significant performance or reliability constraint you\'ve designed around?'],mid:['You\'ve worked at [smaller scale] — what do you anticipate being the hardest adjustment to working at [target scale]?','Walk me through how your architecture decisions would change if you were serving 10x your current user base.','What monitoring or on-call practices have you owned that prepared you for higher-scale reliability ownership?']}},
+    {name:'Company pedigree',weight:15,probes:{low:['Tell me about the engineering bar at your current company. How do they evaluate technical quality?','What\'s the hardest technical interview question or exercise you had to pass to join your current company?','How would you describe the caliber of engineers you work with day to day?'],mid:['Coming from [company type], what do you think will be the biggest cultural or technical adjustment to working here?','How does your current company\'s code review, oncall, and incident management compare to what you\'ve heard about us?','What\'s something your current company does well that you think we could learn from?']}},
+    {name:'Trajectory',weight:10,probes:{low:['Walk me through your last 3 roles — what drove each transition?','I notice [gap / short tenure] — can you walk me through the context around that?','Where do you see yourself in 3 years and how does this role connect to that path?'],mid:['Your career progression has been [observation] — is that intentional? What\'s been driving your choices?','What\'s the highest-impact thing you\'ve accomplished in the last 18 months that isn\'t visible on your resume?','How has your technical scope grown in the last 2 years? Give me a concrete before/after.']}},
+    {name:'Red flags',weight:10,probes:{low:['I notice you\'ve changed roles [X] times in [Y] years — what\'s been driving that?','Can you tell me more about why you\'re leaving [current company] after only [tenure]?','Have you had any extended gaps in employment? Walk me through what you were doing during that time.'],mid:['Your resume shows [mixed signals] — help me understand the through-line in your career choices.','You\'ve had a mix of individual contributor and leadership roles — which do you prefer and why?','What\'s the most honest reason you\'re looking right now?']}}
+  ];
+  renderDimensions();
+  scoreAll();
+}
+
+function addCandidate() {
+  if (scCandidates.length >= scMaxCandidates) return;
+  var id = Date.now();
+  var scores = {};
+  for (var i = 0; i < SC_DIMENSIONS.length; i++) scores[i] = 50;
+  scCandidates.push({id:id, name:'', resume:'', scores:scores, summary:''});
+  renderCandidates();
+  if (scCandidates.length >= scMaxCandidates) document.getElementById('sc-add-btn').disabled = true;
+}
+
+function removeCandidate(id) {
+  scCandidates = scCandidates.filter(function(c){ return c.id !== id; });
+  document.getElementById('sc-add-btn').disabled = false;
+  renderCandidates();
+  scoreAll();
+}
+
+function renderCandidates() {
+  var html = '';
+  for (var ci = 0; ci < scCandidates.length; ci++) {
+    var cand = scCandidates[ci];
+    html += '<div class="cand-col" id="cand-col-'+cand.id+'">';
+    html += '<button onclick="removeCandidate('+cand.id+')" style="position:absolute;top:8px;right:8px;background:none;border:none;color:var(--text-3);font-size:16px;cursor:pointer;padding:0;width:auto;line-height:1;">&#x2715;</button>';
+    html += '<label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-2);margin-bottom:5px;display:block;">Candidate '+(ci+1)+'</label>';
+    html += '<input class="cand-name-input" placeholder="Name or initials" value="'+cand.name+'" onchange="scCandidates['+ci+'].name=this.value;" />';
+    html += '<textarea class="cand-resume-area" placeholder="Paste resume text here. The tool will detect matching skills automatically..." oninput="scCandidates['+ci+'].resume=this.value;autoScoreResume('+ci+');">'+cand.resume+'</textarea>';
+    var detected = cand._detectedSkills ? cand._detectedSkills : [];
+    if (detected.length) {
+      html += '<div class="detected-banner">Skills detected: ';
+      for (var k=0;k<detected.length;k++) html += '<span class="keyword-chip">'+detected[k]+'</span>';
+      html += '</div>';
+    }
+    if (cand._detectedCompany) {
+      var isMM = cand._companyMismatchProbes && cand._companyMismatchProbes.length > 0;
+      var bg = isMM ? 'var(--warning-light)' : 'var(--success-light)';
+      var tc = isMM ? '#92400e' : '#065f46';
+      var bc = isMM ? '#fcd34d' : '#6ee7b7';
+      html += '<div style="background:'+bg+';border:1px solid '+bc+';border-radius:8px;padding:6px 9px;margin-top:5px;font-size:11px;color:'+tc+';">';
+      html += '<strong>'+cand._detectedCompany.type+'</strong> — scale: '+cand._detectedCompany.scale;
+      if (isMM) html += ' <span style="font-weight:700;">· Industry mismatch</span>';
+      html += '</div>';
+    }
+    html += '<div style="margin-top:10px;">';
+    for (var di = 0; di < SC_DIMENSIONS.length; di++) {
+      var score = cand.scores[di] !== undefined ? cand.scores[di] : 50;
+      html += '<div style="margin-bottom:8px;">';
+      html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;">';
+      html += '<span style="font-size:11px;color:var(--text-2);">'+SC_DIMENSIONS[di].name+'</span>';
+      html += '<span style="font-size:12px;font-weight:700;color:var(--primary);" id="score-val-'+cand.id+'-'+di+'">'+score+'</span>';
+      html += '</div>';
+      html += '<input type="range" min="0" max="100" step="1" value="'+score+'" class="dim-score-slider" ';
+      html += 'oninput="updateScore('+ci+','+di+',parseInt(this.value))" />';
+      html += '</div>';
+    }
+    html += '</div>';
+    html += '<textarea class="summary-area" placeholder="Recruiter notes — qualitative take, standout moments, concerns..." oninput="scCandidates['+ci+'].summary=this.value;">'+cand.summary+'</textarea>';
+    html += '</div>';
+  }
+  document.getElementById('sc-candidates').innerHTML = html;
+}
+
+function updateScore(ci, di, val) {
+  if (scCandidates[ci]) {
+    scCandidates[ci].scores[di] = val;
+    var el = document.getElementById('score-val-'+scCandidates[ci].id+'-'+di);
+    if (el) el.textContent = val;
+  }
+}
+
+/* ── COMPANY INTELLIGENCE FOR SCORING ── */
+var COMPANY_PEDIGREE = {
+  // Big Tech — highest bar
+  'google':    {score:92, scale:'3B+ users', type:'Big Tech',    scaleScore:95},
+  'meta':      {score:92, scale:'3B+ users', type:'Big Tech',    scaleScore:95},
+  'apple':     {score:90, scale:'2B+ users', type:'Big Tech',    scaleScore:90},
+  'amazon':    {score:88, scale:'300M+ users',type:'Big Tech',   scaleScore:88},
+  'microsoft': {score:87, scale:'1B+ users', type:'Big Tech',    scaleScore:88},
+  // AI-Native — very high bar
+  'openai':    {score:90, scale:'200M+ users',type:'AI-Native',  scaleScore:80},
+  'anthropic': {score:87, scale:'10M+ users', type:'AI-Native',  scaleScore:70},
+  'deepmind':  {score:90, scale:'Research',   type:'AI-Native',  scaleScore:65},
+  'mistral':   {score:78, scale:'1M+ users',  type:'AI-Native',  scaleScore:55},
+  'cohere':    {score:75, scale:'Enterprise', type:'AI-Native',  scaleScore:52},
+  'perplexity':{score:76, scale:'15M+ users', type:'AI-Native',  scaleScore:60},
+  'xai':       {score:82, scale:'20M+ users', type:'AI-Native',  scaleScore:65},
+  // Mid-size Tech
+  'stripe':    {score:85, scale:'Millions',   type:'Mid-size',   scaleScore:75},
+  'airbnb':    {score:82, scale:'150M users', type:'Mid-size',   scaleScore:78},
+  'uber':      {score:82, scale:'130M users', type:'Mid-size',   scaleScore:80},
+  'lyft':      {score:75, scale:'30M users',  type:'Mid-size',   scaleScore:65},
+  'netflix':   {score:85, scale:'260M users', type:'Mid-size',   scaleScore:85},
+  'linkedin':  {score:80, scale:'950M users', type:'Mid-size',   scaleScore:82},
+  'snap':      {score:76, scale:'400M users', type:'Mid-size',   scaleScore:78},
+  'twitter':   {score:75, scale:'350M users', type:'Mid-size',   scaleScore:76},
+  'tiktok':    {score:78, scale:'1B+ users',  type:'Mid-size',   scaleScore:85},
+  'bytedance': {score:78, scale:'1B+ users',  type:'Mid-size',   scaleScore:85},
+  'shopify':   {score:78, scale:'Millions',   type:'Mid-size',   scaleScore:72},
+  'figma':     {score:80, scale:'4M+ users',  type:'Mid-size',   scaleScore:65},
+  'notion':    {score:76, scale:'20M+ users', type:'Mid-size',   scaleScore:62},
+  'discord':   {score:76, scale:'500M+ users',type:'Mid-size',   scaleScore:78},
+  'pinterest': {score:75, scale:'450M users', type:'Mid-size',   scaleScore:76},
+  'reddit':    {score:74, scale:'1.2B visits',type:'Mid-size',   scaleScore:78},
+  'github':    {score:80, scale:'100M devs',  type:'Mid-size',   scaleScore:75},
+  'dropbox':   {score:74, scale:'700M users', type:'Mid-size',   scaleScore:74},
+  'asana':     {score:72, scale:'Millions',   type:'Mid-size',   scaleScore:62},
+  'twilio':    {score:75, scale:'Millions',   type:'Mid-size',   scaleScore:66},
+  // Data / Cloud
+  'databricks':{score:82, scale:'Thousands',  type:'Data/Cloud', scaleScore:60},
+  'snowflake': {score:80, scale:'Thousands',  type:'Data/Cloud', scaleScore:58},
+  'cloudflare':{score:82, scale:'20%+ web',   type:'Data/Cloud', scaleScore:88},
+  'datadog':   {score:78, scale:'Thousands',  type:'Data/Cloud', scaleScore:60},
+  'confluent': {score:76, scale:'Thousands',  type:'Data/Cloud', scaleScore:58},
+  'elastic':   {score:74, scale:'Thousands',  type:'Data/Cloud', scaleScore:56},
+  'hashicorp': {score:74, scale:'Thousands',  type:'Data/Cloud', scaleScore:56},
+  'vercel':    {score:72, scale:'Millions',   type:'Data/Cloud', scaleScore:62},
+  'supabase':  {score:68, scale:'Hundreds K', type:'Data/Cloud', scaleScore:52},
+  'dbt':       {score:70, scale:'Thousands',  type:'Data/Cloud', scaleScore:50},
+  // Security
+  'crowdstrike':{score:78,scale:'Thousands',  type:'Security',   scaleScore:62},
+  'palo alto': {score:76, scale:'Thousands',  type:'Security',   scaleScore:60},
+  'okta':      {score:74, scale:'Thousands',  type:'Security',   scaleScore:58},
+  'wiz':       {score:76, scale:'Thousands',  type:'Security',   scaleScore:58},
+  'sentinelone':{score:72,scale:'Thousands',  type:'Security',   scaleScore:56},
+  // Fintech
+  'stripe':    {score:85, scale:'Millions',   type:'Fintech',    scaleScore:75},
+  'plaid':     {score:78, scale:'Millions',   type:'Fintech',    scaleScore:68},
+  'robinhood': {score:74, scale:'23M users',  type:'Fintech',    scaleScore:70},
+  'coinbase':  {score:74, scale:'100M users', type:'Fintech',    scaleScore:72},
+  'chime':     {score:70, scale:'14M users',  type:'Fintech',    scaleScore:65},
+  'affirm':    {score:72, scale:'Millions',   type:'Fintech',    scaleScore:66},
+  'klarna':    {score:72, scale:'150M users', type:'Fintech',    scaleScore:70},
+  'revolut':   {score:72, scale:'35M users',  type:'Fintech',    scaleScore:68},
+  'wise':      {score:70, scale:'10M+ users', type:'Fintech',    scaleScore:64},
+  'brex':      {score:68, scale:'Thousands',  type:'Fintech',    scaleScore:58},
+  // Finance / Banking
+  'goldman':   {score:72, scale:'Enterprise', type:'Finance',    scaleScore:55},
+  'jpmorgan':  {score:70, scale:'Enterprise', type:'Finance',    scaleScore:54},
+  'blackrock': {score:68, scale:'Enterprise', type:'Finance',    scaleScore:52},
+  'citadel':   {score:74, scale:'Enterprise', type:'Finance',    scaleScore:54},
+  'bloomberg': {score:70, scale:'Enterprise', type:'Finance',    scaleScore:55},
+  // Enterprise Tech
+  'salesforce':{score:72, scale:'Enterprise', type:'Enterprise', scaleScore:60},
+  'oracle':    {score:65, scale:'Enterprise', type:'Enterprise', scaleScore:58},
+  'ibm':       {score:60, scale:'Enterprise', type:'Enterprise', scaleScore:56},
+  'cisco':     {score:65, scale:'Enterprise', type:'Enterprise', scaleScore:58},
+  'sap':       {score:60, scale:'Enterprise', type:'Enterprise', scaleScore:55},
+  'workday':   {score:65, scale:'Enterprise', type:'Enterprise', scaleScore:56},
+  'servicenow':{score:68, scale:'Enterprise', type:'Enterprise', scaleScore:58},
+  'splunk':    {score:68, scale:'Enterprise', type:'Enterprise', scaleScore:58},
+  // Hardware
+  'nvidia':    {score:88, scale:'Global',     type:'Hardware',   scaleScore:72},
+  'qualcomm':  {score:82, scale:'Global',     type:'Hardware',   scaleScore:68},
+  'intel':     {score:78, scale:'Global',     type:'Hardware',   scaleScore:70},
+  'amd':       {score:80, scale:'Global',     type:'Hardware',   scaleScore:68},
+  'arm':       {score:80, scale:'Global',     type:'Hardware',   scaleScore:68},
+  'broadcom':  {score:75, scale:'Global',     type:'Hardware',   scaleScore:65},
+  // Consulting
+  'mckinsey':  {score:65, scale:'Enterprise', type:'Consulting', scaleScore:35},
+  'bcg':       {score:65, scale:'Enterprise', type:'Consulting', scaleScore:35},
+  'bain':      {score:62, scale:'Enterprise', type:'Consulting', scaleScore:33},
+  'deloitte':  {score:58, scale:'Enterprise', type:'Consulting', scaleScore:32},
+  'accenture': {score:56, scale:'Enterprise', type:'Consulting', scaleScore:32},
+  'pwc':       {score:55, scale:'Enterprise', type:'Consulting', scaleScore:30},
+  'kpmg':      {score:52, scale:'Enterprise', type:'Consulting', scaleScore:30},
+  'ey':        {score:52, scale:'Enterprise', type:'Consulting', scaleScore:30},
+  'booz':      {score:55, scale:'Government', type:'Defense',    scaleScore:35},
+  'palantir':  {score:72, scale:'Government', type:'Defense',    scaleScore:50},
+  'lockheed':  {score:55, scale:'Government', type:'Defense',    scaleScore:40},
+  'raytheon':  {score:54, scale:'Government', type:'Defense',    scaleScore:38},
+  // Startups by stage (detected via keywords)
+  '__seed':    {score:52, scale:'<10K users', type:'Startup (Seed)',    scaleScore:28},
+  '__series_a':{score:58, scale:'10K–500K',   type:'Startup (Series A)',scaleScore:38},
+  '__series_b':{score:62, scale:'100K–5M',    type:'Startup (Series B)',scaleScore:48},
+  '__series_c':{score:66, scale:'1M–20M',     type:'Startup (Series C)',scaleScore:55},
+  '__late':    {score:70, scale:'10M+',       type:'Late-stage Startup',scaleScore:62},
+  '__startup':  {score:60, scale:'Unknown',   type:'Startup',           scaleScore:42}
+};
+
+// Industry mismatch probes by company type vs role
+var INDUSTRY_MISMATCH_PROBES = {
+  'Consulting': {
+    'swe':  ['Consultants often have advisory rather than hands-on engineering experience. Ask: Walk me through the last production system you owned and deployed yourself — not designed for a client, but built and ran.',
+             'Consulting code quality and engineering rigour varies widely. Ask: Describe your testing and code review practices. How did your team catch bugs before they reached production?',
+             'Scope of ownership is a key gap risk. Ask: What systems did you personally maintain on-call? What was your SLA and what happened when you breached it?'],
+    'em':   ['Consulting project leadership is not the same as engineering people management. Ask: How many engineers reported directly to you? Did you conduct performance reviews and comp discussions?',
+             'Ask: Tell me about an engineer on your team who was underperforming. What did you do, and what was the outcome?'],
+    'pm':   ['Consulting strategy is not product management. Ask: Walk me through a product decision you owned where you had to say no to a stakeholder who outranked you.',
+             'Ask: Have you ever shipped a product to end users? Describe the release, the metrics you tracked, and what you changed in the next iteration.']
+  },
+  'Finance': {
+    'swe':  ['Financial services engineers often work on internal systems at lower velocity. Ask: What was your release cadence? How often did you ship to production, and what did the deployment process look like?',
+             'Ask: How large was the user base of the systems you owned? Were these internal tools or external-facing products?',
+             'Technology stacks in finance are often legacy. Ask: What tech stack did you work in and how does that compare to what we use here?'],
+    'em':   ['Finance engineering management often differs from tech company norms. Ask: How did your team handle incident response and on-call? Did engineers have pager duty?'],
+    'pm':   ['Financial product management often skews toward compliance and stakeholders over user outcomes. Ask: How did you measure product success? Give me a specific metric you owned and moved.']
+  },
+  'Defense': {
+    'swe':  ['Defense engineering often involves classified, bespoke systems with different quality and velocity norms. Ask: Can you describe the architecture of a system you built, without using classified details? What was the user base and scale?',
+             'Ask: What was your deployment cadence? How did you test software before release?',
+             'Ask: What modern cloud, containerisation, or CI/CD tools have you used outside of your defence work?'],
+    'em':   ['Defence leadership structures differ significantly. Ask: Did you manage civilian engineers or military personnel? How did you handle performance management?']
+  },
+  'Enterprise': {
+    'swe':  ['Enterprise tech companies often have slow velocity and legacy stacks. Ask: What was your release cadence? Did you deploy to production daily, weekly, or on a longer cycle?',
+             'Ask: How large was the customer-facing user base of the systems you owned? Were these enterprise customers or consumers?'],
+    'pm':   ['Enterprise PM roles often focus on B2B stakeholder management over user research. Ask: When did you last directly speak to an end user — not a corporate buyer — and what did you learn?']
+  },
+  'Hardware': {
+    'swe':  ['Hardware-adjacent software roles often differ significantly from software engineering at tech companies. Ask: Have you written software that runs on general-purpose servers at scale, or primarily embedded / firmware systems?',
+             'Ask: What\'s your experience with distributed systems, web APIs, or cloud-native infrastructure?'],
+    'pm':   ['Hardware PM experience rarely translates directly to software product management. Ask: Have you owned a software product with an active user base? How did you gather and act on user feedback?']
+  },
+  'AI-Native': {
+    'swe':  ['AI-native engineers may be strong on ML but lighter on production engineering. Ask: Beyond model development, have you owned the serving infrastructure, monitoring, and reliability of a production ML system?',
+             'Ask: What was the p99 latency and uptime SLA of the systems you owned? Who was on-call for it?']
+  }
+};
+
+function detectCompanyFromResume(resumeText) {
+  var text = resumeText.toLowerCase();
+  var keys = Object.keys(COMPANY_PEDIGREE);
+  var detected = null;
+  var detectedKey = null;
+
+  // Try exact company name matches first
+  var companyNames = [
+    ['google','google'],['meta','meta'],['facebook','meta'],['apple','apple'],
+    ['amazon','amazon'],['microsoft','microsoft'],['openai','openai'],
+    ['anthropic','anthropic'],['deepmind','deepmind'],['mistral','mistral'],
+    ['stripe','stripe'],['airbnb','airbnb'],['uber','uber'],['lyft','lyft'],
+    ['netflix','netflix'],['linkedin','linkedin'],['snap','snap'],['snapchat','snap'],
+    ['twitter','twitter'],['x.com','twitter'],['tiktok','tiktok'],['bytedance','bytedance'],
+    ['shopify','shopify'],['figma','figma'],['notion','notion'],['discord','discord'],
+    ['pinterest','pinterest'],['reddit','reddit'],['github','github'],['dropbox','dropbox'],
+    ['databricks','databricks'],['snowflake','snowflake'],['cloudflare','cloudflare'],
+    ['datadog','datadog'],['confluent','confluent'],['elastic','elastic'],
+    ['hashicorp','hashicorp'],['crowdstrike','crowdstrike'],['palo alto','palo alto'],
+    ['okta','okta'],['sentinelone','sentinelone'],['wiz','wiz'],
+    ['plaid','plaid'],['robinhood','robinhood'],['coinbase','coinbase'],['chime','chime'],
+    ['affirm','affirm'],['klarna','klarna'],['revolut','revolut'],['wise','wise'],
+    ['goldman','goldman'],['jp morgan','jpmorgan'],['jpmorgan','jpmorgan'],
+    ['blackrock','blackrock'],['citadel','citadel'],['bloomberg','bloomberg'],
+    ['salesforce','salesforce'],['oracle','oracle'],['ibm','ibm'],['cisco','cisco'],
+    ['workday','workday'],['servicenow','servicenow'],['splunk','splunk'],
+    ['nvidia','nvidia'],['qualcomm','qualcomm'],['intel','intel'],['amd','amd'],
+    ['broadcom','broadcom'],['arm ','arm'],
+    ['mckinsey','mckinsey'],['boston consulting','bcg'],['bcg','bcg'],['bain','bain'],
+    ['deloitte','deloitte'],['accenture','accenture'],['pwc','pwc'],['kpmg','kpmg'],
+    ['palantir','palantir'],['lockheed','lockheed'],['raytheon','raytheon'],['booz allen','booz']
+  ];
+
+  for (var i = 0; i < companyNames.length; i++) {
+    if (text.indexOf(companyNames[i][0]) !== -1) {
+      detectedKey = companyNames[i][1];
+      detected = COMPANY_PEDIGREE[detectedKey];
+      break;
+    }
+  }
+
+  // Startup stage detection if no named company found
+  if (!detected) {
+    if (text.indexOf('seed') !== -1 || text.indexOf('pre-seed') !== -1) {
+      detectedKey = '__seed'; detected = COMPANY_PEDIGREE['__seed'];
+    } else if (text.indexOf('series a') !== -1) {
+      detectedKey = '__series_a'; detected = COMPANY_PEDIGREE['__series_a'];
+    } else if (text.indexOf('series b') !== -1) {
+      detectedKey = '__series_b'; detected = COMPANY_PEDIGREE['__series_b'];
+    } else if (text.indexOf('series c') !== -1 || text.indexOf('series d') !== -1) {
+      detectedKey = '__series_c'; detected = COMPANY_PEDIGREE['__series_c'];
+    } else if (text.indexOf('ipo') !== -1 || text.indexOf('pre-ipo') !== -1 || text.indexOf('unicorn') !== -1) {
+      detectedKey = '__late'; detected = COMPANY_PEDIGREE['__late'];
+    } else if (text.indexOf('startup') !== -1 || text.indexOf('early stage') !== -1) {
+      detectedKey = '__startup'; detected = COMPANY_PEDIGREE['__startup'];
+    }
+  }
+
+  return {key: detectedKey, data: detected};
+}
+
+function autoScoreResume(ci) {
+  var cand = scCandidates[ci];
+  if (!cand) return;
+  var resumeText = cand.resume.toLowerCase();
+  var required = window._scRequiredSkills || [];
+  var sourceRole = document.getElementById('sourcing-role') ? document.getElementById('sourcing-role').value : 'swe';
+
+  // ── 1. Skills keyword matching ──
+  var matched = [], missed = [];
+  for (var i = 0; i < required.length; i++) {
+    if (resumeText.indexOf(required[i]) !== -1) matched.push(required[i]);
+    else missed.push(required[i]);
+  }
+  cand._detectedSkills = matched;
+  cand._missedSkills = missed;
+  if (required.length > 0) {
+    cand.scores[0] = Math.round((matched.length / Math.max(required.length, 1)) * 100);
+  }
+
+  // ── 2. Seniority from years of experience ──
+  var yoeRaw = resumeText.match(/(\d{1,2})\+?\s*years?\s*(of\s*)?(experience|exp)/i);
+  if (!yoeRaw) yoeRaw = resumeText.match(/(\d{1,2})\+?\s*years?\s*(of\s*)?(industry|professional|relevant)/i);
+  if (yoeRaw) {
+    var yrs = parseInt(yoeRaw[1]);
+    cand._detectedYoe = yrs;
+    cand.scores[1] = yrs >= 10 ? 92 : yrs >= 8 ? 85 : yrs >= 5 ? 75 : yrs >= 3 ? 60 : 45;
+  }
+
+  // ── 3. Company detection — pedigree + scale scoring ──
+  var coResult = detectCompanyFromResume(resumeText);
+  cand._detectedCompany = null;
+  cand._companyMismatchProbes = [];
+
+  if (coResult.data) {
+    cand._detectedCompany = coResult.data;
+    cand._detectedCompanyKey = coResult.key;
+
+    // Score Company Pedigree (dim index 3)
+    cand.scores[3] = coResult.data.score;
+
+    // Score Scope & Scale (dim index 2)
+    cand.scores[2] = coResult.data.scaleScore;
+
+    // Industry/scale mismatch probes
+    var coType = coResult.data.type;
+    var mismatchMap = INDUSTRY_MISMATCH_PROBES[coType];
+    if (mismatchMap) {
+      var roleKey = sourceRole || 'swe';
+      // Simplify role key
+      if (roleKey === 'em') roleKey = 'em';
+      else if (roleKey === 'pm') roleKey = 'pm';
+      else roleKey = 'swe';
+      var probes = mismatchMap[roleKey] || mismatchMap['swe'] || [];
+      if (probes.length) {
+        cand._companyMismatchProbes = probes;
+        // Penalise pedigree score for strong mismatches
+        if (['Consulting','Finance','Defense','Enterprise'].indexOf(coType) !== -1) {
+          if (['swe','em'].indexOf(sourceRole) !== -1) {
+            cand.scores[3] = Math.max(35, cand.scores[3] - 10);
+            cand.scores[2] = Math.max(25, cand.scores[2] - 8);
+          }
+        }
+      }
+    }
+  }
+
+  renderCandidates();
+}
+
+function getBarColor(score) {
+  if (score >= 80) return '#1D9E75';
+  if (score >= 65) return '#378ADD';
+  if (score >= 45) return '#EF9F27';
+  return '#E24B4A';
+}
+
+function getScoreColor(score) {
+  if (score >= 80) return '#085041';
+  if (score >= 65) return '#185FA5';
+  if (score >= 45) return '#854F0B';
+  return '#791F1F';
+}
+
+function getVerdict(score) {
+  if (score >= 80) return {text:'Advance to screen', cls:'verdict-advance'};
+  if (score >= 65) return {text:'Review — probe signals', cls:'verdict-review'};
+  return {text:'Pass — gaps identified', cls:'verdict-pass'};
+}
+
+function getProbeLevel(score) {
+  if (score < 50) return 'low';
+  if (score < 75) return 'mid';
+  return null;
+}
+
+function scoreAll() {
+  var totalWeight = 0;
+  for (var i=0;i<SC_DIMENSIONS.length;i++) totalWeight += SC_DIMENSIONS[i].weight;
+  if (totalWeight === 0) return;
+
+  var scored = [];
+  for (var ci=0;ci<scCandidates.length;ci++) {
+    var cand = scCandidates[ci];
+    var weighted = 0;
+    for (var di=0;di<SC_DIMENSIONS.length;di++) {
+      var s = cand.scores[di] !== undefined ? cand.scores[di] : 50;
+      weighted += s * (SC_DIMENSIONS[di].weight / totalWeight);
+    }
+    scored.push({cand:cand, overall:Math.round(weighted), idx:ci});
+  }
+  scored.sort(function(a,b){ return b.overall - a.overall; });
+
+  document.getElementById('sc-results').style.display = 'block';
+  var html = '';
+  for (var ri=0;ri<scored.length;ri++) {
+    var item = scored[ri];
+    var cand = item.cand;
+    var overall = item.overall;
+    var verdict = getVerdict(overall);
+    var candName = cand.name || 'Candidate '+(item.idx+1);
+    var isTop = ri === 0;
+
+    html += '<div style="background:var(--surface);border:1px solid '+(isTop?'var(--primary)':'var(--border)')+';border-width:'+(isTop?'1.5px':'1px')+';border-radius:12px;padding:1rem 1.125rem;margin-bottom:.875rem;">';
+
+    // Header
+    html += '<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:1rem;">';
+    html += '<div style="display:flex;align-items:center;gap:10px;">';
+    if (isTop) html += '<span style="font-size:10px;font-weight:700;background:var(--primary);color:white;padding:2px 8px;border-radius:20px;">#1</span>';
+    else html += '<span style="font-size:10px;font-weight:700;color:var(--text-3);background:var(--border);padding:2px 8px;border-radius:20px;">#'+(ri+1)+'</span>';
+    html += '<div><div style="font-size:15px;font-weight:600;color:var(--text);">'+candName+'</div>';
+    if (cand.summary) html += '<div style="font-size:12px;color:var(--text-2);margin-top:2px;font-style:italic;">'+cand.summary+'</div>';
+    html += '</div></div>';
+    html += '<div style="text-align:right;"><div style="font-size:26px;font-weight:700;color:'+getScoreColor(overall)+';">'+overall+'</div>';
+    html += '<span class="verdict-badge '+verdict.cls+'">'+verdict.text+'</span></div>';
+    html += '</div>';
+
+    // Overall bar
+    html += '<div style="background:var(--border);border-radius:20px;height:7px;overflow:hidden;margin-bottom:1rem;">';
+    html += '<div style="width:'+overall+'%;height:100%;border-radius:20px;background:'+getBarColor(overall)+';"></div></div>';
+
+    // Company context card
+    if (cand._detectedCompany) {
+      var co = cand._detectedCompany;
+      var isMismatch = cand._companyMismatchProbes && cand._companyMismatchProbes.length > 0;
+      var cardBg = isMismatch ? 'var(--warning-light)' : 'var(--success-light)';
+      var cardBorder = isMismatch ? '#fcd34d' : '#6ee7b7';
+      var cardColor = isMismatch ? '#92400e' : '#065f46';
+      html += '<div style="background:'+cardBg+';border:1px solid '+cardBorder+';border-radius:9px;padding:9px 12px;margin-bottom:10px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;">';
+      html += '<div>';
+      html += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:'+cardColor+';margin-bottom:3px;">Detected company background</div>';
+      html += '<div style="font-size:13px;font-weight:600;color:'+cardColor+';">'+co.type+'</div>';
+      html += '<div style="font-size:11px;color:'+cardColor+';margin-top:2px;">Known scale: '+co.scale+'</div>';
+      if (isMismatch) html += '<div style="font-size:11px;color:#92400e;margin-top:3px;font-weight:600;">Industry mismatch detected — see probes below</div>';
+      html += '</div>';
+      html += '<div style="text-align:right;">';
+      html += '<div style="font-size:10px;color:'+cardColor+';">Pedigree</div>';
+      html += '<div style="font-size:20px;font-weight:700;color:'+cardColor+';">'+co.score+'</div>';
+      html += '</div></div>';
+
+      // Industry mismatch probe box
+      if (isMismatch) {
+        html += '<div style="background:#FAEEDA;border:1px solid #fcd34d;border-radius:8px;padding:9px 11px;margin-bottom:10px;">';
+        html += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#92400e;margin-bottom:6px;">Industry mismatch — probe these before advancing</div>';
+        for (var pi=0;pi<cand._companyMismatchProbes.length;pi++) {
+          html += '<div style="font-size:12px;color:#633806;line-height:1.55;margin-bottom:5px;padding-left:8px;border-left:2px solid #fcd34d;">'+cand._companyMismatchProbes[pi]+'</div>';
+        }
+        html += '</div>';
+      }
+    }
+
+    // Per-dimension breakdown
+    html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;">';
+    for (var di=0;di<SC_DIMENSIONS.length;di++) {
+      var dimScore = cand.scores[di] !== undefined ? cand.scores[di] : 50;
+      var probeLevel = getProbeLevel(dimScore);
+      var dimProbes = probeLevel && SC_DIMENSIONS[di].probes && SC_DIMENSIONS[di].probes[probeLevel] ? SC_DIMENSIONS[di].probes[probeLevel] : [];
+
+      // Detected / missed skills for skills dim
+      var detectedHtml = '';
+      if (di === 0 && cand._detectedSkills && cand._detectedSkills.length) {
+        detectedHtml += '<div style="margin-top:4px;">';
+        for (var k=0;k<Math.min(cand._detectedSkills.length,4);k++) detectedHtml += '<span class="keyword-chip" style="font-size:10px;">'+cand._detectedSkills[k]+'</span>';
+        if (cand._missedSkills && cand._missedSkills.length) {
+          for (var k=0;k<Math.min(cand._missedSkills.length,3);k++) detectedHtml += '<span class="keyword-chip keyword-miss" style="font-size:10px;">'+cand._missedSkills[k]+'</span>';
+        }
+        detectedHtml += '</div>';
+      }
+
+      html += '<div style="background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:9px 10px;">';
+      html += '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">';
+      html += '<span style="font-size:11px;color:var(--text-2);">'+SC_DIMENSIONS[di].name+'</span>';
+      html += '<span style="font-size:13px;font-weight:700;color:'+getScoreColor(dimScore)+';">'+dimScore+'</span>';
+      html += '</div>';
+      html += '<div style="background:var(--border);border-radius:20px;height:5px;overflow:hidden;">';
+      html += '<div style="width:'+dimScore+'%;height:100%;border-radius:20px;background:'+getBarColor(dimScore)+';"></div></div>';
+      html += detectedHtml;
+
+      // Probing questions
+      if (dimProbes.length) {
+        html += '<div class="probe-box" style="margin-top:6px;">';
+        html += '<div class="probe-box-title">'+(probeLevel === 'low' ? 'Probe — weak signal' : 'Probe — mixed signal')+'</div>';
+        for (var pi=0;pi<Math.min(dimProbes.length,3);pi++) {
+          html += '<div class="probe-q">'+dimProbes[pi]+'</div>';
+        }
+        html += '</div>';
+      }
+      html += '</div>';
+    }
+    html += '</div>';
+    html += '</div>';
+  }
+
+  document.getElementById('sc-results-content').innerHTML = html;
+}
+
 </script>
 </body>
 </html>
