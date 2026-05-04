@@ -32,21 +32,11 @@ body {
   -webkit-font-smoothing: antialiased; overflow-x: hidden;
 }
 .container { max-width: 880px; margin: 0 auto; width: 100%; }
-header { margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+header { margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
 .logo-mark { width: 38px; height: 38px; flex-shrink: 0; background: linear-gradient(135deg, #6c47ff 0%, #9333ea 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
 .logo-mark svg { width: 20px; height: 20px; fill: none; stroke: white; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .header-text h1 { font-size: 17px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
 .header-text p { font-size: 11px; color: var(--text-2); margin-top: 2px; }
-
-.api-key-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--primary); border-radius: 12px; padding: 1rem 1.125rem; margin-bottom: 1rem; box-shadow: var(--shadow); }
-.api-key-row { display: flex; gap: 8px; align-items: stretch; margin-top: 6px; }
-.api-key-row input { flex: 1; padding: 12px 13px; background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px; font-size: 15px; color: var(--text); font-family: inherit; min-width: 0; appearance: none; -webkit-appearance: none; }
-.api-key-row input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(108,71,255,0.12); }
-.api-key-note { font-size: 11px; color: var(--text-3); margin-top: 6px; line-height: 1.5; }
-.api-key-note a { color: var(--primary); text-decoration: none; }
-.api-key-status { font-size: 12px; margin-top: 5px; min-height: 16px; font-weight: 500; }
-.api-key-status.ok { color: #065f46; }
-.api-key-status.err { color: #991b1b; }
 
 .tabs { display: flex; gap: 4px; margin-bottom: 1rem; padding: 4px; background: var(--surface); border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
 .tabs::-webkit-scrollbar { display: none; }
@@ -74,30 +64,18 @@ button { width: 100%; padding: 14px 20px; border-radius: 10px; font-size: 14px; 
 @media (min-width: 480px) { button { width: auto; } }
 .btn-primary { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 2px 8px rgba(108,71,255,0.3); }
 .btn-primary:active { background: var(--primary-dark); transform: scale(0.98); }
-.btn-primary:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
 .btn-ghost { background: var(--surface); color: var(--text-2); border-color: var(--border-2); }
 .btn-ghost:active { background: var(--primary-light); color: var(--primary); }
-.btn-ai { background: var(--accent-light); color: #0e7490; border-color: #a5f3fc; }
-.btn-ai:active { background: #cffafe; transform: scale(0.98); }
-.btn-ai:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
-.btn-save { background: var(--primary); color: white; border-color: var(--primary); padding: 12px 16px; white-space: nowrap; }
-.btn-save:active { background: var(--primary-dark); }
 
 .divider { display: flex; align-items: center; gap: 10px; margin: 1rem 0; color: var(--text-3); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
 .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--primary); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
 .section-label::before { content: ''; width: 3px; height: 13px; background: var(--primary); border-radius: 2px; display: inline-block; }
 
-.parsing-status { font-size: 13px; color: var(--primary); margin-top: 8px; min-height: 20px; display: flex; align-items: center; gap: 6px; font-weight: 500; }
-.spinner { width: 14px; height: 14px; border: 2px solid var(--primary-light); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.7s linear infinite; display: none; flex-shrink: 0; }
-.spinner.active { display: inline-block; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
 .banner { border-radius: 10px; padding: 11px 14px; font-size: 13px; margin-bottom: 1rem; display: none; line-height: 1.5; font-weight: 500; }
 .banner.visible { display: block; }
 .banner-green { background: var(--success-light); border: 1px solid #6ee7b7; color: #065f46; }
 .banner-yellow { background: var(--warning-light); border: 1px solid #fcd34d; color: #92400e; }
-.banner-red { background: var(--danger-light); border: 1px solid #fca5a5; color: #991b1b; }
 
 .result-wrap { margin-top: 0.875rem; }
 .result-header { font-size: 13px; color: var(--text-2); margin-bottom: 10px; font-weight: 500; line-height: 1.5; }
@@ -118,9 +96,6 @@ tr:last-child td { border-bottom: none; }
 
 .note { font-size: 13px; color: var(--text-2); margin-top: 1rem; line-height: 1.7; background: var(--bg); padding: 12px 14px; border-radius: 10px; border: 1px solid var(--border); }
 .note strong { color: var(--primary); }
-.ai-insight { margin-top: 0.875rem; background: var(--primary-light); border: 1px solid var(--border-2); border-radius: 10px; padding: 12px 14px; font-size: 13px; color: var(--text); line-height: 1.7; display: none; }
-.ai-insight.visible { display: block; }
-.ai-insight-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--primary); margin-bottom: 6px; }
 
 .empty { text-align: center; padding: 2rem 1rem; color: var(--text-3); font-size: 13px; border: 1.5px dashed var(--border-2); border-radius: 12px; background: var(--surface); line-height: 1.5; }
 
@@ -130,10 +105,21 @@ tr:last-child td { border-bottom: none; }
 .stat-val { font-size: 16px; font-weight: 700; color: var(--text); display: block; margin-top: 4px; line-height: 1.3; }
 .stat-label { font-size: 10px; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
 
-.ai-output { margin-top: 0.875rem; padding: 14px; border-radius: 10px; background: var(--bg); border: 1px solid var(--border); font-size: 14px; color: var(--text); line-height: 1.8; display: none; white-space: pre-wrap; word-break: break-word; }
-.ai-output.visible { display: block; }
-.ai-output-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--primary); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-.ai-output-label::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--primary); display: inline-block; box-shadow: 0 0 0 3px var(--primary-light); flex-shrink: 0; }
+.output-block { margin-top: 0.875rem; display: none; }
+.output-block.visible { display: block; }
+.output-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.125rem; margin-bottom: 0.75rem; }
+.output-section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--primary); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.output-section-label::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--primary); display: inline-block; box-shadow: 0 0 0 3px var(--primary-light); flex-shrink: 0; }
+.output-section p { font-size: 13px; color: var(--text); line-height: 1.7; }
+.output-section ul { padding-left: 1.1rem; }
+.output-section ul li { font-size: 13px; color: var(--text); line-height: 1.7; margin-bottom: 4px; }
+.output-section ul li:last-child { margin-bottom: 0; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.chip { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; background: var(--primary-light); color: var(--primary); border: 1px solid var(--border-2); }
+.chip-warn { background: var(--warning-light); color: #92400e; border-color: #fcd34d; }
+.chip-green { background: var(--success-light); color: #065f46; border-color: #6ee7b7; }
+
+.parsed-note { font-size: 12px; color: var(--text-2); margin-top: 8px; line-height: 1.5; font-style: italic; }
 </style>
 </head>
 <body>
@@ -148,17 +134,6 @@ tr:last-child td { border-bottom: none; }
       <p>Market Intel · PM Calibration · Sourcing Strategy</p>
     </div>
   </header>
-
-  <!-- API KEY -->
-  <div class="api-key-card">
-    <label for="api-key-input">Anthropic API Key <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-3);font-size:11px;">(required for AI features)</span></label>
-    <div class="api-key-row">
-      <input type="password" id="api-key-input" placeholder="sk-ant-api03-..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-      <button class="btn-save" onclick="saveApiKey()">Save</button>
-    </div>
-    <div id="api-key-status" class="api-key-status"></div>
-    <p class="api-key-note">Your key is only stored in this browser tab and sent directly to Anthropic. Get yours at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>.</p>
-  </div>
 
   <nav class="tabs">
     <button class="tab-btn active" onclick="openTab(event,'tab-intel')">Market Intel</button>
@@ -198,19 +173,14 @@ tr:last-child td { border-bottom: none; }
     <div class="card">
       <div class="section-label">Option 1 — Paste LinkedIn profile</div>
       <div class="field">
-        <textarea id="linkedin-text" placeholder="Paste the candidate's LinkedIn About section or experience. AI will extract company, title, and years of experience automatically..."></textarea>
+        <textarea id="linkedin-text" placeholder="Paste the candidate's LinkedIn About section or experience. The tool will detect their company, title, and experience level automatically..."></textarea>
       </div>
-      <div class="parsing-status">
-        <div class="spinner" id="spinner"></div>
-        <span id="status-text"></span>
-      </div>
-      <div id="linkedin-error" class="banner banner-red" style="margin-bottom:0;margin-top:8px;"></div>
+      <div id="parsed-note" class="parsed-note" style="display:none;"></div>
       <div class="btn-row">
-        <button class="btn-ai" onclick="parseLinkedIn()">Auto-fill from LinkedIn text</button>
+        <button class="btn-primary" onclick="parseLinkedIn()">Parse Profile</button>
       </div>
       <div class="divider">or fill in manually</div>
       <div class="section-label">Option 2 — Enter details manually</div>
-      <div id="parsed-banner" class="banner banner-green"></div>
       <div class="form-row">
         <div class="field">
           <label>Current Company</label>
@@ -240,7 +210,7 @@ tr:last-child td { border-bottom: none; }
         </div>
       </div>
       <div class="btn-row">
-        <button class="btn-primary" onclick="computeLevel()">Show Meta leveling</button>
+        <button class="btn-primary" onclick="computeLevel()">Show Meta Leveling</button>
         <button class="btn-ghost" onclick="resetLeveling()">Clear</button>
       </div>
     </div>
@@ -253,21 +223,31 @@ tr:last-child td { border-bottom: none; }
   <div id="tab-sourcing" class="tab-content">
     <div class="card">
       <div class="field">
-        <label>Job Description or Role Brief</label>
-        <textarea id="jd-input" placeholder="Paste the job description or a brief role description. AI will identify talent clusters, donor companies, and search strategies..."></textarea>
+        <label>Role Type</label>
+        <select id="sourcing-role" onchange="updateSourcingRole()">
+          <option value="">— Select role —</option>
+          <option value="pm">Product Manager (IC)</option>
+          <option value="pm-mgr">PM Manager / Director</option>
+          <option value="apm">APM / Associate PM</option>
+          <option value="tpm">Technical PM / TPM</option>
+          <option value="growth">Growth PM</option>
+          <option value="data">Data / Analytics PM</option>
+          <option value="ai-pm">AI / ML PM</option>
+          <option value="platform">Platform / Infra PM</option>
+        </select>
       </div>
-      <div class="parsing-status">
-        <div class="spinner" id="sourcing-spinner"></div>
-        <span id="sourcing-status"></span>
+      <div class="field">
+        <label>Target Meta Level</label>
+        <select id="sourcing-level" onchange="runSourcing()">
+          <option value="">— Select level —</option>
+          <option value="ic4">IC4 (PM)</option>
+          <option value="ic5">IC5 (Senior PM)</option>
+          <option value="ic6">IC6 (Staff PM)</option>
+          <option value="ic7">IC7 (Group PM / Director)</option>
+          <option value="ic8">IC8 (Director)</option>
+        </select>
       </div>
-      <div id="sourcing-error" class="banner banner-red" style="margin-bottom:0;margin-top:8px;"></div>
-      <div class="btn-row">
-        <button class="btn-primary" id="sourcing-btn" onclick="runSourcing()">Map Talent Clusters</button>
-      </div>
-      <div id="sourcing-output" class="ai-output">
-        <div class="ai-output-label">Sourcing Intelligence</div>
-        <div id="sourcing-content"></div>
-      </div>
+      <div id="sourcing-output" class="output-block"></div>
     </div>
   </div>
 
@@ -275,96 +255,46 @@ tr:last-child td { border-bottom: none; }
   <div id="tab-strategy" class="tab-content">
     <div class="card">
       <div class="field">
-        <label>Candidate Profile Summary</label>
-        <textarea id="profile-snippet" placeholder="Paste a candidate's profile summary, LinkedIn bio, or resume snippet. AI will synthesize a personalized outreach and engagement strategy..."></textarea>
+        <label>Candidate's Current Company Type</label>
+        <select id="strat-company-type" onchange="updateStrategy()">
+          <option value="">— Select type —</option>
+          <option value="faang">FAANG / Big Tech (Google, Apple, Amazon, Meta, Microsoft)</option>
+          <option value="midtech">Mid-size Tech (Stripe, Airbnb, Uber, Snap, etc.)</option>
+          <option value="startup">Startup (Series A–C)</option>
+          <option value="consulting">Consulting (McKinsey, Deloitte, PwC, Accenture)</option>
+          <option value="finance">Finance / Banking (Goldman, JPMorgan, etc.)</option>
+          <option value="nontech">Non-tech / Other Industry</option>
+        </select>
       </div>
-      <div class="parsing-status">
-        <div class="spinner" id="strategy-spinner"></div>
-        <span id="strategy-status"></span>
+      <div class="field">
+        <label>Candidate's Seniority Level</label>
+        <select id="strat-level" onchange="updateStrategy()">
+          <option value="">— Select level —</option>
+          <option value="junior">Junior / Mid-level PM (0–4 yrs)</option>
+          <option value="senior">Senior PM (4–8 yrs)</option>
+          <option value="staff">Staff / Principal PM (8–12 yrs)</option>
+          <option value="director">Director / VP (12+ yrs)</option>
+        </select>
       </div>
-      <div id="strategy-error" class="banner banner-red" style="margin-bottom:0;margin-top:8px;"></div>
-      <div class="btn-row">
-        <button class="btn-primary" id="strategy-btn" onclick="generateStrategy()">Synthesize Strategy</button>
+      <div class="field">
+        <label>Candidate's Likely Motivation</label>
+        <select id="strat-motivation" onchange="updateStrategy()">
+          <option value="">— Select motivation —</option>
+          <option value="scale">Scale & Impact — wants to work on massive products</option>
+          <option value="growth">Career Growth — wants to level up or get promoted</option>
+          <option value="money">Compensation — driven by TC and equity</option>
+          <option value="brand">Brand / Prestige — values the Meta name</option>
+          <option value="mission">Mission / Product — excited about specific Meta products</option>
+          <option value="change">Change — unhappy at current company</option>
+        </select>
       </div>
-      <div id="strategy-output" class="ai-output">
-        <div class="ai-output-label">Engagement Strategy</div>
-        <div id="strategy-content"></div>
-      </div>
+      <div id="strategy-output" class="output-block"></div>
     </div>
   </div>
 
 </div>
 <script>
-var apiKey = "";
-
-function saveApiKey() {
-  var val = document.getElementById("api-key-input").value.trim();
-  var statusEl = document.getElementById("api-key-status");
-  if (!val) { statusEl.textContent = "Please enter a key."; statusEl.className = "api-key-status err"; return; }
-  if (val.indexOf("sk-ant") !== 0) { statusEl.textContent = "That doesn't look like an Anthropic key (should start with sk-ant-)."; statusEl.className = "api-key-status err"; return; }
-  apiKey = val;
-  statusEl.textContent = "Key saved. AI features are now enabled.";
-  statusEl.className = "api-key-status ok";
-}
-
-function getApiKey() {
-  if (!apiKey) {
-    var val = document.getElementById("api-key-input").value.trim();
-    if (val && val.indexOf("sk-ant") === 0) { apiKey = val; }
-  }
-  return apiKey;
-}
-
-function callAPI(prompt, onSuccess, onError) {
-  var key = getApiKey();
-  if (!key) {
-    onError("No API key found. Please enter your Anthropic API key at the top of the page.");
-    return;
-  }
-  fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": key,
-      "anthropic-version": "2023-06-01",
-      "anthropic-dangerous-direct-browser-access": "true"
-    },
-    body: JSON.stringify({
-      model: "claude-sonnet-4-20250514",
-      max_tokens: 1000,
-      messages: [{ role: "user", content: prompt }]
-    })
-  })
-  .then(function(r) {
-    if (!r.ok) {
-      return r.json().then(function(e) {
-        throw new Error(e.error ? e.error.message : "API error " + r.status);
-      });
-    }
-    return r.json();
-  })
-  .then(function(data) {
-    var text = "";
-    for (var i = 0; i < data.content.length; i++) {
-      if (data.content[i].type === "text") { text = data.content[i].text; break; }
-    }
-    onSuccess(text);
-  })
-  .catch(function(err) {
-    onError(err.message || "Something went wrong. Check your API key and connection.");
-  });
-}
-
-function showError(elId, msg) {
-  var el = document.getElementById(elId);
-  if (el) { el.textContent = msg; el.classList.add("visible"); }
-}
-function hideError(elId) {
-  var el = document.getElementById(elId);
-  if (el) { el.textContent = ""; el.classList.remove("visible"); }
-}
-
-/* DATA */
+/* ── DATA ── */
 var levelMap = {
   "Google": ["APM","PM II","Senior PM","Staff PM","Group PM","Director of PM","VP of Product"],
   "Apple": ["New Grad PM","PM","Senior PM","Lead PM","Principal PM","Director of PM","VP of Product"],
@@ -407,16 +337,16 @@ var yoeGrid = [
 var yoeMap = {"0–1":0,"1–2":1,"2–4":2,"4–6":3,"6–9":4,"9–12":5,"12+":6};
 var fitLabels = ["Strong match","Likely match","Possible","Stretch","Reach"];
 var fitBadge = ["badge-match","badge-match","badge-match","badge-stretch","badge-reach"];
+
 var marketData = {
-  "ai":      {scarcity:"Extreme",tenure:"1.8 yrs",donors:"OpenAI, DeepMind, Anthropic",trend:"Heating up. $500K+ TC common.",alert:"Intense counter-offer risk from OpenAI & Anthropic. Move fast — top candidates have 2-3 competing offers."},
-  "product": {scarcity:"High",tenure:"2.6 yrs",donors:"Google, Amazon, Microsoft",trend:"Stable. Technical PM bar rising.",alert:"Meta leveling is conservative vs Google. Candidates often expect IC5+ — set expectations early."},
+  "ai":      {scarcity:"Extreme",tenure:"1.8 yrs",donors:"OpenAI, DeepMind, Anthropic",trend:"Heating up. $500K+ TC common.",alert:"Intense counter-offer risk from OpenAI & Anthropic. Move fast — top candidates have 2–3 competing offers."},
+  "product": {scarcity:"High",tenure:"2.6 yrs",donors:"Google, Amazon, Microsoft",trend:"Stable. Technical PM bar rising.",alert:"Meta leveling is conservative vs Google. Candidates often expect IC5+ — set expectations early in the process."},
   "infra":   {scarcity:"Moderate",tenure:"3.2 yrs",donors:"Google Cloud, AWS, Cloudflare",trend:"Growing with AI infra demand.",alert:"Strong retention at Google Cloud and AWS due to RSU refresh cycles. Flag tenure cliffs."},
   "data":    {scarcity:"High",tenure:"2.1 yrs",donors:"Snowflake, Databricks, Palantir",trend:"AI/ML overlap increasing demand.",alert:"Candidates often pivot to AI PM roles. Validate PM vs analyst background carefully."},
   "design":  {scarcity:"Moderate",tenure:"2.9 yrs",donors:"Apple, Figma, Airbnb",trend:"Stable. Research talent tight.",alert:"Design bar at Meta skews toward systems thinking. Portfolio review is critical."}
 };
-var aiInsight = null;
 
-/* TABS */
+/* ── TABS ── */
 function openTab(evt, tabId) {
   var tabs = document.querySelectorAll(".tab-content");
   var btns = document.querySelectorAll(".tab-btn");
@@ -427,7 +357,7 @@ function openTab(evt, tabId) {
   window.scrollTo(0, 0);
 }
 
-/* MARKET INTEL */
+/* ── MARKET INTEL ── */
 function updateIntel() {
   var d = document.getElementById("intel-domain").value;
   if (!d) return;
@@ -442,7 +372,7 @@ function updateIntel() {
   alertEl.classList.add("visible");
 }
 
-/* PM CALIBRATION */
+/* ── PM CALIBRATION ── */
 function populateLevels(selectedLabel) {
   var co = document.getElementById("company").value;
   var sel = document.getElementById("level");
@@ -459,45 +389,99 @@ function populateLevels(selectedLabel) {
 }
 document.getElementById("company").addEventListener("change", function() { populateLevels(); });
 
+/* LinkedIn keyword parser — no API needed */
+var companyKeywords = {
+  "Google": ["google","youtube","waymo","deepmind"],
+  "Apple": ["apple","cupertino"],
+  "Amazon": ["amazon","aws","whole foods"],
+  "Microsoft": ["microsoft","azure","github","linkedin"],
+  "LinkedIn": ["linkedin"],
+  "Salesforce": ["salesforce","slack","tableau","mulesoft"],
+  "Uber": ["uber"],
+  "Airbnb": ["airbnb"],
+  "Stripe": ["stripe"],
+  "Netflix": ["netflix"],
+  "Twitter / X": ["twitter","x.com"],
+  "Snap": ["snap","snapchat"],
+  "ByteDance / TikTok": ["tiktok","bytedance"],
+  "PwC": ["pwc","pricewaterhousecoopers","price waterhouse"],
+  "Deloitte": ["deloitte"],
+  "McKinsey": ["mckinsey"],
+  "Accenture": ["accenture"],
+  "JPMorgan": ["jpmorgan","jp morgan","chase"],
+  "Goldman Sachs": ["goldman","goldman sachs"]
+};
+var titleKeywords = {
+  0: ["apm","associate product manager","new grad pm","entry"],
+  1: ["product manager ii","pm ii","product manager 2","pm2","product manager,","product manager ","senior product manager","senior pm","staff pm","principal pm","lead pm","group pm","director of product","vp of product","chief product"],
+  2: ["senior product manager","senior pm","sr. pm","sr pm"],
+  3: ["staff product manager","staff pm","principal product manager","principal pm","lead pm","lead product"],
+  4: ["group pm","group product manager","director of product"],
+  5: ["director of product","director, product"],
+  6: ["vp of product","vp, product","chief product officer","cpo"]
+};
+
 function parseLinkedIn() {
-  var text = document.getElementById("linkedin-text").value.trim();
-  if (!text) { setLevelStatus("Please paste some LinkedIn profile text first.", false); return; }
-  hideError("linkedin-error");
-  setLevelStatus("Analyzing profile...", true);
-  document.querySelector(".btn-ai").disabled = true;
+  var text = document.getElementById("linkedin-text").value.trim().toLowerCase();
+  if (!text) { alert("Please paste some profile text first."); return; }
 
-  var prompt = "You are a recruiting specialist. Analyze this LinkedIn profile text and extract the candidate's current information for PM leveling at Meta.\n\nLinkedIn text:\n" + text + "\n\nReturn ONLY a JSON object with no markdown or backticks:\n{\"company\": \"exact company name matching one of: Google, Apple, Amazon, Microsoft, Salesforce, Uber, Airbnb, Stripe, LinkedIn, Netflix, Twitter / X, Snap, ByteDance / TikTok, PwC, Deloitte, McKinsey, Accenture, JPMorgan, Goldman Sachs, Other (large tech), Other (consulting / finance), Other (startup / mid-size)\",\"title\": \"their most recent product or consulting title\",\"yoe\": \"estimated years as one of: 0-1, 1-2, 2-4, 4-6, 6-9, 9-12, 12+\",\"insight\": \"1-2 sentences on how this background maps to Meta PM leveling\",\"confidence\": \"high, medium, or low\"}";
-
-  callAPI(prompt, function(raw) {
-    var parsed;
-    try { parsed = JSON.parse(raw.replace(/```json|```/g, "").trim()); }
-    catch(e) { setLevelStatus("", false); showError("linkedin-error", "Could not parse the profile. Try adding more detail."); document.querySelector(".btn-ai").disabled = false; return; }
-    var compSel = document.getElementById("company");
-    for (var i = 0; i < compSel.options.length; i++) {
-      if (compSel.options[i].value && parsed.company && compSel.options[i].value.toLowerCase() === parsed.company.toLowerCase()) { compSel.value = compSel.options[i].value; break; }
+  var detectedCompany = "";
+  var companyKeys = Object.keys(companyKeywords);
+  for (var c = 0; c < companyKeys.length; c++) {
+    var co = companyKeys[c];
+    var kws = companyKeywords[co];
+    for (var k = 0; k < kws.length; k++) {
+      if (text.indexOf(kws[k]) !== -1) { detectedCompany = co; break; }
     }
-    populateLevels(parsed.title);
-    var yoeSel = document.getElementById("yoe");
-    for (var i = 0; i < yoeSel.options.length; i++) {
-      if (yoeSel.options[i].value === parsed.yoe) { yoeSel.value = yoeSel.options[i].value; break; }
-    }
-    var banner = document.getElementById("parsed-banner");
-    banner.textContent = "Auto-filled: \"" + parsed.title + "\" at " + parsed.company + " · " + parsed.yoe + " yrs · Confidence: " + parsed.confidence;
-    banner.classList.add("visible");
-    aiInsight = parsed.insight || null;
-    setLevelStatus("Profile parsed. Review fields below then tap Show Meta leveling.", false);
-    document.querySelector(".btn-ai").disabled = false;
-  }, function(err) {
-    setLevelStatus("", false);
-    showError("linkedin-error", err);
-    document.querySelector(".btn-ai").disabled = false;
-  });
-}
+    if (detectedCompany) break;
+  }
+  if (!detectedCompany) {
+    if (text.indexOf("startup") !== -1 || text.indexOf("seed") !== -1 || text.indexOf("series a") !== -1) detectedCompany = "Other (startup / mid-size)";
+    else if (text.indexOf("consulting") !== -1 || text.indexOf("consultant") !== -1) detectedCompany = "Other (consulting / finance)";
+    else detectedCompany = "Other (large tech)";
+  }
 
-function setLevelStatus(msg, loading) {
-  document.getElementById("status-text").textContent = msg;
-  var s = document.getElementById("spinner");
-  if (loading) s.classList.add("active"); else s.classList.remove("active");
+  var detectedLevelIdx = -1;
+  var titleKeys = Object.keys(titleKeywords).sort(function(a,b){ return parseInt(b)-parseInt(a); });
+  for (var t = 0; t < titleKeys.length; t++) {
+    var idx = parseInt(titleKeys[t]);
+    var tKws = titleKeywords[idx];
+    for (var k = 0; k < tKws.length; k++) {
+      if (text.indexOf(tKws[k]) !== -1) { detectedLevelIdx = idx; break; }
+    }
+    if (detectedLevelIdx !== -1) break;
+  }
+  if (detectedLevelIdx === -1) detectedLevelIdx = 1;
+
+  var detectedYoe = "2–4";
+  var yoeMatches = text.match(/(\d+)\+?\s*years?/i);
+  if (yoeMatches) {
+    var yrs = parseInt(yoeMatches[1]);
+    if (yrs <= 1) detectedYoe = "0–1";
+    else if (yrs <= 2) detectedYoe = "1–2";
+    else if (yrs <= 4) detectedYoe = "2–4";
+    else if (yrs <= 6) detectedYoe = "4–6";
+    else if (yrs <= 9) detectedYoe = "6–9";
+    else if (yrs <= 12) detectedYoe = "9–12";
+    else detectedYoe = "12+";
+  }
+
+  var compSel = document.getElementById("company");
+  for (var i = 0; i < compSel.options.length; i++) {
+    if (compSel.options[i].value === detectedCompany) { compSel.value = detectedCompany; break; }
+  }
+  populateLevels();
+  var levelSel = document.getElementById("level");
+  if (detectedLevelIdx < levelSel.options.length) levelSel.selectedIndex = detectedLevelIdx + 1;
+
+  var yoeSel = document.getElementById("yoe");
+  for (var i = 0; i < yoeSel.options.length; i++) {
+    if (yoeSel.options[i].value === detectedYoe) { yoeSel.value = detectedYoe; break; }
+  }
+
+  var noteEl = document.getElementById("parsed-note");
+  noteEl.style.display = "block";
+  noteEl.textContent = "Detected: " + detectedCompany + " · " + (levelMap[detectedCompany] ? levelMap[detectedCompany][detectedLevelIdx] : "PM") + " · " + detectedYoe + " yrs. Review the dropdowns below and adjust if needed.";
 }
 
 function computeLevel() {
@@ -537,7 +521,6 @@ function computeLevel() {
   }
   html += '</tbody></table></div>';
   html += '<p class="note"><strong>Recommended target:</strong> ' + top.ml + ' — ' + metaDescriptions[top.i] + '<br><br>Leveling at Meta depends heavily on interview performance and scope signal. Final decisions are made by the hiring committee.</p>';
-  if (aiInsight) html += '<div class="ai-insight visible"><div class="ai-insight-label">AI Leveling Insight</div>' + aiInsight + '</div>';
   html += '</div>';
   document.getElementById("leveling-results").innerHTML = html;
   document.getElementById("leveling-results").scrollIntoView({behavior: "smooth", block: "start"});
@@ -548,68 +531,166 @@ function resetLeveling() {
   document.getElementById("level").innerHTML = '<option value="">— Select level —</option>';
   document.getElementById("yoe").value = "";
   document.getElementById("linkedin-text").value = "";
-  document.getElementById("parsed-banner").classList.remove("visible");
-  hideError("linkedin-error");
+  document.getElementById("parsed-note").style.display = "none";
   document.getElementById("leveling-results").innerHTML = '<div class="empty">Fill in the fields above or paste a LinkedIn summary to see the cross-company level mapping.</div>';
-  setLevelStatus("", false); aiInsight = null;
 }
 
-/* SOURCING */
+/* ── SOURCING ── */
+var sourcingData = {
+  "pm": {
+    clusters: ["IC PMs at Google, Amazon, Microsoft with 3–7 years ownership of consumer or B2B products","Ex-startup founders or early PMs (Series A–C) with 0→1 experience","PMs from high-bar companies (Stripe, Airbnb, Uber) who own full product surfaces"],
+    donors: ["Google (APM program alumni, PM II ready to go Senior)","Amazon (PM II → Senior PM pipeline)","Microsoft (PM → Senior PM track)","Stripe (high-quality product culture, smaller scope)","Airbnb (strong design-thinking, cross-functional experience)"],
+    search: 'LinkedIn: "Product Manager" AND ("launched" OR "roadmap" OR "0 to 1") NOT "project manager"\nBoolean: ("Senior PM" OR "Product Manager") AND (Google OR Amazon OR Microsoft OR Stripe)',
+    watchouts: ["Don't confuse Project Managers with Product Managers — filter for product ownership language","Beware title inflation at mid-size companies — a 'Director of Product' at a 50-person startup may map to IC4 at Meta"]
+  },
+  "pm-mgr": {
+    clusters: ["Group PMs or Directors at FAANG with 2+ direct reports and org-wide influence","PMs who've built and managed PM teams from scratch at scale-ups","Consulting leaders (McKinsey EM, Deloitte Senior Manager) transitioning into product management"],
+    donors: ["Google (Group PM / Director of PM)","Amazon (Principal PM or Director track)","Microsoft (Group PM)","Stripe (Head of Product areas)","LinkedIn (Group PM)"],
+    search: 'LinkedIn: ("Director of Product" OR "Group PM" OR "Head of Product") AND ("managed" OR "built a team" OR "org")\nFilter: 8+ years experience, 50+ person companies',
+    watchouts: ["Verify actual people management vs informal leadership — dig into team size and reporting structure","Director titles vary wildly by company size — a Director at a 20-person startup is not equivalent to Director at Google"]
+  },
+  "apm": {
+    clusters: ["Recent grads from top CS or MBA programs (Stanford, MIT, Harvard, Wharton, Kellogg)","APM program alumni from Google, Microsoft, Uber, Twitter","Early career PMs at startups with 1–2 years of product ownership"],
+    donors: ["Google APM program alumni","Microsoft PM Rotation program","Uber / Airbnb new grad PMs","Top MBA programs with tech PM recruiting pipelines"],
+    search: 'LinkedIn: "Associate Product Manager" OR "APM" AND (Google OR Microsoft OR Uber OR Airbnb)\nFilter: Graduated 2021–2024, Computer Science or MBA',
+    watchouts: ["APM roles at Meta (IC3) are very structured — candidates need to show coachability, not just raw ability","Don't source from non-tech APM programs — bar for product rigor differs significantly"]
+  },
+  "tpm": {
+    clusters: ["Software engineers who transitioned to PM roles with strong technical depth","PMs at infrastructure or developer-tools companies (Cloudflare, Databricks, Confluent)","CS graduates with both engineering and product experience"],
+    donors: ["Google (TL/PM hybrid roles)","AWS (Technical PM / Product Manager)","Cloudflare","Stripe (API/developer experience PMs)","Databricks / Snowflake"],
+    search: 'LinkedIn: ("Technical Product Manager" OR "TPM" OR "Platform PM") AND (AWS OR Google OR Stripe OR Cloudflare)\nBoolean: ("engineer" OR "computer science") AND ("product manager" OR "PM")',
+    watchouts: ["Distinguish Technical PMs from TPMs (Technical Program Managers) — the roles have different skill sets","Don't over-index on engineering depth at the expense of product sense and user empathy"]
+  },
+  "growth": {
+    clusters: ["Growth PMs at consumer-scale companies (Duolingo, Pinterest, Snap, TikTok)","PMs with experimentation and A/B testing ownership at 100M+ user products","Data-driven PMs who own funnel metrics and retention initiatives"],
+    donors: ["Duolingo (strong growth culture)","Pinterest (growth-focused PM org)","Snap (engagement and growth PMs)","TikTok (algorithm-driven growth)","Airbnb (core conversion and retention)"],
+    search: 'LinkedIn: "Growth PM" OR "Growth Product Manager" AND ("A/B test" OR "experimentation" OR "retention" OR "funnel")\nFilter: Companies with 10M+ users',
+    watchouts: ["Growth PMs who only ran experiments without owning outcomes won't clear the Meta bar — look for direct metric ownership","Avoid candidates who frame growth as purely marketing — Meta growth PM is deeply technical"]
+  },
+  "data": {
+    clusters: ["Data PMs at analytics platforms (Tableau, Looker, Databricks, Snowflake)","PMs who own data pipelines, ML features, or internal analytics tooling","Ex-data scientists or analysts who transitioned into PM roles"],
+    donors: ["Databricks","Snowflake","Palantir","Tableau / Salesforce","Google (data infrastructure PMs)"],
+    search: 'LinkedIn: ("Data Product Manager" OR "Analytics PM") AND ("SQL" OR "data pipeline" OR "ML" OR "machine learning")\nBoolean: ("product manager" OR "PM") AND (Databricks OR Snowflake OR Palantir)',
+    watchouts: ["Data PMs often skew too technical — validate they can translate data insights into user-facing product decisions","Don't confuse Data Analysts promoted to PM with PMs who own data products — scope and ownership differ significantly"]
+  },
+  "ai-pm": {
+    clusters: ["PMs who've shipped ML-powered features at scale (recommendations, ranking, GenAI)","PMs from AI-native companies (OpenAI, Anthropic, Cohere, Midjourney)","Research-adjacent PMs who've partnered closely with ML/AI research teams"],
+    donors: ["OpenAI","Anthropic","Google DeepMind","Cohere / Stability AI","Amazon Alexa / Rufus team"],
+    search: 'LinkedIn: ("AI Product Manager" OR "ML PM" OR "GenAI") AND ("shipped" OR "launched" OR "production")\nBoolean: ("product manager" OR "PM") AND ("machine learning" OR "LLM" OR "generative AI")',
+    watchouts: ["High counter-offer risk — OpenAI and Anthropic will aggressively compete for the same candidates","Many candidates claim AI PM experience from thin integrations — probe for real model ownership and deployment decisions"]
+  },
+  "platform": {
+    clusters: ["PMs who've owned developer-facing APIs or internal platform products","Infrastructure PMs at Google (GCP), Amazon (AWS), or Microsoft (Azure)","PMs who've led migration or reliability initiatives for platform products"],
+    donors: ["Google Cloud","AWS","Microsoft Azure","Cloudflare","Confluent / Kafka ecosystem"],
+    search: 'LinkedIn: ("Platform PM" OR "Infrastructure PM" OR "Developer Experience PM") AND (AWS OR Google OR Microsoft OR Cloudflare)\nBoolean: ("API" OR "developer platform" OR "infrastructure") AND ("product manager" OR "PM")',
+    watchouts: ["Platform PMs often struggle with user empathy — validate they've done customer discovery, not just internal stakeholder management","Internal platform roles don't always translate — verify the candidate has driven adoption metrics, not just shipped features"]
+  }
+};
+
+var levelSourcingNotes = {
+  "ic4": "At IC4, prioritize candidates with 2–4 years of ownership. Strong execution signal is more important than strategic vision. Look for scope of product area owned, not just years of experience.",
+  "ic5": "IC5 is the most common target level. Candidates should show cross-functional influence and have owned a meaningful product surface area end-to-end. Google Senior PM and Amazon Senior PM are the clearest equivalents.",
+  "ic6": "IC6 (Staff) is a high bar at Meta. Candidates need demonstrated org-wide influence, not just team-level execution. Look for candidates who've driven strategy beyond their immediate team.",
+  "ic7": "IC7 involves either managing PMs or leading a large product domain. Verify leadership track record — org impact, team influence, and business ownership are critical signals.",
+  "ic8": "IC8 is Director-level. Very few external candidates hit this bar directly. Source from Group PM or Director roles at Google, Amazon, or Microsoft with clear business ownership and org impact."
+};
+
+function updateSourcingRole() { runSourcing(); }
+
 function runSourcing() {
-  var jd = document.getElementById("jd-input").value.trim();
-  if (!jd) { setSourcingStatus("Please paste a job description first.", false); return; }
-  hideError("sourcing-error");
-  setSourcingStatus("Mapping talent clusters...", true);
-  document.getElementById("sourcing-btn").disabled = true;
-  document.getElementById("sourcing-output").classList.remove("visible");
+  var role = document.getElementById("sourcing-role").value;
+  var level = document.getElementById("sourcing-level").value;
+  var outputEl = document.getElementById("sourcing-output");
+  if (!role || !level) { outputEl.classList.remove("visible"); return; }
 
-  var prompt = "You are a senior technical recruiter at Meta. Analyze this job description and produce a sourcing intelligence brief.\n\nJob Description:\n" + jd + "\n\nRespond in plain text (no markdown) with these sections:\nTARGET TALENT CLUSTERS: 2-3 specific candidate profiles to prioritize\nTOP DONOR COMPANIES: 4-5 companies to source from and why\nSEARCH STRATEGY: Specific Boolean or LinkedIn search tips for this role\nWATCH-OUTS: 1-2 common mistakes when sourcing for this role";
+  var data = sourcingData[role];
+  var levelNote = levelSourcingNotes[level];
 
-  callAPI(prompt, function(text) {
-    document.getElementById("sourcing-content").textContent = text || "No response received.";
-    document.getElementById("sourcing-output").classList.add("visible");
-    setSourcingStatus("", false);
-    document.getElementById("sourcing-btn").disabled = false;
-  }, function(err) {
-    setSourcingStatus("", false);
-    showError("sourcing-error", err);
-    document.getElementById("sourcing-btn").disabled = false;
-  });
+  var html = "";
+
+  html += '<div class="output-section"><div class="output-section-label">Level Signal — ' + document.getElementById("sourcing-level").options[document.getElementById("sourcing-level").selectedIndex].text + '</div>';
+  html += '<p>' + levelNote + '</p></div>';
+
+  html += '<div class="output-section"><div class="output-section-label">Target Talent Clusters</div><ul>';
+  for (var i = 0; i < data.clusters.length; i++) html += '<li>' + data.clusters[i] + '</li>';
+  html += '</ul></div>';
+
+  html += '<div class="output-section"><div class="output-section-label">Top Donor Companies</div><div class="chip-row">';
+  for (var i = 0; i < data.donors.length; i++) html += '<span class="chip">' + data.donors[i] + '</span>';
+  html += '</div></div>';
+
+  html += '<div class="output-section"><div class="output-section-label">Search Strategy</div>';
+  html += '<p style="white-space:pre-wrap;font-size:13px;font-family:monospace;background:var(--bg);padding:10px;border-radius:8px;border:1px solid var(--border);line-height:1.7;">' + data.search + '</p></div>';
+
+  html += '<div class="output-section"><div class="output-section-label">Watch-outs</div><ul>';
+  for (var i = 0; i < data.watchouts.length; i++) html += '<li><span class="chip chip-warn" style="margin-right:6px;">!</span>' + data.watchouts[i] + '</li>';
+  html += '</ul></div>';
+
+  outputEl.innerHTML = html;
+  outputEl.classList.add("visible");
 }
 
-function setSourcingStatus(msg, loading) {
-  document.getElementById("sourcing-status").textContent = msg;
-  var s = document.getElementById("sourcing-spinner");
-  if (loading) s.classList.add("active"); else s.classList.remove("active");
-}
+/* ── STRATEGY ── */
+var strategyData = {
+  hooks: {
+    "faang":      "Pitch scope of impact — Meta products touch 3B+ people. Most FAANG candidates want to move to a bigger problem or broader surface area.",
+    "midtech":    "Pitch scale and resources — mid-size tech PMs are often bottlenecked by eng or data. Meta's infra and tooling are world-class.",
+    "startup":    "Pitch stability + scale — startup PMs often want to see what 'done right' looks like at massive scale, with proper research, data, and process.",
+    "consulting": "Pitch ownership and execution — consultants crave real decision-making authority and the ability to ship products, not decks.",
+    "finance":    "Pitch mission and product craft — finance PMs are often drawn to consumer technology and want to work on products people actually use daily.",
+    "nontech":    "Pitch career transformation — frame Meta as the best place to break into tech PM with mentorship, structure, and brand recognition."
+  },
+  objections: {
+    "faang":      ["'Meta's culture feels intense' → Address by sharing examples of team autonomy and recent culture improvements post-2022 reorg","'I'm already at Google/Amazon' → Ask what's missing — most FAANG PMs want scope, not a lateral move. Find the gap.","'Leveling concern' → Be proactive. Set expectations early. Meta tends to level conservatively on external hires."],
+    "midtech":    ["'I love my current team' → Anchor on impact, not environment. Ask what problems they wish they could solve with more resources.","'Meta seems political' → Acknowledge, then share specific team examples with strong PM autonomy.","'Equity risk' → Meta's equity is liquid and predictable vs startup options."],
+    "startup":    ["'I'll lose my equity cliff' → Explore timing — when does their next vest hit? Align offer timing where possible.","'Meta is too big / slow' → Share examples of fast-moving, 0→1 initiatives within Meta (Reels, Threads, AI products).","'I want to be a founder' → Frame Meta as the best product school before founding — network, resources, and scale experience."],
+    "consulting": ["'I don't have product experience' → Reframe their strategy and analytics skills as a strong foundation — be explicit about the growth path.","'Will I be taken seriously?' → Share examples of successful consulting-to-PM transitions at Meta.","'The interview process feels technical' → Prep them early. Share what the PM loop looks like and what to focus on."],
+    "finance":    ["'I don't have a technical background' → Clarify Meta's PM bar — it's product sense and execution, not engineering depth.","'Will I be underpaid vs banking?' → Run the TC comparison honestly. Senior Meta PM TC can match or exceed banking base.","'I don't know Meta's products well' → Give them homework — suggest specific products to dig into before the interview."],
+    "nontech":    ["'Am I even qualified?' → Anchor on transferable skills — user empathy, stakeholder management, data analysis.","'The interview feels intimidating' → Offer to connect them with a recruiter or PM who can share prep resources.","'I'd have to take a step back in seniority' → Reframe this as an investment — most non-tech PMs accelerate quickly once inside."]
+  },
+  timing: {
+    "junior":   "Move fast — junior candidates are typically in multiple pipelines. Complete the loop within 3 weeks of first contact.",
+    "senior":   "Expect a 4–6 week process. Senior candidates will evaluate culture and team fit carefully — give them access to the hiring manager early.",
+    "staff":    "Staff+ candidates have leverage. Be prepared for extended timelines (6–10 weeks), competing offers, and leveling negotiations.",
+    "director": "Director-level searches run 8–16 weeks. Executive alignment is required early. Expect rigorous reference checks and org-fit evaluation."
+  },
+  outreach: {
+    "scale":    "I came across your work on [product/initiative] and immediately thought of a role on our team at Meta. We're building [surface] that touches [X]M+ people — the kind of scale problem that's hard to find anywhere else. Would love to share more.",
+    "growth":   "Your track record of owning [product area] caught my attention. We have a Senior PM opening that's a direct step up in scope and visibility — the kind of move that accelerates careers. Happy to walk you through the path.",
+    "money":    "Meta's PM comp is competitive and transparent — I'd love to share specifics if that's helpful context. We're also hiring for a role that matches your background closely. Worth a 20-minute conversation?",
+    "brand":    "We're building something at Meta that I think would genuinely excite you. The team and the problem are rare — and the Meta brand opens doors you'd notice even beyond this role. Can we connect briefly?",
+    "mission":  "I noticed your background in [area] and thought of our PM opening on [relevant Meta product]. It's rare to find someone with your specific experience — the team would love to talk. 15 minutes?",
+    "change":   "I don't know what your current situation looks like, but your background stood out and I wanted to reach out before the role closed. If you're open to a conversation — even just to learn more — I'd love to connect."
+  }
+};
 
-/* STRATEGY */
-function generateStrategy() {
-  var profile = document.getElementById("profile-snippet").value.trim();
-  if (!profile) { setStrategyStatus("Please paste a candidate profile first.", false); return; }
-  hideError("strategy-error");
-  setStrategyStatus("Synthesizing engagement strategy...", true);
-  document.getElementById("strategy-btn").disabled = true;
-  document.getElementById("strategy-output").classList.remove("visible");
+function updateStrategy() {
+  var coType = document.getElementById("strat-company-type").value;
+  var level = document.getElementById("strat-level").value;
+  var motivation = document.getElementById("strat-motivation").value;
+  var outputEl = document.getElementById("strategy-output");
+  if (!coType || !level || !motivation) { outputEl.classList.remove("visible"); return; }
 
-  var prompt = "You are a senior recruiter at Meta. Analyze this candidate profile and create a personalized outreach and engagement strategy.\n\nCandidate Profile:\n" + profile + "\n\nRespond in plain text (no markdown) with these sections:\nCANDIDATE SNAPSHOT: 2-3 sentences on who this person is and what they care about\nHOOK / OPENING ANGLE: The single most compelling reason Meta would appeal to them\nOUTREACH MESSAGE: A short, personalized 3-4 sentence LinkedIn message to send\nENGAGEMENT STRATEGY: How to move them through the process, key concerns to address, timing, and objection handling\nRISK FACTORS: Likely reasons they might decline and how to preempt them";
+  var hook = strategyData.hooks[coType] || "";
+  var objections = strategyData.objections[coType] || [];
+  var timing = strategyData.timing[level] || "";
+  var outreach = strategyData.outreach[motivation] || "";
 
-  callAPI(prompt, function(text) {
-    document.getElementById("strategy-content").textContent = text || "No response received.";
-    document.getElementById("strategy-output").classList.add("visible");
-    setStrategyStatus("", false);
-    document.getElementById("strategy-btn").disabled = false;
-  }, function(err) {
-    setStrategyStatus("", false);
-    showError("strategy-error", err);
-    document.getElementById("strategy-btn").disabled = false;
-  });
-}
+  var html = "";
 
-function setStrategyStatus(msg, loading) {
-  document.getElementById("strategy-status").textContent = msg;
-  var s = document.getElementById("strategy-spinner");
-  if (loading) s.classList.add("active"); else s.classList.remove("active");
+  html += '<div class="output-section"><div class="output-section-label">Opening Hook</div><p>' + hook + '</p></div>';
+
+  html += '<div class="output-section"><div class="output-section-label">Outreach Message</div>';
+  html += '<p style="background:var(--primary-light);border:1px solid var(--border-2);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.7;color:var(--text);">' + outreach + '</p></div>';
+
+  html += '<div class="output-section"><div class="output-section-label">Timing Guidance</div><p>' + timing + '</p></div>';
+
+  html += '<div class="output-section"><div class="output-section-label">Top Objections to Preempt</div><ul>';
+  for (var i = 0; i < objections.length; i++) html += '<li style="margin-bottom:10px;">' + objections[i] + '</li>';
+  html += '</ul></div>';
+
+  outputEl.innerHTML = html;
+  outputEl.classList.add("visible");
 }
 </script>
 </body>
