@@ -120,6 +120,34 @@ tr:last-child td { border-bottom: none; }
 .chip-green { background: var(--success-light); color: #065f46; border-color: #6ee7b7; }
 
 .parsed-note { font-size: 12px; color: var(--text-2); margin-top: 8px; line-height: 1.5; font-style: italic; }
+
+/* Placement tracker */
+.placement-form { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 1rem; }
+@media (min-width: 600px) { .placement-form { grid-template-columns: 1fr 1fr; } }
+.placement-form input, .placement-form select { width: 100%; padding: 12px 13px; background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px; font-size: 15px; color: var(--text); font-family: inherit; appearance: none; -webkit-appearance: none; }
+.placement-form input:focus, .placement-form select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(108,71,255,0.12); }
+.placement-form input::placeholder { color: var(--text-3); }
+.placement-list { display: flex; flex-direction: column; gap: 10px; margin-top: 1rem; }
+.placement-item { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.placement-item-info h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+.placement-item-info p { font-size: 12px; color: var(--text-2); line-height: 1.5; }
+.placement-item-meta { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+.placement-delete { background: none; border: none; color: var(--text-3); font-size: 18px; cursor: pointer; padding: 0 4px; flex-shrink: 0; width: auto; }
+.placement-delete:active { color: #991b1b; }
+.placement-empty { text-align: center; padding: 2rem 1rem; color: var(--text-3); font-size: 13px; }
+.placement-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
+@media (max-width: 480px) { .placement-stats { grid-template-columns: 1fr 1fr; } }
+
+/* Competitive landscape */
+.comp-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+@media (min-width: 560px) { .comp-grid { grid-template-columns: 1fr 1fr; } }
+.comp-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; }
+.comp-card h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.comp-card p { font-size: 12px; color: var(--text-2); line-height: 1.6; margin-bottom: 6px; }
+.threat-badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; }
+.threat-high { background: var(--danger-light); color: #991b1b; }
+.threat-med { background: var(--warning-light); color: #92400e; }
+.threat-low { background: var(--success-light); color: #065f46; }
 </style>
 </head>
 <body>
@@ -140,6 +168,8 @@ tr:last-child td { border-bottom: none; }
     <button class="tab-btn" onclick="openTab(event,'tab-leveling')">PM Calibration</button>
     <button class="tab-btn" onclick="openTab(event,'tab-sourcing')">Sourcing</button>
     <button class="tab-btn" onclick="openTab(event,'tab-strategy')">Strategy</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-competitive')">Competitive</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-placements')">Placements</button>
   </nav>
 
   <!-- TAB 1: MARKET INTEL -->
@@ -163,7 +193,8 @@ tr:last-child td { border-bottom: none; }
           <div class="stat-card"><span class="stat-label">Top Donors</span><span class="stat-val" id="donor-val" style="font-size:13px;line-height:1.4;margin-top:4px;">—</span></div>
           <div class="stat-card"><span class="stat-label">Market Trend</span><span class="stat-val" id="trend-val" style="font-size:13px;line-height:1.4;margin-top:4px;">—</span></div>
         </div>
-        <div class="banner banner-yellow" style="margin-top:0.875rem;margin-bottom:0;" id="market-alert"></div>
+        <div class="banner banner-yellow" style="margin-top:0.875rem;" id="market-alert"></div>
+        <div id="intel-flow"></div>
       </div>
     </div>
   </div>
@@ -351,11 +382,81 @@ var fitLabels = ["Strong match","Likely match","Possible","Stretch","Reach"];
 var fitBadge = ["badge-match","badge-match","badge-match","badge-stretch","badge-reach"];
 
 var marketData = {
-  "ai":      {scarcity:"Extreme",tenure:"1.8 yrs",donors:"OpenAI, DeepMind, Anthropic",trend:"Heating up. $500K+ TC common.",alert:"Intense counter-offer risk from OpenAI & Anthropic. Move fast — top candidates have 2–3 competing offers."},
-  "product": {scarcity:"High",tenure:"2.6 yrs",donors:"Google, Amazon, Microsoft",trend:"Stable. Technical PM bar rising.",alert:"Meta leveling is conservative vs Google. Candidates often expect IC5+ — set expectations early in the process."},
-  "infra":   {scarcity:"Moderate",tenure:"3.2 yrs",donors:"Google Cloud, AWS, Cloudflare",trend:"Growing with AI infra demand.",alert:"Strong retention at Google Cloud and AWS due to RSU refresh cycles. Flag tenure cliffs."},
-  "data":    {scarcity:"High",tenure:"2.1 yrs",donors:"Snowflake, Databricks, Palantir",trend:"AI/ML overlap increasing demand.",alert:"Candidates often pivot to AI PM roles. Validate PM vs analyst background carefully."},
-  "design":  {scarcity:"Moderate",tenure:"2.9 yrs",donors:"Apple, Figma, Airbnb",trend:"Stable. Research talent tight.",alert:"Design bar at Meta skews toward systems thinking. Portfolio review is critical."}
+  "ai": {
+    scarcity:"Extreme", tenure:"1.8 yrs", donors:"OpenAI, DeepMind, Anthropic", trend:"Heating up. $500K+ TC common.",
+    alert:"Intense counter-offer risk from OpenAI & Anthropic. Move fast — top candidates have 2–3 competing offers.",
+    inflow: [
+      {company:"Google / DeepMind", pct:28, note:"Largest single source. DeepMind PMs bring research-adjacent product depth."},
+      {company:"OpenAI", pct:18, note:"Candidates leaving for stability, scale, or leveling opportunities at Meta."},
+      {company:"Microsoft / Copilot", pct:12, note:"Strong AI PM pipeline post-Copilot launch. Often want faster pace."},
+      {company:"Amazon (Alexa/Rufus)", pct:10, note:"Alexa restructure created a strong outbound pipeline in 2024."},
+      {company:"Anthropic", pct:8, note:"Small org — limited growth paths push candidates to explore."},
+      {company:"Startups (Seed–Series B)", pct:14, note:"AI-native startups that failed or plateaued. Strong technical instincts."},
+      {company:"Other (academia, research labs)", pct:10, note:"PhDs and research scientists transitioning into PM roles."}
+    ],
+    topPaths:["DeepMind PM → Meta AI PM","OpenAI Research PM → Meta FAIR PM","Google Search AI PM → Meta Ranking PM"],
+    watchout:"Many candidates list 'AI experience' from thin integrations. Validate model ownership and production deployment decisions."
+  },
+  "product": {
+    scarcity:"High", tenure:"2.6 yrs", donors:"Google, Amazon, Microsoft", trend:"Stable. Technical PM bar rising.",
+    alert:"Meta leveling is conservative vs Google. Candidates often expect IC5+ — set expectations early in the process.",
+    inflow: [
+      {company:"Google", pct:32, note:"#1 source for Meta PM hires. APM alumni and PM II–Senior PM pipeline."},
+      {company:"Amazon", pct:20, note:"2-year RSU cliff drives outbound. Strong execution and data bar."},
+      {company:"Microsoft", pct:12, note:"More moveable post-Copilot. Teams and legacy Office PMs are easiest."},
+      {company:"Airbnb", pct:8, note:"Strong design-thinking. Often want more scale and resources."},
+      {company:"Stripe", pct:7, note:"High product craft. Move when they want consumer scale."},
+      {company:"Startups (Series A–C)", pct:13, note:"Founders and early PMs who want to see product at scale."},
+      {company:"Other FAANG / Big Tech", pct:8, note:"Apple, LinkedIn, Netflix PMs seeking broader product ownership."}
+    ],
+    topPaths:["Google Senior PM → Meta IC5","Amazon Principal PM → Meta IC6","Startup Head of Product → Meta IC5"],
+    watchout:"Google PMs often expect lateral or upward leveling. Set expectations early — Meta consistently levels conservatively on external hires."
+  },
+  "infra": {
+    scarcity:"Moderate", tenure:"3.2 yrs", donors:"Google Cloud, AWS, Cloudflare", trend:"Growing with AI infra demand.",
+    alert:"Strong retention at Google Cloud and AWS due to RSU refresh cycles. Flag tenure cliffs.",
+    inflow: [
+      {company:"AWS", pct:30, note:"Largest pipeline. RSU cliff at 2 years creates sourcing windows."},
+      {company:"Google Cloud", pct:22, note:"Strong technical depth. GCP PMs have good platform product instincts."},
+      {company:"Cloudflare", pct:12, note:"Developer-focused PMs with edge infrastructure experience."},
+      {company:"Microsoft Azure", pct:10, note:"Steady pipeline. Less moveable due to WLB and stability culture."},
+      {company:"Databricks / Snowflake", pct:10, note:"Data infra PMs with strong analytics and pipeline product experience."},
+      {company:"Startups (infra/DevTools)", pct:10, note:"Confluent, HashiCorp, Temporal alumni with strong technical product depth."},
+      {company:"Other", pct:6, note:"Smaller cloud vendors and internal infra PMs from non-tech companies."}
+    ],
+    topPaths:["AWS Senior PM → Meta Infrastructure IC5","Google Cloud PM → Meta Platform IC5","Cloudflare PM → Meta Developer Experience IC4"],
+    watchout:"Infra PMs often have limited consumer product instincts. Validate they can translate technical decisions into user and developer-facing outcomes."
+  },
+  "data": {
+    scarcity:"High", tenure:"2.1 yrs", donors:"Snowflake, Databricks, Palantir", trend:"AI/ML overlap increasing demand.",
+    alert:"Candidates often pivot to AI PM roles. Validate PM vs analyst background carefully.",
+    inflow: [
+      {company:"Databricks", pct:22, note:"Strong data product instincts. PMs understand the full analytics stack."},
+      {company:"Snowflake", pct:18, note:"Cloud data warehouse PMs with enterprise and self-serve experience."},
+      {company:"Palantir", pct:14, note:"Unique data/government background. Strong analytical rigor, less consumer sense."},
+      {company:"Google (BigQuery/Looker)", pct:12, note:"Strong technical depth and data product experience."},
+      {company:"Tableau / Salesforce", pct:10, note:"BI and visualization PMs. Good enterprise B2B experience."},
+      {company:"Ex-data scientists", pct:14, note:"Analysts and scientists who've transitioned to PM. Strong on data, lighter on product sense."},
+      {company:"Other", pct:10, note:"Internal data PMs from finance, healthcare, and retail industries."}
+    ],
+    topPaths:["Databricks PM → Meta Data Infrastructure IC5","Palantir PM → Meta Internal Tools IC4","Google BigQuery PM → Meta Analytics IC5"],
+    watchout:"Distinguish PMs who own data products vs analysts who were promoted into PM roles. Ownership language and shipping cadence are key differentiators."
+  },
+  "design": {
+    scarcity:"Moderate", tenure:"2.9 yrs", donors:"Apple, Figma, Airbnb", trend:"Stable. Research talent tight.",
+    alert:"Design bar at Meta skews toward systems thinking. Portfolio review is critical.",
+    inflow: [
+      {company:"Apple", pct:28, note:"Strong craft and systems design instincts. Often want more product voice and autonomy."},
+      {company:"Airbnb", pct:20, note:"Best-in-class design culture. PMs here have exceptional cross-functional instincts."},
+      {company:"Figma", pct:16, note:"Small team, strong design-systems depth. Often want more scale and user reach."},
+      {company:"Google (Material/Design)", pct:12, note:"Systems-level design PMs with large-scale product experience."},
+      {company:"Spotify", pct:8, note:"Strong consumer design culture and audio/media product experience."},
+      {company:"Startups (design-led)", pct:10, note:"Design-first consumer startups with strong craft bar."},
+      {company:"Other", pct:6, note:"In-house design leads from non-tech companies transitioning into tech PM."}
+    ],
+    topPaths:["Apple Design PM → Meta Design Systems IC5","Figma PM → Meta Creative Tools IC4","Airbnb Senior PM → Meta Consumer IC5"],
+    watchout:"Design PMs from Apple often struggle with Meta's speed and iteration culture. Probe for comfort with ambiguity and rapid shipping cycles."
+  }
 };
 
 /* ── TABS ── */
@@ -382,6 +483,43 @@ function updateIntel() {
   var alertEl = document.getElementById("market-alert");
   alertEl.textContent = data.alert;
   alertEl.classList.add("visible");
+
+  var flowEl = document.getElementById("intel-flow");
+  var h = "";
+  h += "<div style='margin-top:0;border-radius:10px;border:1px solid var(--border);padding:12px 14px;background:var(--surface);'>";
+  h += "<div style='font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--primary);margin-bottom:6px;display:flex;align-items:center;gap:6px;'>";
+  h += "<span style='width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;box-shadow:0 0 0 3px var(--primary-light);flex-shrink:0;'></span>Where Candidates Are Coming From</div>";
+  h += "<p style='font-size:12px;color:var(--text-2);margin-bottom:14px;'>Estimated inflow composition into Meta PM roles for this segment.</p>";
+
+  for (var i = 0; i < data.inflow.length; i++) {
+    var item = data.inflow[i];
+    h += "<div style='margin-bottom:13px;'>";
+    h += "<div style='display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;'>";
+    h += "<span style='font-size:13px;font-weight:600;color:var(--text);'>" + item.company + "</span>";
+    h += "<span style='font-size:12px;font-weight:700;color:var(--primary);'>" + item.pct + "%</span>";
+    h += "</div>";
+    h += "<div style='background:var(--border);border-radius:20px;height:8px;overflow:hidden;margin-bottom:5px;'>";
+    h += "<div style='background:var(--primary);height:100%;border-radius:20px;width:" + item.pct + "%;'></div>";
+    h += "</div>";
+    h += "<p style='font-size:11px;color:var(--text-2);line-height:1.4;'>" + item.note + "</p>";
+    h += "</div>";
+  }
+
+  h += "<div style='margin-top:12px;padding-top:12px;border-top:1px solid var(--border);'>";
+  h += "<div style='font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--primary);margin-bottom:8px;'>Common Career Paths Into Meta</div>";
+  for (var i = 0; i < data.topPaths.length; i++) {
+    h += "<div style='font-size:12px;color:var(--primary-dark);background:var(--primary-light);border-radius:8px;padding:7px 10px;margin-bottom:5px;border:1px solid var(--border-2);font-weight:500;'>" + data.topPaths[i] + "</div>";
+  }
+  h += "</div>";
+
+  h += "<div style='margin-top:10px;padding:9px 12px;background:var(--danger-light);border-radius:8px;border:1px solid #fca5a5;'>";
+  h += "<div style='font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#991b1b;margin-bottom:4px;'>Researcher Watch-out</div>";
+  h += "<p style='font-size:12px;color:#991b1b;line-height:1.5;'>" + data.watchout + "</p>";
+  h += "</div>";
+  h += "</div>";
+  flowEl.innerHTML = h;
+}
+
 }
 
 /* ── PM CALIBRATION ── */
@@ -683,6 +821,39 @@ function runSourcing() {
   for (var i = 0; i < data.watchouts.length; i++) html += '<li><span class="chip chip-warn" style="margin-right:6px;">!</span>' + data.watchouts[i] + '</li>';
   html += '</ul></div>';
 
+  // Top 15 competitors with specific teams
+  var relevant = compData.filter(function(c) { return c.roles.indexOf(role) !== -1; });
+  var sorted = relevant.sort(function(a,b) {
+    var order = {high:0, med:1, low:2};
+    return order[a.threat] - order[b.threat];
+  });
+  // Fill to 15 by adding remaining companies not yet in list
+  var allSorted = compData.slice().sort(function(a,b) { var o={high:0,med:1,low:2}; return o[a.threat]-o[b.threat]; });
+  for (var i = 0; i < allSorted.length && sorted.length < 15; i++) {
+    var found = false;
+    for (var j = 0; j < sorted.length; j++) { if (sorted[j].name === allSorted[i].name) { found = true; break; } }
+    if (!found) sorted.push(allSorted[i]);
+  }
+  sorted = sorted.slice(0, 15);
+
+  html += '<div class="output-section"><div class="output-section-label">Top 15 Competitors — Specific Teams to Target</div>';
+  html += '<p style="font-size:12px;color:var(--text-2);margin-bottom:10px;">Ranked by competitive threat. Zero in on these specific teams for highest-quality candidates.</p>';
+  for (var i = 0; i < sorted.length; i++) {
+    var c = sorted[i];
+    var threatClass = c.threat === "high" ? "threat-high" : c.threat === "med" ? "threat-med" : "threat-low";
+    var threatLabel = c.threat === "high" ? "High" : c.threat === "med" ? "Med" : "Low";
+    html += '<div style="display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);';    if (i === sorted.length - 1) html += 'border-bottom:none;';
+    html += '"><div style="min-width:22px;font-size:12px;font-weight:700;color:var(--text-3);padding-top:1px;">' + (i+1) + '</div>';
+    html += '<div style="flex:1">';
+    html += '<div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;"><strong style="font-size:13px;">' + c.name + '</strong><span class="threat-badge ' + threatClass + '">' + threatLabel + '</span></div>';
+    html += '<div class="chip-row">';
+    for (var t = 0; t < c.teams.length; t++) html += '<span class="chip" style="font-size:11px;padding:2px 8px;">' + c.teams[t] + '</span>';
+    html += '</div>';
+    html += '<p style="font-size:11px;color:var(--text-2);margin-top:5px;font-style:italic;">' + c.intel + '</p>';
+    html += '</div></div>';
+  }
+  html += '</div>';
+
   outputEl.innerHTML = html;
   outputEl.classList.add("visible");
 }
@@ -749,6 +920,197 @@ function updateStrategy() {
   outputEl.innerHTML = html;
   outputEl.classList.add("visible");
 }
+
+/* ── COMPETITIVE LANDSCAPE ── */
+var compData = [
+  {name:"Google",roles:["pm","ai-pm","platform","growth","pm-mgr"],threat:"high",pm_bar:"Extremely high. Google PMs are well-trained but often scope-limited. Strong analytical rigor.",teams:["Search PM","YouTube PM","Google Cloud PM","DeepMind PM","Ads PM"],retention:"RSU refresh every year after 4yr cliff. Strong counter-offer culture.",intel:"Google systematically counter-offers with 20-30% equity bumps. Always ask about unvested RSUs before extending offer."},
+  {name:"OpenAI",roles:["pm","ai-pm"],threat:"high",pm_bar:"Very high and growing. Mission-driven PMs with deep AI product sense. Hard to pull — most are true believers.",teams:["ChatGPT PM","API Platform PM","Safety PM","Enterprise PM","Research PM"],retention:"Equity upside is the main hook — candidates believe in the mission and the potential payout.",intel:"Counter-offer risk is extreme. OpenAI moves fast and will match or exceed Meta TC. Lead with scope and scale, not comp."},
+  {name:"Anthropic",roles:["pm","ai-pm"],threat:"high",pm_bar:"High. Smaller org, researchers have outsized influence. PMs here are often ex-Google or OpenAI.",teams:["Claude PM","API PM","Enterprise PM","Safety PM"],retention:"Mission-driven retention. Smaller team means more autonomy and direct research access.",intel:"Same counter-offer risk as OpenAI. Candidates choosing between Anthropic and Meta often want to understand Meta's AI ambition — come prepared."},
+  {name:"Amazon",roles:["pm","platform","pm-mgr"],threat:"med",pm_bar:"Strong execution bar. Amazon PMs write 6-pagers and think in customer-backwards. Can feel process-heavy.",teams:["AWS PM","Alexa PM","Prime Video PM","Advertising PM","Devices PM"],retention:"Unusual RSU schedule (20/20/60) creates tenure cliffs at 2 years. Good sourcing window at the 18-month mark.",intel:"Amazon PMs are often ready to leave at year 2 due to the back-loaded equity cliff. Target candidates who are 18-24 months in."},
+  {name:"Microsoft",roles:["pm","ai-pm","platform","pm-mgr"],threat:"med",pm_bar:"Solid but known for slower pace. Copilot/AI division is now attracting stronger talent.",teams:["Copilot PM","Azure PM","Teams PM","Surface PM","LinkedIn PM"],retention:"Microsoft is known for comfort and stability. WLB is a retention tool.",intel:"Post-Copilot launch, Microsoft is retaining AI PMs aggressively. Non-AI PMs are more moveable — target Teams, Bing, or legacy Office PMs."},
+  {name:"Apple",roles:["pm","platform"],threat:"med",pm_bar:"High design and execution bar. PMs have less autonomy than other FAANG — eng-driven culture.",teams:["iOS PM","Services PM","Siri PM","Health PM","Maps PM"],retention:"Apple identity and brand loyalty is strong. Equity is competitive.",intel:"Apple PMs often want more product voice. Lead with Meta's PM-led culture and the ability to own outcomes directly."},
+  {name:"Stripe",roles:["pm","platform","ai-pm"],threat:"med",pm_bar:"Very high product craft. Stripe PMs write extremely well and have strong API/developer intuition.",teams:["Payments PM","Developer Platform PM","Banking-as-a-Service PM","Radar PM","Atlas PM"],retention:"Strong culture retention. Stripe equity is meaningful at current valuation.",intel:"Stripe PMs are moveable if they want scale — Stripe's user base is a fraction of Meta's. Lead with the 3B+ user impact story."},
+  {name:"Airbnb",roles:["pm","growth"],threat:"low",pm_bar:"Strong design-thinking and cross-functional bar. Good user empathy. Smaller org size limits scope.",teams:["Core Product PM","Experiences PM","Payments PM","Trust PM","Host PM"],retention:"Culture and mission (belonging) is a key hook. Equity post-IPO is less of a draw.",intel:"Airbnb PMs are often motivated by craft and culture. Acknowledge what they'd be leaving, then pitch Meta's scale and resources."},
+  {name:"Uber",roles:["pm","growth","platform"],threat:"low",pm_bar:"Good ops and data-driven PM bar. PMs have owned complex marketplace mechanics.",teams:["Rides PM","Eats PM","Driver Platform PM","Freight PM","Maps PM"],retention:"Lower retention risk than FAANG. Equity is less competitive post-restructure.",intel:"Easier to move than FAANG. Good pipeline for Growth and Marketplace PMs. Move fast — Uber PMs are often actively looking."},
+  {name:"LinkedIn",roles:["pm","growth","pm-mgr"],threat:"low",pm_bar:"Good product sense, B2B and social hybrid experience. Owned by Microsoft so process can be slow.",teams:["Feed PM","Jobs PM","Sales Navigator PM","Learning PM","Recruiter Product PM"],retention:"Stability and WLB. Microsoft equity structure.",intel:"LinkedIn PMs have unique B2B/social hybrid skills. Good fit for Meta's business products (WhatsApp Business, Marketplace)."},
+  {name:"Snap",roles:["pm","growth","ai-pm"],threat:"low",pm_bar:"Strong creative and consumer product bar. Company instability has made PMs more open to moves.",teams:["Camera PM","Stories PM","Spotlight PM","Maps PM","AR PM"],retention:"Low — ongoing layoffs and stock performance have eroded retention.",intel:"High movability right now. Snap PMs are actively looking. Target AR, camera, and content discovery PMs for Meta AR/VR and Reels roles."},
+  {name:"ByteDance / TikTok",roles:["pm","growth","ai-pm"],threat:"high",pm_bar:"Extremely data-driven. PMs move fast and ship constantly. High execution velocity.",teams:["TikTok Feed PM","Creator Tools PM","Ads PM","E-commerce PM","LIVE PM"],retention:"Uncertainty around US operations is creating openings. Equity is less certain.",intel:"Regulatory uncertainty is your opening. TikTok PMs are nervous about the future — lean into Meta's stability and scale. Strong growth PM pipeline."},
+  {name:"Netflix",roles:["pm","growth"],threat:"low",pm_bar:"High product bar but very small PM org. PMs are senior and have huge autonomy.",teams:["Streaming PM","Games PM","Ads PM","Personalization PM","Payments PM"],retention:"Strong culture and comp. Freedom and responsibility model is highly valued.",intel:"Very hard to move — Netflix PMs love the autonomy and culture. Only pull if they want scale or are frustrated with the ads pivot."},
+  {name:"Salesforce",roles:["pm","platform","pm-mgr"],threat:"low",pm_bar:"Enterprise B2B bar. Good at stakeholder management and roadmap work. Less consumer intuition.",teams:["Slack PM","Einstein AI PM","CRM PM","Marketing Cloud PM","Tableau PM"],retention:"Post-restructure, retention is lower. Equity less competitive.",intel:"Good pipeline for enterprise and B2B PM roles at Meta (WhatsApp Business, Workplace). Movability is higher after recent layoffs."},
+  {name:"Palantir",roles:["pm","ai-pm","platform"],threat:"low",pm_bar:"Unique — PMs are often called Forward Deployed Engineers. Very data and government-adjacent.",teams:["Gotham PM","Foundry PM","AIP PM","Commercial PM"],retention:"Mission-driven (defense/government) culture. Unusual career profile.",intel:"Palantir PMs have strong data and AI instincts but may lack consumer product sense. Good fit for internal tools or data infrastructure PM roles at Meta."}
+];
+
+function renderCompetitive() {
+  var filter = document.getElementById("comp-filter").value;
+  var out = document.getElementById("comp-output");
+  var filtered = filter === "all" ? compData : compData.filter(function(c) { return c.roles.indexOf(filter) !== -1; });
+
+  var html = '<div class="comp-grid">';
+  for (var i = 0; i < filtered.length; i++) {
+    var c = filtered[i];
+    var threatClass = c.threat === "high" ? "threat-high" : c.threat === "med" ? "threat-med" : "threat-low";
+    var threatLabel = c.threat === "high" ? "High threat" : c.threat === "med" ? "Med threat" : "Low threat";
+    html += '<div class="comp-card">';
+    html += '<h4>' + c.name + ' <span class="threat-badge ' + threatClass + '">' + threatLabel + '</span></h4>';
+    html += '<p><strong style="color:var(--primary);">PM Bar:</strong> ' + c.pm_bar + '</p>';
+    html += '<p><strong style="color:var(--primary);">Key Teams:</strong> ' + c.teams.join(', ') + '</p>';
+    html += '<p><strong style="color:var(--primary);">Retention Hook:</strong> ' + c.retention + '</p>';
+    html += '<p style="background:var(--warning-light);border-radius:7px;padding:7px 10px;border:1px solid #fcd34d;color:#92400e;font-size:12px;margin-top:4px;"><strong>Researcher Intel:</strong> ' + c.intel + '</p>';
+    html += '</div>';
+  }
+  html += '</div>';
+  out.innerHTML = html;
+}
+
+/* ── PLACEMENT TRACKER (localStorage) ── */
+var placements = [];
+
+function loadPlacements() {
+  try {
+    var stored = localStorage.getItem("rih_placements");
+    if (stored) placements = JSON.parse(stored);
+  } catch(e) { placements = []; }
+  renderPlacements();
+}
+
+function savePlacements() {
+  try { localStorage.setItem("rih_placements", JSON.stringify(placements)); } catch(e) {}
+}
+
+function addPlacement() {
+  var name = document.getElementById("p-name").value.trim();
+  var prevCo = document.getElementById("p-prev-co").value.trim();
+  var prevTitle = document.getElementById("p-prev-title").value.trim();
+  var metaLevel = document.getElementById("p-meta-level").value;
+  var metaTeam = document.getElementById("p-meta-team").value.trim();
+  var date = document.getElementById("p-date").value.trim();
+  var notes = document.getElementById("p-notes").value.trim();
+
+  if (!name || !prevCo || !metaLevel) { alert("Please fill in candidate name, previous company, and Meta level at minimum."); return; }
+
+  var placement = { id: Date.now(), name: name, prevCo: prevCo, prevTitle: prevTitle, metaLevel: metaLevel, metaTeam: metaTeam, date: date, notes: notes };
+  placements.unshift(placement);
+  savePlacements();
+  renderPlacements();
+  clearPlacementForm();
+}
+
+function deletePlacement(id) {
+  placements = placements.filter(function(p) { return p.id !== id; });
+  savePlacements();
+  renderPlacements();
+}
+
+function clearPlacementForm() {
+  document.getElementById("p-name").value = "";
+  document.getElementById("p-prev-co").value = "";
+  document.getElementById("p-prev-title").value = "";
+  document.getElementById("p-meta-level").value = "";
+  document.getElementById("p-meta-team").value = "";
+  document.getElementById("p-date").value = "";
+  document.getElementById("p-notes").value = "";
+}
+
+function renderPlacements() {
+  var listEl = document.getElementById("placement-list");
+  var statsRow = document.getElementById("placement-stats-row");
+
+  if (placements.length === 0) {
+    listEl.innerHTML = '<div class="placement-empty">No placements logged yet. Add your first one above.</div>';
+    statsRow.style.display = "none";
+    return;
+  }
+
+  statsRow.style.display = "grid";
+  document.getElementById("stat-total").textContent = placements.length;
+
+  var coCount = {};
+  var levelCount = {};
+  for (var i = 0; i < placements.length; i++) {
+    var p = placements[i];
+    coCount[p.prevCo] = (coCount[p.prevCo] || 0) + 1;
+    levelCount[p.metaLevel] = (levelCount[p.metaLevel] || 0) + 1;
+  }
+  var topCo = Object.keys(coCount).sort(function(a,b){ return coCount[b]-coCount[a]; })[0];
+  var topLevel = Object.keys(levelCount).sort(function(a,b){ return levelCount[b]-levelCount[a]; })[0];
+  document.getElementById("stat-top-source").textContent = topCo || "—";
+  document.getElementById("stat-top-level").textContent = topLevel || "—";
+
+  var html = "";
+  for (var i = 0; i < placements.length; i++) {
+    var p = placements[i];
+    html += '<div class="placement-item">';
+    html += '<div class="placement-item-info">';
+    html += '<h4>' + p.name + '</h4>';
+    html += '<p>' + p.prevTitle + (p.prevTitle ? ' at ' : '') + p.prevCo + ' → ' + p.metaLevel + (p.metaTeam ? ' · ' + p.metaTeam : '') + (p.date ? ' · ' + p.date : '') + '</p>';
+    if (p.notes) html += '<p style="margin-top:4px;font-style:italic;">' + p.notes + '</p>';
+    html += '<div class="placement-item-meta">';
+    html += '<span class="chip chip-green">' + p.metaLevel + '</span>';
+    if (p.prevCo) html += '<span class="chip">' + p.prevCo + '</span>';
+    if (p.metaTeam) html += '<span class="chip">' + p.metaTeam + '</span>';
+    html += '</div></div>';
+    html += '<button class="placement-delete" onclick="deletePlacement(' + p.id + ')" title="Delete">&#x2715;</button>';
+    html += '</div>';
+  }
+  listEl.innerHTML = html;
+}
+
+/* Init */
+loadPlacements();
+renderCompetitive();
+
 </script>
+
+  <!-- TAB 5: COMPETITIVE LANDSCAPE -->
+  <div id="tab-competitive" class="tab-content">
+    <div class="card">
+      <div class="field">
+        <label>Filter by Role Type</label>
+        <select id="comp-filter" onchange="renderCompetitive()">
+          <option value="all">All roles</option>
+          <option value="pm">Product Manager (IC)</option>
+          <option value="ai-pm">AI / ML PM</option>
+          <option value="platform">Platform / Infra PM</option>
+          <option value="growth">Growth PM</option>
+          <option value="pm-mgr">PM Manager / Director</option>
+        </select>
+      </div>
+    </div>
+    <div id="comp-output"></div>
+  </div>
+
+  <!-- TAB 6: PLACEMENTS -->
+  <div id="tab-placements" class="tab-content">
+    <div class="card">
+      <div class="section-label">Log a Placement</div>
+      <div class="placement-form">
+        <input type="text" id="p-name" placeholder="Candidate name" />
+        <input type="text" id="p-prev-co" placeholder="Previous company" />
+        <input type="text" id="p-prev-title" placeholder="Previous title" />
+        <select id="p-meta-level">
+          <option value="">Meta level placed —</option>
+          <option>IC3 (APM)</option><option>IC4 (PM)</option><option>IC5 (Senior PM)</option>
+          <option>IC6 (Staff PM)</option><option>IC7 (Group PM / Director)</option>
+          <option>IC8 (Director)</option><option>IC9+ (VP)</option>
+        </select>
+        <input type="text" id="p-meta-team" placeholder="Meta team / org (e.g. Instagram, WhatsApp)" />
+        <input type="text" id="p-date" placeholder="Date (e.g. Jan 2025)" />
+      </div>
+      <div class="field" style="margin-bottom:0;">
+        <input type="text" id="p-notes" placeholder="Notes (optional — e.g. referral, timeline, key signal)" style="width:100%;padding:12px 13px;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;font-size:15px;color:var(--text);font-family:inherit;" />
+      </div>
+      <div class="btn-row">
+        <button class="btn-primary" onclick="addPlacement()">Log Placement</button>
+        <button class="btn-ghost" onclick="clearPlacementForm()">Clear</button>
+      </div>
+    </div>
+    <div id="placement-stats-row" style="display:none;" class="placement-stats">
+      <div class="stat-card"><span class="stat-label">Total Placed</span><span class="stat-val" id="stat-total">0</span></div>
+      <div class="stat-card"><span class="stat-label">Top Source</span><span class="stat-val" id="stat-top-source" style="font-size:13px;margin-top:4px;">—</span></div>
+      <div class="stat-card"><span class="stat-label">Most Common Level</span><span class="stat-val" id="stat-top-level" style="font-size:13px;margin-top:4px;">—</span></div>
+    </div>
+    <div id="placement-list" class="placement-list"></div>
+  </div>
+
 </body>
 </html>
