@@ -1469,8 +1469,8 @@ function buildPrescreenTemplate(role, intake) {
 
   // Copy button
   var plainText = buildPrescreenPlainText(tmpl, intake);
-  var encoded = encodeURIComponent(plainText);
-  h += '<button class="copy-btn" onclick="copyPrescreen(' + JSON.stringify(encoded) + ')">&#x2398; Copy prescreen as plain text</button>';
+  window._lastPrescreenText = plainText;
+  h += '<button class="copy-btn" onclick="copyPrescreen()">&#x2398; Copy prescreen as plain text</button>';
   h += '</div>';
   return h;
 }
@@ -1503,8 +1503,9 @@ function buildPrescreenPlainText(tmpl, intake) {
   return lines.join("\n");
 }
 
-function copyPrescreen(encoded) {
-  var text = decodeURIComponent(encoded);
+function copyPrescreen() {
+  var text = window._lastPrescreenText || "";
+  if (!text) { alert("No prescreen template loaded yet."); return; }
   if (navigator.clipboard) {
     navigator.clipboard.writeText(text).then(function() {
       alert("Prescreen template copied to clipboard.");
