@@ -148,6 +148,25 @@ tr:last-child td { border-bottom: none; }
 .threat-high { background: var(--danger-light); color: #991b1b; }
 .threat-med { background: var(--warning-light); color: #92400e; }
 .threat-low { background: var(--success-light); color: #065f46; }
+
+/* Intake form */
+.intake-section { margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 1rem; }
+.intake-toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; margin-bottom: 0; }
+.intake-toggle input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--primary); cursor: pointer; flex-shrink: 0; }
+.intake-toggle span { font-size: 12px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.06em; }
+.intake-fields { margin-top: 1rem; display: none; }
+.intake-fields.open { display: block; }
+.intake-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 10px; }
+@media (min-width: 600px) { .intake-grid { grid-template-columns: 1fr 1fr; } }
+.intake-grid input, .intake-grid select, .intake-grid textarea { width: 100%; padding: 11px 13px; background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px; font-size: 15px; color: var(--text); font-family: inherit; appearance: none; -webkit-appearance: none; }
+.intake-grid input:focus, .intake-grid select:focus, .intake-grid textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(108,71,255,0.12); }
+.intake-grid textarea { min-height: 70px; resize: vertical; line-height: 1.6; font-size: 14px; }
+.intake-grid input::placeholder, .intake-grid textarea::placeholder { color: var(--text-3); font-size: 13px; }
+.intake-context-card { background: var(--primary-light); border: 1px solid var(--border-2); border-radius: 10px; padding: 12px 14px; margin-bottom: 0.875rem; }
+.intake-context-card .intake-context-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--primary); margin-bottom: 8px; }
+.intake-context-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+.intake-tag { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px; background: var(--surface); color: var(--primary-dark); border: 1px solid var(--border-2); }
+.intake-context-card p { font-size: 12px; color: var(--primary-dark); line-height: 1.6; margin-top: 4px; }
 </style>
 </head>
 <body>
@@ -290,6 +309,61 @@ tr:last-child td { border-bottom: none; }
           <option value="ic8">IC8 (Director)</option>
         </select>
       </div>
+
+      <!-- INTAKE CONTEXT -->
+      <div class="intake-section">
+        <label class="intake-toggle">
+          <input type="checkbox" id="intake-toggle-cb" onchange="toggleIntake()" />
+          <span>Add intake meeting context (optional)</span>
+        </label>
+        <div class="intake-fields" id="intake-fields">
+          <div class="intake-grid">
+            <div>
+              <label>Hiring Manager Name</label>
+              <input type="text" id="intake-hm" placeholder="e.g. Jane Smith" oninput="runSourcing()" />
+            </div>
+            <div>
+              <label>Meta Team / Org</label>
+              <input type="text" id="intake-team" placeholder="e.g. Instagram, WhatsApp, Reality Labs" oninput="runSourcing()" />
+            </div>
+            <div>
+              <label>Must-Have Skills or Background</label>
+              <input type="text" id="intake-musthave" placeholder="e.g. consumer at scale, 0→1, ads experience" oninput="runSourcing()" />
+            </div>
+            <div>
+              <label>Nice-to-Have</label>
+              <input type="text" id="intake-nicetohave" placeholder="e.g. ML background, B2B experience" oninput="runSourcing()" />
+            </div>
+            <div>
+              <label>Deal-Breakers / Hard No's</label>
+              <input type="text" id="intake-dealbreakers" placeholder="e.g. no pure B2B, no non-tech PMs" oninput="runSourcing()" />
+            </div>
+            <div>
+              <label>Interview Timeline</label>
+              <select id="intake-timeline" onchange="runSourcing()">
+                <option value="">— Select urgency —</option>
+                <option value="asap">ASAP — offer in 3–4 weeks</option>
+                <option value="standard">Standard — 6–8 weeks</option>
+                <option value="flexible">Flexible — no hard deadline</option>
+                <option value="backfill">Backfill — person leaving, urgent</option>
+              </select>
+            </div>
+            <div>
+              <label>HM's Stated Preferences</label>
+              <textarea id="intake-hm-prefs" placeholder="e.g. prefers FAANG background, wants someone who's built 0→1, values strong writing" oninput="runSourcing()"></textarea>
+            </div>
+            <div>
+              <label>Red Flags to Screen For</label>
+              <textarea id="intake-redflags" placeholder="e.g. job hoppers, anyone without shipped consumer product, no internal-only roles" oninput="runSourcing()"></textarea>
+            </div>
+          </div>
+          <div class="field" style="margin-bottom:0;">
+            <label>Additional Intake Notes</label>
+            <textarea id="intake-notes" placeholder="Any other context from the intake call — team dynamics, why the role is open, what the last person was missing, internal candidates considered..." style="min-height:80px;" oninput="runSourcing()"></textarea>
+          </div>
+        </div>
+      </div>
+
       <div id="sourcing-output" class="output-block"></div>
     </div>
   </div>
@@ -792,16 +866,75 @@ var levelSourcingNotes = {
 
 function updateSourcingRole() { runSourcing(); }
 
+function toggleIntake() {
+  var cb = document.getElementById("intake-toggle-cb");
+  var fields = document.getElementById("intake-fields");
+  if (cb.checked) fields.classList.add("open"); else fields.classList.remove("open");
+  runSourcing();
+}
+
+function getIntake() {
+  var cb = document.getElementById("intake-toggle-cb");
+  if (!cb || !cb.checked) return null;
+  return {
+    hm: (document.getElementById("intake-hm").value || "").trim(),
+    team: (document.getElementById("intake-team").value || "").trim(),
+    musthave: (document.getElementById("intake-musthave").value || "").trim(),
+    nicetohave: (document.getElementById("intake-nicetohave").value || "").trim(),
+    dealbreakers: (document.getElementById("intake-dealbreakers").value || "").trim(),
+    timeline: document.getElementById("intake-timeline").value,
+    hmPrefs: (document.getElementById("intake-hm-prefs").value || "").trim(),
+    redflags: (document.getElementById("intake-redflags").value || "").trim(),
+    notes: (document.getElementById("intake-notes").value || "").trim()
+  };
+}
+
+function buildIntakeCard(intake) {
+  if (!intake) return "";
+  var timelineLabels = {"asap":"ASAP — offer in 3–4 weeks","standard":"Standard — 6–8 weeks","flexible":"Flexible — no hard deadline","backfill":"Backfill — urgent"};
+  var hasAny = intake.hm || intake.team || intake.musthave || intake.nicetohave || intake.dealbreakers || intake.timeline || intake.hmPrefs || intake.redflags || intake.notes;
+  if (!hasAny) return "";
+  var h = '<div class="intake-context-card">';
+  h += '<div class="intake-context-label">Intake Context</div>';
+  h += '<div class="intake-context-row">';
+  if (intake.hm) h += '<span class="intake-tag">HM: ' + intake.hm + '</span>';
+  if (intake.team) h += '<span class="intake-tag">Team: ' + intake.team + '</span>';
+  if (intake.timeline) h += '<span class="intake-tag">' + timelineLabels[intake.timeline] + '</span>';
+  h += '</div>';
+  if (intake.musthave) h += '<p><strong>Must-have:</strong> ' + intake.musthave + '</p>';
+  if (intake.nicetohave) h += '<p><strong>Nice-to-have:</strong> ' + intake.nicetohave + '</p>';
+  if (intake.dealbreakers) h += '<p><strong>Deal-breakers:</strong> ' + intake.dealbreakers + '</p>';
+  if (intake.hmPrefs) h += '<p><strong>HM preferences:</strong> ' + intake.hmPrefs + '</p>';
+  if (intake.redflags) h += '<p><strong>Screen for:</strong> ' + intake.redflags + '</p>';
+  if (intake.notes) h += '<p><strong>Notes:</strong> ' + intake.notes + '</p>';
+  h += '</div>';
+  return h;
+}
+
 function runSourcing() {
   var role = document.getElementById("sourcing-role").value;
   var level = document.getElementById("sourcing-level").value;
   var outputEl = document.getElementById("sourcing-output");
   if (!role || !level) { outputEl.classList.remove("visible"); return; }
 
+  var intake = getIntake();
   var data = sourcingData[role];
   var levelNote = levelSourcingNotes[level];
 
   var html = "";
+
+  // Intake context card at top if populated
+  html += buildIntakeCard(intake);
+
+  // Modifier note if intake has deal-breakers or must-haves
+  if (intake && (intake.musthave || intake.dealbreakers)) {
+    html += '<div class="output-section" style="background:var(--success-light);border-color:#6ee7b7;">';
+    html += '<div class="output-section-label" style="color:#065f46;">Intake-Adjusted Sourcing Focus</div>';
+    if (intake.musthave) html += '<p style="color:#065f46;"><strong>Prioritize:</strong> Candidates with ' + intake.musthave + '</p>';
+    if (intake.dealbreakers) html += '<p style="color:#065f46;margin-top:6px;"><strong>Exclude:</strong> ' + intake.dealbreakers + '</p>';
+    if (intake.team) html += '<p style="color:#065f46;margin-top:6px;"><strong>Sourcing for:</strong> ' + intake.team + ' at Meta</p>';
+    html += '</div>';
+  }
 
   html += '<div class="output-section"><div class="output-section-label">Level Signal — ' + document.getElementById("sourcing-level").options[document.getElementById("sourcing-level").selectedIndex].text + '</div>';
   html += '<p>' + levelNote + '</p></div>';
@@ -815,7 +948,11 @@ function runSourcing() {
   html += '</div></div>';
 
   html += '<div class="output-section"><div class="output-section-label">Search Strategy</div>';
-  html += '<p style="white-space:pre-wrap;font-size:13px;font-family:monospace;background:var(--bg);padding:10px;border-radius:8px;border:1px solid var(--border);line-height:1.7;">' + data.search + '</p></div>';
+  html += '<p style="white-space:pre-wrap;font-size:13px;font-family:monospace;background:var(--bg);padding:10px;border-radius:8px;border:1px solid var(--border);line-height:1.7;">' + data.search + '</p>';
+  if (intake && intake.musthave) {
+    html += '<p style="font-size:12px;color:var(--primary);margin-top:8px;font-weight:600;">Add to search: AND (' + intake.musthave.split(",").map(function(s){return '"'+s.trim()+'"';}).join(" OR ") + ')</p>';
+  }
+  html += '</div>';
 
   html += '<div class="output-section"><div class="output-section-label">Watch-outs</div><ul>';
   for (var i = 0; i < data.watchouts.length; i++) html += '<li><span class="chip chip-warn" style="margin-right:6px;">!</span>' + data.watchouts[i] + '</li>';
