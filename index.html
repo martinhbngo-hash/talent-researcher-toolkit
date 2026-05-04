@@ -205,6 +205,40 @@ tr:last-child td { border-bottom: none; }
 .placement-item-meta { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
 .placement-delete { background: none; border: none; color: var(--text-3); font-size: 18px; cursor: pointer; padding: 0 4px; flex-shrink: 0; width: auto; line-height: 1; }
 .placement-delete:active { color: #991b1b; }
+
+/* Data disclaimer banner */
+.disclaimer-bar {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 8px 14px;
+  margin-bottom: 1rem; display: flex;
+  align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.disclaimer-bar-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--warning-light); border: 1.5px solid #f59e0b; flex-shrink: 0; }
+.disclaimer-bar p { font-size: 11px; color: var(--text-2); line-height: 1.5; flex: 1; }
+.disclaimer-bar strong { color: var(--text); }
+.disclaimer-bar a { color: var(--primary); text-decoration: none; font-weight: 600; }
+
+/* Role expansion guide */
+.expand-section { margin-top: 0.875rem; }
+.expand-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; }
+.expand-card h4 { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px; display: flex; align-items: center; gap: 7px; }
+.expand-card p { font-size: 12px; color: var(--text-2); line-height: 1.6; }
+.expand-card code { font-size: 11px; background: var(--bg); border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; color: var(--primary); font-family: monospace; }
+.step-num { width: 20px; height: 20px; border-radius: 50%; background: var(--primary); color: white; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.role-chip-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+
+/* Prescreen template */
+.prescreen-wrap { margin-top: 0; }
+.prescreen-section { margin-bottom: 1rem; }
+.prescreen-section h4 { font-size: 12px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.prescreen-section h4::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--primary); display: inline-block; flex-shrink: 0; }
+.prescreen-q { background: var(--bg); border: 1px solid var(--border); border-radius: 9px; padding: 10px 13px; margin-bottom: 7px; }
+.prescreen-q p { font-size: 13px; color: var(--text); line-height: 1.6; font-weight: 500; }
+.prescreen-q .prescreen-probe { font-size: 12px; color: var(--text-2); margin-top: 4px; line-height: 1.5; font-style: italic; }
+.prescreen-q .prescreen-flag { font-size: 11px; color: #991b1b; background: var(--danger-light); border-radius: 5px; padding: 3px 8px; margin-top: 5px; display: inline-block; font-weight: 600; }
+.prescreen-q .prescreen-good { font-size: 11px; color: #065f46; background: var(--success-light); border-radius: 5px; padding: 3px 8px; margin-top: 5px; display: inline-block; font-weight: 600; }
+.copy-btn { font-size: 11px; font-weight: 600; padding: 5px 12px; border-radius: 7px; background: var(--primary-light); color: var(--primary); border: 1px solid var(--border-2); cursor: pointer; width: auto; display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; touch-action: manipulation; }
+.copy-btn:active { background: var(--border-2); }
 </style>
 </head>
 <body>
@@ -219,6 +253,11 @@ tr:last-child td { border-bottom: none; }
       <p>Market Intel · PM Calibration · Sourcing Strategy</p>
     </div>
   </header>
+
+  <div class="disclaimer-bar">
+    <div class="disclaimer-bar-dot"></div>
+    <p><strong>Data transparency:</strong> All talent intel in this tool is curated from public sources — Levels.fyi, LinkedIn Salary, Glassdoor, recruiter community knowledge, and AI training data. Inflow percentages and competitive threat ratings are <strong>estimates</strong>, not live data. Last calibrated: <strong>mid-2025</strong>. For live data, layer in <a href="https://www.linkedin.com/talent/" target="_blank">LinkedIn Talent Insights</a>, your ATS source-of-hire reports, and <a href="https://www.levels.fyi" target="_blank">Levels.fyi</a>.</p>
+  </div>
 
   <div class="tab-layout">
 
@@ -241,6 +280,9 @@ tr:last-child td { border-bottom: none; }
       </button>
       <button class="tab-btn" onclick="openTab(this,'tab-placements')">
         <span class="tab-icon">📋</span> Placements
+      </button>
+      <button class="tab-btn" onclick="openTab(this,'tab-expand')">
+        <span class="tab-icon">🚀</span> Expand Roles
       </button>
     </nav>
 
@@ -518,6 +560,87 @@ tr:last-child td { border-bottom: none; }
           <div class="stat-card"><span class="stat-label">Most Common Level</span><span class="stat-val" id="stat-top-level" style="font-size:12px;margin-top:3px;">—</span></div>
         </div>
         <div id="placement-list" class="placement-list"></div>
+      </div>
+
+
+      <!-- ═══ TAB 7: EXPAND ROLES ═══ -->
+      <div id="tab-expand" class="tab-content">
+        <div class="card">
+          <div class="section-label">How to Expand This Tool to Other Role Functions</div>
+          <p style="font-size:13px;color:var(--text-2);line-height:1.7;margin-bottom:1rem;">This tool is currently built for <strong style="color:var(--text);">Product Management</strong>. Expanding it to cover Engineering, Design, Data Science, or other functions requires updating four data objects in the code. Here is exactly what to change and how.</p>
+
+          <div class="expand-card">
+            <h4><span class="step-num">1</span> Add new domains to Market Intel</h4>
+            <p>Find the <code>marketData</code> object in the JavaScript. Each key is a domain (e.g. <code>"ai"</code>, <code>"product"</code>). To add Engineering, duplicate an existing entry and update the values:</p>
+            <p style="margin-top:8px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px;font-family:monospace;font-size:12px;line-height:1.8;white-space:pre-wrap;">"swe": {
+  scarcity: "High",
+  tenure: "2.4 yrs",
+  donors: "Google, Amazon, Microsoft",
+  trend: "AI eng roles heating up fast",
+  alert: "Staff+ engineers at Google have 4yr RSU refresh — flag cliff dates",
+  inflow: [
+    {company:"Google", pct:30, note:"Largest source. L5/L6 pipeline."},
+    {company:"Amazon", pct:22, note:"SDE II/III ready to move at 2yr cliff."},
+    ...
+  ],
+  topPaths: ["Google L5 → Meta E5", "Amazon SDE III → Meta E6"],
+  watchout: "Bar for E6+ at Meta requires strong system design signal."
+}</p>
+            <p style="margin-top:8px;">Then add a new <code>&lt;option&gt;</code> to the Market Intel domain dropdown in the HTML.</p>
+          </div>
+
+          <div class="expand-card">
+            <h4><span class="step-num">2</span> Add role types to Sourcing</h4>
+            <p>Find the <code>sourcingData</code> object. Each key is a role type (e.g. <code>"pm"</code>, <code>"ai-pm"</code>). Add a new entry for each role you want to source:</p>
+            <p style="margin-top:8px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px;font-family:monospace;font-size:12px;line-height:1.8;white-space:pre-wrap;">"swe-backend": {
+  clusters: ["L5/L6 engineers at Google, Amazon, Meta with distributed systems depth", ...],
+  donors: ["Google (L5 pipeline)", "Amazon (SDE III)", "Stripe", ...],
+  search: "LinkedIn: "Software Engineer" AND ("distributed" OR "backend") ...",
+  watchouts: ["Verify system design ownership, not just contribution", ...]
+}</p>
+            <p style="margin-top:8px;">Then add a new <code>&lt;option&gt;</code> to the Role Type dropdown in the Sourcing tab HTML.</p>
+          </div>
+
+          <div class="expand-card">
+            <h4><span class="step-num">3</span> Update Level Calibration for new functions</h4>
+            <p>Find the <code>levelMap</code> object. Each key is a company, and the value is an array of 7 title progressions. These are currently PM titles. To support Engineering, you have two options:</p>
+            <p style="margin-top:6px;">• <strong>Option A (simple):</strong> Add an "Engineering" toggle that swaps the levelMap titles to SWE equivalents (e.g. L3→L7 at Google, SDE I–III at Amazon).</p>
+            <p style="margin-top:5px;">• <strong>Option B (full build):</strong> Create a separate <code>levelMapEng</code> object and a function toggle to switch between PM and Engineering calibration mode. This is the cleanest long-term approach.</p>
+            <p style="margin-top:8px;">Also update <code>metaLevels</code> and <code>metaDescs</code> arrays to reflect Meta Engineering levels (E3–E9) instead of IC3–IC9.</p>
+          </div>
+
+          <div class="expand-card">
+            <h4><span class="step-num">4</span> Update Competitive landscape</h4>
+            <p>Find the <code>compData</code> array. Each object has a <code>roles</code> array that controls which role filters show that company. Add your new role keys to the relevant companies:</p>
+            <p style="margin-top:8px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px;font-family:monospace;font-size:12px;line-height:1.8;white-space:pre-wrap;">{name:"Google", roles:["pm","ai-pm","platform","growth","pm-mgr","swe-backend","swe-ml"], ...}</p>
+            <p style="margin-top:8px;">Also add new <code>teams</code> values relevant to that function (e.g. for Google SWE: "Search Backend", "YouTube Infra", "Ads Systems").</p>
+          </div>
+
+          <div class="expand-card">
+            <h4>📌 Recommended role expansions to build next</h4>
+            <p style="margin-bottom:8px;">These are the highest-value additions based on typical executive talent research needs:</p>
+            <div class="role-chip-grid">
+              <span class="chip">Software Engineering (IC)</span>
+              <span class="chip">Engineering Manager</span>
+              <span class="chip">Data Science / ML Engineer</span>
+              <span class="chip">UX / Product Design</span>
+              <span class="chip">UX Research</span>
+              <span class="chip">Chief of Staff</span>
+              <span class="chip">Business Development</span>
+              <span class="chip">Finance / FP&A</span>
+              <span class="chip">Legal / Policy</span>
+              <span class="chip">Marketing / Growth</span>
+              <span class="chip">Sales / Partnerships</span>
+              <span class="chip">Recruiting / HR</span>
+            </div>
+            <p style="margin-top:12px;font-style:italic;">Each function requires its own leveling map, sourcing clusters, competitive intel, and market data. The most impactful to add first are <strong style="color:var(--primary);">Software Engineering</strong> and <strong style="color:var(--primary);">Data Science / ML</strong> given Meta's current hiring priorities.</p>
+          </div>
+
+          <div class="expand-card" style="border-color:var(--primary);background:var(--primary-light);">
+            <h4 style="color:var(--primary-dark);">💡 Fastest way to expand</h4>
+            <p style="color:var(--primary-dark);">Share this conversation with Claude and say: <em>"Add Software Engineering leveling and sourcing to the Researcher Hub"</em>. Claude has the full codebase context and can add a new function in one pass — including the level map, sourcing data, market intel, and competitive filters.</p>
+          </div>
+        </div>
       </div>
 
     </div><!-- /tab-main -->
@@ -1054,6 +1177,9 @@ function runSourcing() {
   for (var i = 0; i < data.watchouts.length; i++) h += '<li><span class="chip chip-warn" style="margin-right:6px;">!</span>' + data.watchouts[i] + '</li>';
   h += '</ul></div>';
 
+  // Prescreen template
+  h += buildPrescreenTemplate(role, intake);
+
   // Top 15 competitors
   var relevant = []; var others = [];
   for (var i = 0; i < compData.length; i++) {
@@ -1112,6 +1238,288 @@ function updateStrategy() {
   outputEl.classList.add("visible");
 }
 
+
+/* ══════════════════════════════════════
+   PRESCREEN TEMPLATES
+══════════════════════════════════════ */
+var prescreenData = {
+  "pm": {
+    label: "Product Manager",
+    sections: [
+      {
+        title: "Product Ownership & Scope",
+        questions: [
+          {q:"Tell me about the product area you currently own. What's the scope — how many users, what's the revenue or engagement impact?", probe:"Listen for: specific metrics, clarity of ownership, whether they can articulate impact in numbers. Vague answers ('I worked on growth') are a yellow flag.", flag:"Can't quantify impact or scope — may not have true ownership", good:"Owns a clear product surface with measurable outcomes"},
+          {q:"Walk me through a major product decision you made in the last 12 months. What tradeoffs did you weigh and who did you have to convince?", probe:"You're probing for: decision-making authority, cross-functional influence, and whether they drove the outcome or were along for the ride.", flag:"Only describes decisions made by others or with full consensus — no real ownership signal", good:"Made a hard call with real tradeoffs, influenced eng/design/leadership to align"}
+        ]
+      },
+      {
+        title: "Strategy & Prioritization",
+        questions: [
+          {q:"How do you build your roadmap? Walk me through how you decided what to work on last quarter.", probe:"Looking for: structured prioritization, ability to say no, alignment with business goals. Watch for roadmaps driven entirely by stakeholder requests.", flag:"Roadmap is purely stakeholder-driven with no clear PM judgment", good:"Uses a clear framework, balances user needs, business goals, and technical constraints"},
+          {q:"Tell me about a time you had to kill or deprioritize something that stakeholders were excited about. How did you handle it?", probe:"This tests conviction and communication. Great PMs protect the roadmap. Weak ones just add to it.", flag:"Never killed anything — or killed it without managing stakeholders well", good:"Clear narrative on why, communicated early, offered alternatives"}
+        ]
+      },
+      {
+        title: "Cross-Functional Leadership",
+        questions: [
+          {q:"How do you work with engineers? Give me an example where technical constraints changed your product direction.", probe:"Meta PMs need strong eng partnerships. Look for mutual respect, technical curiosity, and evidence of real collaboration vs. just handing off specs.", flag:"Treats eng as a delivery team — no evidence of technical partnership", good:"Engages deeply with eng, understands constraints, adjusts plans intelligently"},
+          {q:"Tell me about a time you disagreed with your engineering lead or design partner. What happened?", probe:"Looking for maturity, directness, and resolution. Red flag if they always defer or always steamroll.", flag:"Either always defers or can't recall a real disagreement", good:"Had a direct, respectful disagreement with a clear outcome and what they learned"}
+        ]
+      },
+      {
+        title: "User Insight & Product Sense",
+        questions: [
+          {q:"How do you stay close to your users? What's a specific insight you've uncovered in the last 6 months that changed your direction?", probe:"Great PMs have a concrete answer. They've done research, reviewed support tickets, watched session recordings, or talked to users recently.", flag:"Generic answer about 'using data' with no specific insight", good:"Specific user insight from a specific method that led to a specific change"},
+          {q:"Imagine you're a PM at Meta working on [relevant product surface]. What's the most important problem you'd tackle first and why?", probe:"This tests product sense for the actual role. Listen for structured thinking, user empathy, and ability to prioritize without perfect information.", flag:"Jumps to a solution immediately with no problem definition", good:"Frames the problem clearly, considers multiple angles, prioritizes thoughtfully"}
+        ]
+      },
+      {
+        title: "Meta-Specific Fit",
+        questions: [
+          {q:"Meta operates at massive scale — billions of users, real-time systems, global impact. Tell me about the largest-scale product challenge you've dealt with. What made it hard?", probe:"Scale is non-negotiable at Meta. Candidates who've only worked on 100K-user products will face a significant bar gap.", flag:"No evidence of working at meaningful scale (10M+ users)", good:"Has shipped to 10M+ users, understands scale-specific tradeoffs"},
+          {q:"Meta moves fast and sometimes ships things that are imperfect. How do you think about quality vs. speed in your current role?", probe:"Probe for comfort with iteration and experimentation. Meta PMs who've only worked in waterfall environments or who are perfectionists often struggle.", flag:"Strong preference for perfect products over fast iteration", good:"Comfortable shipping MVPs, learns from data, iterates rapidly"}
+        ]
+      }
+    ]
+  },
+  "pm-mgr": {
+    label: "PM Manager / Director",
+    sections: [
+      {
+        title: "Team Leadership & Development",
+        questions: [
+          {q:"How many PMs do you currently manage, and what does your team structure look like? Walk me through how you set goals for them.", probe:"Directors at Meta own 4–8 PMs typically. Under-managing (1–2 direct reports) or vague goal-setting is a signal to probe.", flag:"Manages fewer than 2 PMs or sets goals purely top-down without PM input", good:"Clear team structure, collaborative goal-setting, specific examples of PM growth"},
+          {q:"Tell me about a PM on your team who was struggling. What did you do and what happened?", probe:"This is a management bar question. Look for: early identification, direct feedback, a structured plan, and honest reflection on the outcome.", flag:"Vague answer, no specific actions, or the PM 'figured it out themselves'", good:"Identified early, gave direct feedback, created a plan, honest about outcome"}
+        ]
+      },
+      {
+        title: "Org Strategy & Influence",
+        questions: [
+          {q:"Tell me about a time you had to align multiple product teams around a shared strategy. How did you do it?", probe:"Directors at Meta need to influence across orgs. Look for: a clear stake in the outcome, structured alignment process, and handling of resistance.", flag:"Alignment was easy or driven by someone else", good:"Had to navigate real conflict, built coalition, drove to resolution"},
+          {q:"How do you decide which product bets your team should make vs. which ones to kill? Walk me through your portfolio thinking.", probe:"Great PM leaders think like investors. They balance risk, return, and team capacity. Watch for leaders who just do what leadership asks.", flag:"Portfolio is entirely reactive to leadership direction with no independent judgment", good:"Clear framework for bet selection, examples of killing bets, evidence of independent thinking"}
+        ]
+      },
+      {
+        title: "Hiring & Bar-Raising",
+        questions: [
+          {q:"Walk me through how you hire PMs. What's your bar, and what's a mistake you've made in hiring that you learned from?", probe:"Great PM leaders have a specific, articulate bar. They've also made hiring mistakes and learned from them. Vague answers here are a red flag.", flag:"No specific bar, no hiring mistakes recalled, or bar sounds like a checklist", good:"Specific qualities they hire for with examples, honest about a hiring mistake"},
+          {q:"What's the most important thing you look for when assessing a PM's long-term potential vs. current performance?", probe:"This separates managers who optimize for now vs. leaders who build for the future. Look for: growth mindset, coachability signal, and specific attributes.", flag:"Focuses only on current performance metrics with no view on trajectory", good:"Distinguishes current performance from potential, has a clear model for predicting growth"}
+        ]
+      }
+    ]
+  },
+  "apm": {
+    label: "APM / Associate PM",
+    sections: [
+      {
+        title: "Product Sense",
+        questions: [
+          {q:"Walk me through a product you use every day. What would you improve and why?", probe:"Classic product sense question. Look for: structured thinking, user empathy, prioritization. Avoid candidates who just list features.", flag:"Jumps straight to features with no user problem framing", good:"Identifies a clear user pain point, prioritizes one improvement with a rationale"},
+          {q:"Tell me about a side project, research, or experience where you had to understand a user problem deeply. What did you learn?", probe:"APMs won't have strong PM experience — look for evidence of curiosity, user empathy, and structured problem-solving from any context.", flag:"No examples of seeking user insight or understanding a problem deeply", good:"Specific experience with clear user insight that shaped their thinking"}
+        ]
+      },
+      {
+        title: "Analytical Thinking",
+        questions: [
+          {q:"If you had to estimate the number of [relevant metric, e.g. WhatsApp messages sent per day], how would you approach it?", probe:"Tests structured estimation. Look for: breaking the problem down, making reasonable assumptions, arriving at an answer with confidence.", flag:"Gets stuck, needs hints, or gives a number with no reasoning", good:"Breaks it down systematically, states assumptions clearly, arrives at a reasonable estimate"},
+          {q:"Tell me about a time you had to use data to make a decision. What data did you have, what was missing, and what did you decide?", probe:"Tests analytical maturity. Great APMs understand data limitations and make decisions anyway. Watch for over-reliance on perfect data.", flag:"Waited for more data or couldn't make a decision without complete information", good:"Made a clear decision with imperfect data, explicit about what was unknown"}
+        ]
+      },
+      {
+        title: "Coachability & Growth",
+        questions: [
+          {q:"Tell me about a piece of critical feedback you received that changed how you work.", probe:"APMs need to be coachable — this is a bar-critical signal at Meta's IC3. Look for: specific feedback, genuine reflection, and evidence of change.", flag:"Feedback was minor, not really critical, or they disagree with it in retrospect", good:"Specific, genuinely critical feedback, clear change in behavior, no defensiveness"},
+          {q:"What's the most important thing you want to learn in your first 6 months as a PM, and how will you go about learning it?", probe:"This tests self-awareness and structured learning mindset. Great APMs know their gaps and have a plan.", flag:"Vague answer ('learn from the team') with no specific learning plan", good:"Specific skill gap, specific approach to closing it, realistic timeline"}
+        ]
+      }
+    ]
+  },
+  "tpm": {
+    label: "Technical PM / TPM",
+    sections: [
+      {
+        title: "Technical Depth",
+        questions: [
+          {q:"Walk me through the most technically complex product or system you've owned. What made it hard, and how did you navigate it?", probe:"Look for: comfort with system design, understanding of technical tradeoffs, evidence that they drove technical decisions not just observed them.", flag:"Can describe the system but didn't drive any technical decisions", good:"Drove key technical decisions, understood tradeoffs, influenced eng direction"},
+          {q:"Tell me about a time an engineer pushed back hard on your product spec for technical reasons. How did you handle it?", probe:"Technical PMs need to engage substantively with eng concerns — not just defer or overrule. Look for: genuine engagement, learning, and resolution.", flag:"Either fully deferred or overruled without engaging with the technical concern", good:"Engaged with the concern, learned something technical, reached a collaborative solution"}
+        ]
+      },
+      {
+        title: "Developer / Platform Thinking",
+        questions: [
+          {q:"Tell me about a platform or API product you've shipped. How did you think about developer experience vs. internal use cases?", probe:"Platform PMs must balance multiple stakeholders. Look for: explicit developer empathy, understanding of adoption as a success metric, API design thinking.", flag:"No evidence of developer empathy — treats platform like any consumer product", good:"Explicitly considered developer experience, adoption, and API design as product outcomes"},
+          {q:"How do you measure success for a platform or internal tool? What metrics do you use and why?", probe:"Platform metrics are notoriously tricky. Look for: adoption rates, developer productivity metrics, reliability, and understanding of why vanity metrics fail here.", flag:"Uses vanity metrics (features shipped) with no adoption or impact signal", good:"Tracks adoption, developer productivity, reliability, and ties to downstream product impact"}
+        ]
+      }
+    ]
+  },
+  "growth": {
+    label: "Growth PM",
+    sections: [
+      {
+        title: "Experimentation & Analysis",
+        questions: [
+          {q:"Walk me through your most impactful A/B test. What was the hypothesis, how did you design it, what happened, and what did you learn?", probe:"This is the core growth PM question. Look for: clear hypothesis, proper test design (sample size, duration, metric selection), honest results, and real learning.", flag:"Test was run by data science, results were always positive, or no learning articulated", good:"Designed the test themselves, had a null or negative result they learned from, iterated"},
+          {q:"Tell me about a growth lever you identified that others had missed. How did you find it and what was the impact?", probe:"Great growth PMs have a nose for non-obvious levers. They dig into data, talk to users, and find edges. Look for: sourcing the insight, validating it, and shipping it.", flag:"Found an obvious lever or can't recall finding anything non-obvious", good:"Non-obvious insight from data or user research, validated before shipping, measurable impact"}
+        ]
+      },
+      {
+        title: "Funnel & Retention Thinking",
+        questions: [
+          {q:"Walk me through how you think about the full user funnel for your current product. Where is the biggest drop-off and what have you done about it?", probe:"Growth PMs need to own the full funnel, not just acquisition. Look for: specific drop-off points, hypotheses about why, and experiments run.", flag:"Only thinks about top of funnel (acquisition) with no retention or activation view", good:"Full funnel view, specific drop-off data, experiments run at multiple stages"},
+          {q:"How do you distinguish between a growth tactic that works long-term vs. one that inflates short-term metrics?", probe:"Tests growth maturity. Look for: understanding of sustainable vs. unsustainable growth, examples of killing a metric-boosting tactic that hurt retention.", flag:"Can't distinguish, or has never killed a metric-positive tactic", good:"Clear framework, specific example of choosing long-term health over short-term metric"}
+        ]
+      }
+    ]
+  },
+  "data": {
+    label: "Data / Analytics PM",
+    sections: [
+      {
+        title: "Data Product Ownership",
+        questions: [
+          {q:"Tell me about a data product you've owned end-to-end. Who were the users, what problem did it solve, and how did you measure success?", probe:"Data PMs who built internal tools often struggle to articulate user empathy. Look for: clear user definition, specific problem, and outcome-based success metrics.", flag:"Users are vague ('stakeholders') or success is measured by usage not outcomes", good:"Specific user persona, clear problem solved, outcome-based success metric"},
+          {q:"Walk me through the most complex data pipeline or ML feature you've shipped as a PM. What were the hardest decisions?", probe:"Tests technical depth in the data domain. Look for: understanding of data quality, model tradeoffs, pipeline reliability as a product concern.", flag:"Describes the pipeline technically but didn't make any product decisions around it", good:"Made key product decisions about data quality tradeoffs, latency vs. accuracy, reliability"}
+        ]
+      },
+      {
+        title: "Analytical Rigor",
+        questions: [
+          {q:"Tell me about a time data led you to a conclusion that turned out to be wrong. What happened?", probe:"This is a data literacy and intellectual honesty question. Great data PMs have been burned by bad data or flawed analysis and learned from it.", flag:"Can't recall being wrong, or blames the data team", good:"Specific example, honest about their role in the error, clear learning"},
+          {q:"How do you communicate complex data insights to non-technical stakeholders? Give me a specific example.", probe:"Data PMs live at the intersection of technical and business. Look for: simplification without oversimplification, visual thinking, and influence on decisions.", flag:"Sends data dumps or long SQL queries to stakeholders without narrative", good:"Translates data to a clear story, specific example where it influenced a decision"}
+        ]
+      }
+    ]
+  },
+  "ai-pm": {
+    label: "AI / ML PM",
+    sections: [
+      {
+        title: "AI Product Ownership",
+        questions: [
+          {q:"Tell me about an AI or ML-powered feature you've shipped. How did you decide what to build, and how did you measure whether the model was good enough?", probe:"This is the core AI PM question. Look for: understanding of model evaluation as a product decision, tradeoffs between precision/recall/latency, and real ownership.", flag:"Describes AI features built by others, or can't articulate model evaluation decisions", good:"Made explicit decisions about model tradeoffs, defined 'good enough' with clear criteria"},
+          {q:"How do you handle AI failures or model degradation in production? Walk me through a real example.", probe:"AI products fail differently than traditional software. Great AI PMs have a plan for monitoring, rollback, and communication.", flag:"No monitoring strategy or treats AI failures like software bugs", good:"Proactive monitoring, defined failure thresholds, clear rollback and communication plan"}
+        ]
+      },
+      {
+        title: "Model Thinking & Ethics",
+        questions: [
+          {q:"How do you think about fairness and bias in AI products? Have you ever shipped something and discovered a bias issue after launch?", probe:"AI PMs at Meta must grapple with responsible AI. Look for: genuine engagement with fairness as a product concern, not just a compliance checkbox.", flag:"Treats fairness as a compliance item, no real examples of proactive bias consideration", good:"Has thought deeply about fairness tradeoffs, specific example of identifying or addressing bias"},
+          {q:"Tell me about a time you had to explain an AI model's decision to a non-technical stakeholder or user. How did you approach it?", probe:"Explainability is a core AI PM skill. Look for: ability to translate model behavior into human terms, and comfort with uncertainty.", flag:"Delegates explainability to data scientists or says 'the model just knows'", good:"Has a clear framework for explaining model decisions, specific example with a stakeholder"}
+        ]
+      }
+    ]
+  },
+  "platform": {
+    label: "Platform / Infra PM",
+    sections: [
+      {
+        title: "Platform Product Thinking",
+        questions: [
+          {q:"Tell me about a platform you've built or owned. Who were your customers — internal teams, external developers, or both? How did you manage their competing needs?", probe:"Platform PMs serve multiple stakeholders with conflicting needs. Look for: explicit stakeholder mapping, prioritization framework, and examples of hard tradeoffs.", flag:"Treats all platform users the same, or avoids the competing needs question", good:"Explicit stakeholder prioritization, clear examples of handling competing demands"},
+          {q:"How do you drive adoption for a platform product? What's worked and what hasn't?", probe:"Adoption is the core platform PM success metric. Look for: concrete tactics (developer evangelism, dogfooding, migration support), honest reflection on failures.", flag:"Assumes adoption will happen organically once the platform is built", good:"Specific adoption tactics, honest about failed tactics, data on adoption outcomes"}
+        ]
+      },
+      {
+        title: "Reliability & Trust",
+        questions: [
+          {q:"Tell me about a time your platform had a reliability incident. What was your role, how did you handle it, and what changed afterward?", probe:"Platform PMs must own reliability as a product concern. Look for: understanding of SLAs, communication to dependent teams, and post-mortem driven improvements.", flag:"Treats reliability as purely an eng concern with no PM involvement", good:"Actively managed the incident and follow-up, drove process changes, owns reliability metrics"},
+          {q:"How do you think about backwards compatibility when evolving a platform API or service?", probe:"This tests platform maturity. Look for: versioning strategy, deprecation timelines, migration support, and empathy for dependent teams.", flag:"Ships breaking changes without notice or a migration plan", good:"Clear versioning strategy, empathetic to dependent teams, specific deprecation process"}
+        ]
+      }
+    ]
+  }
+};
+
+function buildPrescreenTemplate(role, intake) {
+  var tmpl = prescreenData[role];
+  if (!tmpl) return "";
+
+  var h = '<div class="output-section">';
+  h += '<div class="output-section-label">Prescreen Template — ' + tmpl.label + '</div>';
+  h += '<p style="font-size:12px;color:var(--text-2);margin-bottom:12px;">Domain-specific questions calibrated for this role. Each question includes a probe focus, green signal, and red flag to listen for.</p>';
+
+  // If intake has must-haves, add a custom opening question
+  if (intake && intake.musthave) {
+    h += '<div class="prescreen-section">';
+    h += '<h4>Intake-Specific Question</h4>';
+    h += '<div class="prescreen-q">';
+    h += '<p>Walk me through your experience with ' + intake.musthave + '. How central was this to your day-to-day role?</p>';
+    h += '<div class="prescreen-probe">Custom question based on must-have from intake. Listen for depth of experience, not just familiarity. Push for specifics: how long, at what scale, what outcomes.</div>';
+    if (intake.dealbreakers) h += '<div class="prescreen-flag">Red flag: Any mention of ' + intake.dealbreakers + '</div>';
+    h += '</div></div>';
+  }
+
+  for (var s = 0; s < tmpl.sections.length; s++) {
+    var section = tmpl.sections[s];
+    h += '<div class="prescreen-section">';
+    h += '<h4>' + section.title + '</h4>';
+    for (var q = 0; q < section.questions.length; q++) {
+      var item = section.questions[q];
+      h += '<div class="prescreen-q">';
+      h += '<p>' + item.q + '</p>';
+      h += '<div class="prescreen-probe">Probe: ' + item.probe + '</div>';
+      h += '<div class="prescreen-good">Strong signal: ' + item.good + '</div>';
+      h += '<div class="prescreen-flag">Red flag: ' + item.flag + '</div>';
+      h += '</div>';
+    }
+    h += '</div>';
+  }
+
+  // Copy button
+  var plainText = buildPrescreenPlainText(tmpl, intake);
+  var encoded = encodeURIComponent(plainText);
+  h += '<button class="copy-btn" onclick="copyPrescreen(' + JSON.stringify(encoded) + ')">&#x2398; Copy prescreen as plain text</button>';
+  h += '</div>';
+  return h;
+}
+
+function buildPrescreenPlainText(tmpl, intake) {
+  var lines = [];
+  lines.push("PRESCREEN TEMPLATE — " + tmpl.label.toUpperCase());
+  lines.push("Generated by Researcher Intelligence Hub");
+  lines.push("========================================");
+  lines.push("");
+  if (intake && intake.musthave) {
+    lines.push("INTAKE-SPECIFIC QUESTION");
+    lines.push("Q: Walk me through your experience with " + intake.musthave + ". How central was this to your day-to-day role?");
+    lines.push("Probe: Listen for depth, push for specifics — how long, at what scale, what outcomes.");
+    if (intake.dealbreakers) lines.push("Red flag: Any mention of " + intake.dealbreakers);
+    lines.push("");
+  }
+  for (var s = 0; s < tmpl.sections.length; s++) {
+    var section = tmpl.sections[s];
+    lines.push(section.title.toUpperCase());
+    for (var q = 0; q < section.questions.length; q++) {
+      var item = section.questions[q];
+      lines.push("Q: " + item.q);
+      lines.push("Probe: " + item.probe);
+      lines.push("Strong signal: " + item.good);
+      lines.push("Red flag: " + item.flag);
+      lines.push("");
+    }
+  }
+  return lines.join("\n");
+}
+
+function copyPrescreen(encoded) {
+  var text = decodeURIComponent(encoded);
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function() {
+      alert("Prescreen template copied to clipboard.");
+    }).catch(function() { fallbackCopy(text); });
+  } else { fallbackCopy(text); }
+}
+
+function fallbackCopy(text) {
+  var ta = document.createElement("textarea");
+  ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand("copy"); alert("Prescreen template copied to clipboard."); }
+  catch(e) { alert("Copy failed — please copy manually."); }
+  document.body.removeChild(ta);
+}
 /* ══════════════════════════════════════
    COMPETITIVE
 ══════════════════════════════════════ */
