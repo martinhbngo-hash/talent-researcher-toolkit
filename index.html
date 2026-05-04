@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Researcher Toolkit: Leveling & Sourcing Engine</title>
+<title>Researcher Hub: Leveling, Sourcing & Outreach</title>
 <style>
+  /* Base Styling */
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -13,206 +14,244 @@
     line-height: 1.5;
     padding: 2rem 1rem;
   }
-  .container { max-width: 1200px; margin: 0 auto; }
+  .container { max-width: 1000px; margin: 0 auto; }
   
   header { margin-bottom: 2rem; border-left: 5px solid #0668E1; padding-left: 1.5rem; }
-  h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
+  h1 { font-size: 28px; font-weight: 800; }
   .subtitle { font-size: 14px; color: #606770; }
 
-  /* Layout Grid */
-  .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
-  .full-width { grid-column: span 2; }
-  @media (max-width: 900px) { .main-grid { grid-template-columns: 1fr; } .full-width { grid-column: span 1; } }
-  
-  .tool-card { background: #fff; border: 1px solid #dddfe2; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); height: 100%; }
-  .section-title { font-size: 12px; font-weight: 700; text-transform: uppercase; color: #8d949e; margin-bottom: 16px; display: block; letter-spacing: 1px; }
+  /* Tab System */
+  .tabs { display: flex; gap: 4px; margin-bottom: -1px; position: relative; z-index: 2; }
+  .tab-btn {
+    padding: 12px 24px; background: #e4e6eb; border: 1px solid #dddfe2;
+    border-bottom: none; border-radius: 8px 8px 0 0; cursor: pointer;
+    font-size: 14px; font-weight: 600; color: #4b4f56; transition: 0.2s;
+  }
+  .tab-btn.active { background: #fff; color: #0668E1; border-top: 3px solid #0668E1; padding-top: 10px; }
 
-  .field { margin-bottom: 1.2rem; display: flex; flex-direction: column; gap: 6px; }
-  label { font-size: 12px; font-weight: 600; color: #4b4f56; }
+  .tab-content {
+    background: #fff; border: 1px solid #dddfe2; border-radius: 0 0 12px 12px;
+    padding: 2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: none;
+    animation: fadeIn 0.3s ease;
+  }
+  .tab-content.active { display: block; }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  /* Form Elements */
+  .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #8d949e; margin-bottom: 15px; display: block; }
+  .field { margin-bottom: 1.5rem; }
+  label { font-size: 12px; font-weight: 600; color: #4b4f56; display: block; margin-bottom: 6px; }
   select, textarea, input {
     width: 100%; padding: 12px; border: 1px solid #ccd0d5; border-radius: 8px;
     font-size: 14px; transition: all 0.2s;
   }
-  textarea { min-height: 80px; resize: vertical; font-family: inherit; }
-
-  .btn-row { display: flex; gap: 10px; margin-top: 10px; }
-  button { 
-    flex: 1; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 600; 
-    cursor: pointer; border: 1px solid #ddd; transition: 0.2s;
+  textarea { min-height: 120px; resize: vertical; font-family: inherit; }
+  
+  .btn-primary { 
+    background: #0668E1; color: white; border: none; padding: 12px 24px; 
+    border-radius: 8px; font-weight: 600; cursor: pointer; width: 100%;
   }
-  .btn-primary { background: #0668E1; color: white; border: none; }
-  .btn-primary:hover { background: #0556b8; }
-  .btn-success { background: #42b72a; color: white; border: none; }
-  
-  .result-area { margin-top: 20px; animation: fadeIn 0.4s ease; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  
-  /* Table & Comparison Logic */
-  .comparison-container { display: flex; align-items: center; justify-content: space-between; gap: 20px; background: #f8f9fa; padding: 20px; border-radius: 12px; border: 1px solid #eee; }
-  .comp-box { flex: 1; text-align: center; }
-  .comp-box h3 { font-size: 11px; text-transform: uppercase; color: #888; margin-bottom: 5px; }
-  .comp-level { font-size: 20px; font-weight: 800; color: #1c1e21; }
-  .comp-arrow { font-size: 24px; color: #ccd0d5; }
 
-  table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
-  th { text-align: left; padding: 10px; color: #8d949e; border-bottom: 1px solid #ebedf0; font-size: 11px; }
-  td { padding: 12px 10px; border-bottom: 1px solid #f0f2f5; }
-  .match-row { background: #f0f7ff; font-weight: 600; }
-  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; background: #e7f3ff; color: #0668E1; }
+  /* Result Styling */
+  .result-card { margin-top: 20px; padding: 20px; border-radius: 8px; border: 1px solid #eee; background: #f8f9fa; }
+  .comp-row { display: grid; grid-template-columns: 1fr 40px 1fr 40px 1fr; align-items: center; text-align: center; }
+  .val { font-size: 22px; font-weight: 800; }
+  .tag { font-size: 10px; color: #888; text-transform: uppercase; }
+  
+  .strategy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .outreach-box { background: #fff; border: 1px dashed #0668E1; padding: 15px; border-radius: 8px; position: relative; }
+  .copy-btn { position: absolute; top: 10px; right: 10px; font-size: 11px; color: #0668E1; cursor: pointer; background: none; border: none; font-weight: 700;}
 </style>
 </head>
 <body>
 
 <div class="container">
   <header>
-    <h1>Talent Researcher's Dream Toolkit</h1>
-    <p class="subtitle">v2.0 • Leveling Comparison • Sourcing Strategy • Outreach Intelligence</p>
+    <h1>Researcher Strategy Hub</h1>
+    <p class="subtitle">Leveling Calibration • Sourcing Intelligence • Outreach Generator</p>
   </header>
 
-  <div class="main-grid">
-    
-    <!-- 1:1 LEVELING COMPARISON (FULL WIDTH) -->
-    <div class="tool-card full-width" style="border-left: 5px solid #673ab7;">
-      <span class="section-title">Module 1: 1:1 Leveling Comparison (Cross-Mapping)</span>
-      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
-        <div class="field">
-          <label>Compare Company A</label>
-          <select id="compA" onchange="populateLevelList('compA', 'levelA')">
-            <option value="">Select—</option>
-            <option value="Google">Google</option>
-            <option value="Amazon">Amazon</option>
-            <option value="Stripe">Stripe</option>
-            <option value="Uber">Uber</option>
-            <option value="Meta">Meta</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>At Level</label>
-          <select id="levelA" onchange="runComparison()"><option value="">—</option></select>
-        </div>
-        <div class="field">
-          <label>Against Company B</label>
-          <select id="compB" onchange="populateLevelList('compB', 'levelB')">
-            <option value="">Select—</option>
-            <option value="Google">Google</option>
-            <option value="Amazon">Amazon</option>
-            <option value="Stripe">Stripe</option>
-            <option value="Uber">Uber</option>
-            <option value="Meta">Meta</option>
-          </select>
-        </div>
-      </div>
-
-      <div id="comparison-display" class="result-area">
-        <div class="comparison-container">
-            <div class="comp-box"><h3 id="labelA">Comp A</h3><div id="valA" class="comp-level">-</div></div>
-            <div class="comp-arrow">⇄</div>
-            <div class="comp-box"><h3 id="labelB">Comp B</h3><div id="valB" class="comp-level">-</div></div>
-            <div class="comp-arrow">→</div>
-            <div class="comp-box"><h3>Meta Equivalent</h3><div id="valMeta" class="comp-level" style="color:#0668E1">-</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CANDIDATE ANALYSIS -->
-    <div class="tool-card">
-      <span class="section-title">Module 2: Profile Intelligence</span>
-      <div class="field">
-        <label>LinkedIn / Bio Paste</label>
-        <textarea id="profile-text" placeholder="Paste bio for signals..."></textarea>
-      </div>
-      <div class="btn-row">
-        <button class="btn-primary" onclick="analyzeCandidate()">Analyze Profile Signals</button>
-      </div>
-      <div id="candidate-results" class="result-area"></div>
-    </div>
-
-    <!-- SOURCING STRATEGY -->
-    <div class="tool-card" style="border-top: 4px solid #42b72a;">
-      <span class="section-title">Module 3: Sourcing & Outreach</span>
-      <div class="field">
-        <label>Job Description Requirements</label>
-        <textarea id="jd-text" placeholder="Paste JD..."></textarea>
-      </div>
-      <div class="btn-row">
-        <button class="btn-success" onclick="analyzeStrategy()">Generate Sourcing Plan</button>
-      </div>
-      <div id="strategy-results" class="result-area"></div>
-    </div>
-
+  <!-- TAB NAVIGATION -->
+  <div class="tabs">
+    <div class="tab-btn active" onclick="openTab(event, 'tab-leveling')">1:1 Leveling</div>
+    <div class="tab-btn" onclick="openTab(event, 'tab-sourcing')">Sourcing Strategy</div>
+    <div class="tab-btn" onclick="openTab(event, 'tab-outreach')">Outreach Messaging</div>
   </div>
+
+  <!-- TAB 1: LEVELING -->
+  <div id="tab-leveling" class="tab-content active">
+    <span class="section-label">Cross-Company Leveling Matrix</span>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <div class="field">
+        <label>Candidate Current Company</label>
+        <select id="compA" onchange="updateLevels()">
+          <option value="">Select Company—</option>
+          <option value="Google">Google</option>
+          <option value="Amazon">Amazon</option>
+          <option value="Stripe">Stripe</option>
+          <option value="Uber">Uber</option>
+          <option value="Netflix">Netflix</option>
+          <option value="ByteDance">ByteDance</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Current Title/Level</label>
+        <select id="levelA" onchange="calculateMapping()"><option value="">Select company first</option></select>
+      </div>
+    </div>
+
+    <div id="level-result" class="result-card" style="display:none;">
+        <div class="comp-row">
+            <div><div class="tag" id="res-name-a">Company A</div><div class="val" id="res-val-a">-</div></div>
+            <div style="font-size: 24px; color: #ccc;">⇄</div>
+            <div><div class="tag">Comparison Co (Stripe)</div><div class="val" id="res-val-b">-</div></div>
+            <div style="font-size: 24px; color: #0668E1;">→</div>
+            <div><div class="tag">Meta Equivalent</div><div class="val" id="res-val-meta" style="color: #0668E1;">-</div></div>
+        </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: SOURCING -->
+  <div id="tab-sourcing" class="tab-content">
+    <span class="section-label">Job Description DNA Analysis</span>
+    <div class="field">
+        <label>Paste Job Description (JD)</label>
+        <textarea id="jd-input" placeholder="Paste the JD here to find where this talent lives..."></textarea>
+    </div>
+    <button class="btn-primary" onclick="runSourcing()">Generate Sourcing Strategy</button>
+    
+    <div id="sourcing-result" class="result-card" style="display:none;">
+        <div class="strategy-grid">
+            <div>
+                <label>Target Competitor Pools</label>
+                <ul id="list-targets" style="padding-left: 18px; font-size: 14px;"></ul>
+            </div>
+            <div>
+                <label>Relevant Internal Meta Teams</label>
+                <ul id="list-teams" style="padding-left: 18px; font-size: 14px;"></ul>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: OUTREACH -->
+  <div id="tab-outreach" class="tab-content">
+    <span class="section-label">Personalized Outreach Generator</span>
+    <div class="field">
+        <label>Candidate Profile Snippet / Keywords</label>
+        <textarea id="profile-snippet" placeholder="Example: Senior PM at Google, worked on Search, technical background..."></textarea>
+    </div>
+    <div class="field">
+        <label>Message Tone</label>
+        <select id="msg-tone">
+            <option value="direct">Direct & Professional</option>
+            <option value="coffee">Casual Coffee Chat</option>
+            <option value="vision">Visionary / Long-term</option>
+        </select>
+    </div>
+    <button class="btn-primary" onclick="generateMessage()">Draft Outreach</button>
+
+    <div id="outreach-result" class="result-card" style="display:none;">
+        <div class="outreach-box">
+            <button class="copy-btn" onclick="copyText()">COPY</button>
+            <p id="outreach-text" style="font-size: 14px; white-space: pre-wrap;"></p>
+        </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
+// Data Store
 const levelMap = {
   "Google": ["APM","PM II","Senior PM","Staff PM","Group PM","Director"],
   "Amazon": ["L4 PM","L5 PM","L6 (Sr)","L7 (Prin)","L8 (Dir)","L10"],
   "Stripe": ["L1 PM","L2 PM","L3 (Sr)","L4 (Staff)","L5 (Prin)","Head of"],
   "Uber": ["APM","PM II","Senior PM","Staff PM","Group PM","Director"],
+  "Netflix": ["L4 PM","L5 (Sr)","L5 (Sr)","L6 (Dir)","L6 (Dir)","VP"],
+  "ByteDance": ["1-1 PM","1-2 PM","2-1 (Sr)","2-2 (Lead)","3-1 (Dir)","3-2"],
   "Meta": ["IC3", "IC4", "IC5", "IC6", "IC7", "IC8"]
 };
 
-// Populate dropdowns based on levelMap
-function populateLevelList(companyId, levelId) {
-  const co = document.getElementById(companyId).value;
-  const sel = document.getElementById(levelId);
-  sel.innerHTML = '';
-  if (levelMap[co]) {
+// Tab Controller
+function openTab(evt, tabId) {
+  const contents = document.getElementsByClassName("tab-content");
+  for (let i = 0; i < contents.length; i++) contents[i].classList.remove("active");
+  const buttons = document.getElementsByClassName("tab-btn");
+  for (let i = 0; i < buttons.length; i++) buttons[i].classList.remove("active");
+  
+  document.getElementById(tabId).classList.add("active");
+  evt.currentTarget.classList.add("active");
+}
+
+// 1. Leveling Logic
+function updateLevels() {
+  const co = document.getElementById("compA").value;
+  const sel = document.getElementById("levelA");
+  sel.innerHTML = '<option value="">— Select Level —</option>';
+  if(levelMap[co]) {
     levelMap[co].forEach((l, i) => {
-      let opt = document.createElement("option");
-      opt.value = i; opt.textContent = l;
-      sel.appendChild(opt);
+        let opt = document.createElement("option");
+        opt.value = i; opt.textContent = l;
+        sel.appendChild(opt);
     });
   }
-  runComparison();
 }
 
-function runComparison() {
-    const compA = document.getElementById("compA").value;
-    const idxA = parseInt(document.getElementById("levelA").value);
-    const compB = document.getElementById("compB").value;
-    
-    if (!compA || isNaN(idxA) || !compB) return;
+function calculateMapping() {
+    const co = document.getElementById("compA").value;
+    const idx = parseInt(document.getElementById("levelA").value);
+    if (!co || isNaN(idx)) return;
 
-    // Display values
-    document.getElementById("labelA").innerText = compA;
-    document.getElementById("valA").innerText = levelMap[compA][idxA];
-    
-    document.getElementById("labelB").innerText = compB;
-    // Map same index to Company B
-    document.getElementById("valB").innerText = levelMap[compB][idxA] || "Beyond Scope";
-    
-    // Map to Meta (Index)
-    document.getElementById("valMeta").innerText = levelMap["Meta"][idxA] || "L8+";
+    document.getElementById("level-result").style.display = "block";
+    document.getElementById("res-name-a").innerText = co;
+    document.getElementById("res-val-a").innerText = levelMap[co][idx];
+    document.getElementById("res-val-b").innerText = levelMap["Stripe"][idx] || "N/A";
+    document.getElementById("res-val-meta").innerText = levelMap["Meta"][idx];
 }
 
-function analyzeCandidate() {
-  const text = document.getElementById("profile-text").value.toLowerCase();
-  let insights = [];
-  if (text.includes("managed") || text.includes("reports")) insights.push("People Leadership detected (M1/M2 track)");
-  if (text.includes("0 to 1") || text.includes("founder")) insights.push("High Ambiguity DNA");
-  if (text.includes("sql") || text.includes("python") || text.includes("ml")) insights.push("Technical Signal: Infra/AI fit");
+// 2. Sourcing Logic
+function runSourcing() {
+    const jd = document.getElementById("jd-input").value.toLowerCase();
+    let targets = ["Stripe", "Airbnb", "Square"];
+    let teams = ["Product Org"];
 
-  document.getElementById("candidate-results").innerHTML = insights.length > 0 ? 
-    `<div style="background:#f0f7ff; padding:15px; border-radius:8px;"><strong>Researcher Notes:</strong><ul>${insights.map(i => `<li>${i}</li>`).join('')}</ul></div>` : 
-    `<p style="color:#888;">No specific signals detected. Leveling defaults to company norm.</p>`;
+    if (jd.includes("ads") || jd.includes("ranking") || jd.includes("ai")) {
+        targets = ["Google (Search/Ads)", "TikTok (Monetization)", "Amazon (AdTech)"];
+        teams = ["Ads Core AI", "Ranking & Relevance", "GenAI"];
+    } else if (jd.includes("growth") || jd.includes("consumer")) {
+        targets = ["Uber (Growth)", "DoorDash", "Instagram", "Snap"];
+        teams = ["Growth & Funnels", "Product Sense Org", "Engagement"];
+    }
+
+    document.getElementById("sourcing-result").style.display = "block";
+    document.getElementById("list-targets").innerHTML = targets.map(t => `<li>${t}</li>`).join('');
+    document.getElementById("list-teams").innerHTML = teams.map(t => `<li>${t}</li>`).join('');
 }
 
-function analyzeStrategy() {
-  const jd = document.getElementById("jd-text").value.toLowerCase();
-  let targets = ["Stripe", "Google", "Airbnb"];
-  let outreach = "I noticed your impressive background...";
+// 3. Outreach Logic
+function generateMessage() {
+    const snippet = document.getElementById("profile-snippet").value;
+    const tone = document.getElementById("msg-tone").value;
+    let msg = "";
 
-  if (jd.includes("ranking") || jd.includes("ai")) {
-    targets = ["Google (Search)", "Netflix (Content AI)", "ByteDance"];
-    outreach = "Given your work on complex ranking systems, I thought you'd be a great fit for Meta's GenAI teams.";
-  }
+    if (tone === "coffee") {
+        msg = `Hi [Name],\n\nI've been following your career trajectory at your current firm. Given your work in product scaling, I'd love to grab 15 minutes for a virtual coffee to share what we're building at Meta. No pressure—just a researcher-to-PM chat.`;
+    } else if (tone === "vision") {
+        msg = `Hi [Name],\n\nMeta is currently expanding its next-generation product pillars. Your background suggests you're operating at a massive scope. I'd like to discuss how your leadership DNA maps to our long-term roadmap.`;
+    } else {
+        msg = `Hi [Name],\n\nI am a researcher at Meta and I noticed your specific expertise. Based on our current leveling benchmarks, your profile suggests a strong alignment with several of our critical Staff-level openings. Let me know if you're open to a brief sync.`;
+    }
 
-  document.getElementById("strategy-results").innerHTML = `
-    <div style="background:#f6ffed; padding:15px; border-radius:8px; border-left:4px solid #42b72a;">
-      <strong>Target Companies:</strong> ${targets.join(", ")}<br><br>
-      <strong>Draft Outreach:</strong><br><em style="font-size:12px;">"${outreach}"</em>
-    </div>`;
+    document.getElementById("outreach-result").style.display = "block";
+    document.getElementById("outreach-text").innerText = msg;
+}
+
+function copyText() {
+    const text = document.getElementById("outreach-text").innerText;
+    navigator.clipboard.writeText(text);
+    alert("Copied to clipboard!");
 }
 </script>
 
