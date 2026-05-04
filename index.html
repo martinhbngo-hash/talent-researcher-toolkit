@@ -3,25 +3,23 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Researcher Hub | Obsidian Edition</title>
+<title>Researcher Hub | Global Leveling</title>
 <style>
   :root {
-    /* 2026 Trending Palette: Obsidian, Champagne, and Slate */
     --bg: #0a0a0b;
     --card-bg: #141416;
-    --primary: #e5e5e1; /* Champagne/Off-white */
-    --secondary: #27272a; /* Deep Slate */
+    --primary: #e5e5e1; 
+    --secondary: #27272a; 
     --accent: #d4d4d8; 
     --text-main: #f4f4f5;
     --text-dim: #71717a;
     --border: #262626;
-    --glow: rgba(229, 229, 225, 0.05);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
   
   body {
-    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    font-family: 'Inter', -apple-system, sans-serif;
     background-color: var(--bg);
     color: var(--text-main);
     min-height: 100vh;
@@ -32,110 +30,63 @@
   .container { max-width: 800px; margin: 0 auto; }
   
   header { margin: 2rem 0 3rem; text-align: left; border-left: 1px solid var(--primary); padding-left: 1.5rem; }
-  header h1 { 
-    font-size: 28px; 
-    font-weight: 500; 
-    letter-spacing: -0.05em;
-    color: var(--primary);
-  }
-  header p { color: var(--text-dim); font-size: 13px; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.1em; }
+  header h1 { font-size: 28px; font-weight: 500; letter-spacing: -0.05em; color: var(--primary); }
+  header p { color: var(--text-dim); font-size: 11px; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.1em; }
 
-  /* Bento Tabs */
   .tabs { 
-    display: flex; 
-    gap: 8px; 
-    margin-bottom: 2rem;
-    padding: 4px;
-    background: var(--card-bg);
-    border-radius: 14px;
-    border: 1px solid var(--border);
+    display: flex; gap: 8px; margin-bottom: 2rem; padding: 4px;
+    background: var(--card-bg); border-radius: 14px; border: 1px solid var(--border);
   }
   
   .tab-btn {
-    flex: 1;
-    padding: 10px; 
-    background: transparent; 
-    border: none;
-    border-radius: 10px; 
-    cursor: pointer; 
-    font-size: 12px; 
-    font-weight: 500; 
-    color: var(--text-dim); 
-    transition: 0.2s cubic-bezier(0.2, 0, 0, 1);
+    flex: 1; padding: 10px; background: transparent; border: none;
+    border-radius: 10px; cursor: pointer; font-size: 12px; font-weight: 500; 
+    color: var(--text-dim); transition: 0.2s;
   }
 
-  .tab-btn.active { 
-    background: var(--secondary); 
-    color: var(--primary);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-  }
+  .tab-btn.active { background: var(--secondary); color: var(--primary); }
 
-  /* Sophisticated Cards */
   .tab-content {
-    background: var(--card-bg); 
-    border: 1px solid var(--border);
-    border-radius: 24px; 
-    padding: 2rem; 
-    display: none;
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 24px; padding: 2rem; display: none;
     box-shadow: 0 40px 100px -20px rgba(0,0,0,0.7);
   }
   
   .tab-content.active { display: block; }
 
   .field { margin-bottom: 1.5rem; }
-  label { font-size: 11px; font-weight: 600; color: var(--text-dim); margin-bottom: 8px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+  label { font-size: 11px; font-weight: 600; color: var(--text-dim); margin-bottom: 8px; display: block; text-transform: uppercase; }
   
   select, textarea {
     width: 100%; padding: 14px; background: var(--bg);
     border: 1px solid var(--border); border-radius: 12px;
-    font-size: 15px; color: var(--text-main);
-    transition: border-color 0.3s;
+    font-size: 16px; color: var(--text-main);
   }
   
-  select:focus, textarea:focus { outline: none; border-color: var(--primary); }
-
   .btn-primary { 
-    background: var(--primary);
-    color: var(--bg); 
-    border: none; 
-    padding: 16px; 
-    border-radius: 12px; 
-    font-weight: 600; 
-    cursor: pointer; 
-    width: 100%; 
-    font-size: 15px;
-    transition: opacity 0.2s;
+    background: var(--primary); color: var(--bg); border: none; 
+    padding: 16px; border-radius: 12px; font-weight: 600; 
+    cursor: pointer; width: 100%; font-size: 15px;
   }
-  
-  .btn-primary:hover { opacity: 0.9; }
 
-  /* Results: Subtle & Focused */
   .result-card { 
-    margin-top: 2rem; 
-    padding: 24px; 
-    border-radius: 16px; 
+    margin-top: 2rem; padding: 24px; border-radius: 16px; 
     background: linear-gradient(145deg, #18181b, #141416);
     border: 1px solid var(--border);
   }
 
   .comp-row { 
-    display: flex;
-    flex-direction: column;
-    align-items: center; text-align: center; gap: 20px;
+    display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px;
   }
   
-  @media (min-width: 600px) {
-    .comp-row { flex-direction: row; justify-content: space-around; }
-  }
+  @media (min-width: 600px) { .comp-row { flex-direction: row; justify-content: space-around; } }
   
-  .val { font-size: 24px; font-weight: 600; color: var(--primary); letter-spacing: -0.02em; }
-  .tag { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .val { font-size: 22px; font-weight: 600; color: var(--primary); }
+  .tag { font-size: 10px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 6px; }
   .divider { color: var(--border); font-size: 20px; }
-
   .strategy-list li { 
-    background: var(--bg); margin-bottom: 12px; padding: 16px; 
-    border-radius: 12px; border: 1px solid var(--border); font-size: 14px;
-    line-height: 1.6; color: var(--accent);
+    background: var(--bg); margin-bottom: 12px; padding: 16px; border-radius: 12px; 
+    border: 1px solid var(--border); font-size: 14px; color: var(--accent);
   }
 </style>
 </head>
@@ -144,11 +95,11 @@
 <div class="container">
   <header>
     <h1>Intelligence Hub</h1>
-    <p>Strategic Talent Calibration</p>
+    <p>Global Talent Calibration Engine</p>
   </header>
 
   <div class="tabs">
-    <div class="tab-btn active" onclick="openTab(event, 'tab-leveling')">Leveling</div>
+    <div class="tab-btn active" onclick="openTab(event, 'tab-leveling')">1:1 Leveling</div>
     <div class="tab-btn" onclick="openTab(event, 'tab-sourcing')">Sourcing</div>
     <div class="tab-btn" onclick="openTab(event, 'tab-outreach')">Strategy</div>
   </div>
@@ -156,31 +107,21 @@
   <!-- LEVELING TAB -->
   <div id="tab-leveling" class="tab-content active">
     <div class="field">
-      <label>Industry Sector</label>
-      <select id="industrySelector" onchange="populateCompanies()">
-        <option value="">Select—</option>
-        <option value="tech">Digital & Technology</option>
-        <option value="consulting">Professional Services</option>
-        <option value="finance">Banking & Capital Markets</option>
-        <option value="enterprise">Global Enterprise</option>
+      <label>Company / Organization</label>
+      <select id="compA" onchange="updateLevels()">
+        <option value="">Select Company—</option>
       </select>
     </div>
     <div class="field">
-      <label>Target Organization</label>
-      <select id="compA" onchange="updateLevels()"><option value="">Select industry—</option></select>
-    </div>
-    <div class="field">
-        <label>Current Seniority</label>
-        <select id="levelA" onchange="calculateMapping()"><option value="">Select company—</option></select>
+        <label>Reported Seniority</label>
+        <select id="levelA" onchange="calculateMapping()"><option value="">Select company first—</option></select>
     </div>
 
     <div id="level-result" class="result-card" style="display:none;">
         <div class="comp-row">
-            <div><div class="tag" id="res-name-a">Current</div><div class="val" id="res-val-a">-</div></div>
+            <div><div class="tag" id="res-name-a">Source</div><div class="val" id="res-val-a">-</div></div>
             <div class="divider">/</div>
-            <div><div class="tag">Equivalence</div><div class="val" id="res-val-b">-</div></div>
-            <div class="divider">/</div>
-            <div><div class="tag">Meta Match</div><div class="val" id="res-val-meta">-</div></div>
+            <div><div class="tag">Internal Match</div><div class="val" id="res-val-meta" style="color: #fff; text-decoration: underline; text-underline-offset: 4px;">-</div></div>
         </div>
     </div>
   </div>
@@ -188,22 +129,22 @@
   <!-- SOURCING TAB -->
   <div id="tab-sourcing" class="tab-content">
     <div class="field">
-        <label>Job Architecture Keywords</label>
-        <textarea id="jd-input" rows="4" placeholder="Input core competencies..."></textarea>
+        <label>Competency Matrix / JD</label>
+        <textarea id="jd-input" rows="4" placeholder="Paste JD or skills..."></textarea>
     </div>
-    <button class="btn-primary" onclick="runSourcing()">Run Market Analysis</button>
+    <button class="btn-primary" onclick="runSourcing()">Analyze Market Pools</button>
     <div id="sourcing-result" class="result-card" style="display:none;">
-        <div id="sourcing-content" style="font-size: 14px; line-height: 1.8;"></div>
+        <div id="sourcing-content" style="font-size: 14px; line-height: 1.6;"></div>
     </div>
   </div>
 
   <!-- STRATEGY TAB -->
   <div id="tab-outreach" class="tab-content">
     <div class="field">
-        <label>Candidate Archetype</label>
-        <textarea id="profile-snippet" rows="4" placeholder="Brief profile overview..."></textarea>
+        <label>Candidate Profile Signals</label>
+        <textarea id="profile-snippet" rows="4" placeholder="Brief background signals..."></textarea>
     </div>
-    <button class="btn-primary" onclick="generateStrategy()">Synthesize Positioning</button>
+    <button class="btn-primary" onclick="generateStrategy()">Synthesize Hooks</button>
     <div id="outreach-result" class="result-card" style="display:none;">
         <ul id="strategy-list" class="strategy-list"></ul>
     </div>
@@ -212,7 +153,6 @@
 </div>
 
 <script>
-/* (All previous JavaScript logic remains intact for functionality) */
 const levelMap = {
   "Google": ["APM","PM II","Senior PM","Staff PM","Group PM","Director of PM","VP of Product"],
   "Apple": ["New Grad PM","PM","Senior PM","Lead PM","Principal PM","Director of PM","VP of Product"],
@@ -235,11 +175,20 @@ const levelMap = {
   "Goldman Sachs": ["Analyst","Associate","VP","Executive Director","Managing Director","Partner","Partner"],
   "Other (large tech)": ["Junior PM","PM","Senior PM","Staff PM","Group PM","Director of PM","VP of Product"],
   "Other (consulting / finance)": ["Analyst","Associate / Consultant","Manager","Senior Manager","Director","Managing Director","Partner / VP"],
-  "Other (startup / mid-size)": ["PM","PM","Senior PM","Senior PM / PM Lead","Head of Product","Director of PM","VP / CPO"],
+  "Other (startup / mid-size)": ["PM","PM","Senior PM","Senior PM / PM Lead","Head of Product","Director of PM","VP / CPO"]
 };
 
-const metaMap = ["IC3", "IC4", "IC5", "IC6", "IC7", "IC8"];
-const globalStandard = ["Associate", "Mid-Level", "Senior", "Lead", "Principal", "Director"];
+// Internal Meta Target Mapping
+const metaLevels = ["IC3", "IC4", "IC5", "IC6", "IC7", "D1", "D2/VP"];
+
+function init() {
+  const compSel = document.getElementById("compA");
+  Object.keys(levelMap).sort().forEach(c => {
+    let opt = document.createElement("option");
+    opt.value = c; opt.textContent = c;
+    compSel.appendChild(opt);
+  });
+}
 
 function openTab(evt, tabId) {
   document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
@@ -248,26 +197,12 @@ function openTab(evt, tabId) {
   evt.currentTarget.classList.add("active");
 }
 
-function populateCompanies() {
-  const ind = document.getElementById("industrySelector").value;
-  const compSel = document.getElementById("compA");
-  compSel.innerHTML = '<option value="">Select—</option>';
-  if(industries[ind]) {
-    Object.keys(industries[ind]).forEach(c => {
-      let opt = document.createElement("option");
-      opt.value = c; opt.textContent = c;
-      compSel.appendChild(opt);
-    });
-  }
-}
-
 function updateLevels() {
-  const ind = document.getElementById("industrySelector").value;
   const co = document.getElementById("compA").value;
   const levSel = document.getElementById("levelA");
-  levSel.innerHTML = '<option value="">Select—</option>';
-  if(industries[ind] && industries[ind][co]) {
-    industries[ind][co].forEach((l, i) => {
+  levSel.innerHTML = '<option value="">Select Level—</option>';
+  if(levelMap[co]) {
+    levelMap[co].forEach((l, i) => {
       let opt = document.createElement("option");
       opt.value = i; opt.textContent = l;
       levSel.appendChild(opt);
@@ -279,22 +214,27 @@ function calculateMapping() {
     const idx = parseInt(document.getElementById("levelA").value);
     const co = document.getElementById("compA").value;
     if (isNaN(idx)) return;
+    
     document.getElementById("level-result").style.display = "block";
     document.getElementById("res-name-a").innerText = co;
-    document.getElementById("res-val-a").innerText = industries[document.getElementById("industrySelector").value][co][idx];
-    document.getElementById("res-val-b").innerText = globalStandard[idx];
-    document.getElementById("res-val-meta").innerText = metaMap[idx];
+    document.getElementById("res-val-a").innerText = levelMap[co][idx];
+    
+    // Logic: Map the index of the source list to the Meta Level list
+    // If source index is higher than Meta list, default to highest D2+
+    document.getElementById("res-val-meta").innerText = metaLevels[idx] || "D2+ / VP";
 }
 
 function runSourcing() {
     document.getElementById("sourcing-result").style.display = "block";
-    document.getElementById("sourcing-content").innerHTML = "Analysis focused on <b>Strategic High-Value Segments</b>. <br>Prioritize candidates with cross-functional leadership in decentralized organizations.";
+    document.getElementById("sourcing-content").innerHTML = "Targeting <b>High-Intensity Tech</b> and <b>Top-Tier Professional Services</b>. <br>Look for 'Lateral Pivot' signals in tenure.";
 }
 
 function generateStrategy() {
     document.getElementById("outreach-result").style.display = "block";
-    document.getElementById("strategy-list").innerHTML = "<li>Frame the role as a 'Legacy Pivot' rather than a job change.</li><li>Highlight Meta's current lean-architecture advantage.</li>";
+    document.getElementById("strategy-list").innerHTML = "<li>Frame the role as 'Ownership of Scale'.</li><li>Mention Meta's current flat-org efficiency.</li>";
 }
+
+init();
 </script>
 </body>
 </html>
