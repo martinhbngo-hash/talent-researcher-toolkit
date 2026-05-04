@@ -32,59 +32,37 @@ body {
   -webkit-font-smoothing: antialiased; overflow-x: hidden;
 }
 .container { max-width: 880px; margin: 0 auto; width: 100%; }
-
-header { margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
-.logo-mark {
-  width: 38px; height: 38px; flex-shrink: 0;
-  background: linear-gradient(135deg, #6c47ff 0%, #9333ea 100%);
-  border-radius: 10px; display: flex; align-items: center; justify-content: center;
-}
+header { margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+.logo-mark { width: 38px; height: 38px; flex-shrink: 0; background: linear-gradient(135deg, #6c47ff 0%, #9333ea 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
 .logo-mark svg { width: 20px; height: 20px; fill: none; stroke: white; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .header-text h1 { font-size: 17px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
 .header-text p { font-size: 11px; color: var(--text-2); margin-top: 2px; }
 
-.tabs {
-  display: flex; gap: 4px; margin-bottom: 1rem; padding: 4px;
-  background: var(--surface); border-radius: 12px; border: 1px solid var(--border);
-  box-shadow: var(--shadow); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
-}
-.tabs::-webkit-scrollbar { display: none; }
-.tab-btn {
-  flex: 1; min-width: 76px; padding: 11px 6px;
-  background: transparent; border: none; border-radius: 8px;
-  cursor: pointer; font-size: 12px; font-weight: 600;
-  color: var(--text-2); transition: all 0.2s; white-space: nowrap;
-  font-family: inherit; touch-action: manipulation;
-}
-.tab-btn.active { background: var(--primary); color: white; box-shadow: 0 2px 8px rgba(108,71,255,0.35); }
+.api-key-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--primary); border-radius: 12px; padding: 1rem 1.125rem; margin-bottom: 1rem; box-shadow: var(--shadow); }
+.api-key-row { display: flex; gap: 8px; align-items: stretch; margin-top: 6px; }
+.api-key-row input { flex: 1; padding: 12px 13px; background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px; font-size: 15px; color: var(--text); font-family: inherit; min-width: 0; appearance: none; -webkit-appearance: none; }
+.api-key-row input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(108,71,255,0.12); }
+.api-key-note { font-size: 11px; color: var(--text-3); margin-top: 6px; line-height: 1.5; }
+.api-key-note a { color: var(--primary); text-decoration: none; }
+.api-key-status { font-size: 12px; margin-top: 5px; min-height: 16px; font-weight: 500; }
+.api-key-status.ok { color: #065f46; }
+.api-key-status.err { color: #991b1b; }
 
+.tabs { display: flex; gap: 4px; margin-bottom: 1rem; padding: 4px; background: var(--surface); border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab-btn { flex: 1; min-width: 76px; padding: 11px 6px; background: transparent; border: none; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600; color: var(--text-2); transition: all 0.2s; white-space: nowrap; font-family: inherit; touch-action: manipulation; }
+.tab-btn.active { background: var(--primary); color: white; box-shadow: 0 2px 8px rgba(108,71,255,0.35); }
 .tab-content { display: none; }
 .tab-content.active { display: block; }
 
-.card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 14px; padding: 1.125rem; margin-bottom: 0.875rem; box-shadow: var(--shadow);
-}
-
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.125rem; margin-bottom: 0.875rem; box-shadow: var(--shadow); }
 .field { margin-bottom: 1rem; }
-label {
-  font-size: 11px; font-weight: 700; color: var(--text-2);
-  margin-bottom: 6px; display: block; text-transform: uppercase; letter-spacing: 0.06em;
-}
+label { font-size: 11px; font-weight: 700; color: var(--text-2); margin-bottom: 6px; display: block; text-transform: uppercase; letter-spacing: 0.06em; }
 
-select, textarea {
-  width: 100%; padding: 13px 14px;
-  background: var(--bg); border: 1.5px solid var(--border);
-  border-radius: 10px; font-size: 16px; color: var(--text);
-  font-family: inherit; transition: border-color 0.15s;
-  appearance: none; -webkit-appearance: none;
-}
-select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px; cursor: pointer;
-}
+select, textarea { width: 100%; padding: 13px 14px; background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px; font-size: 16px; color: var(--text); font-family: inherit; transition: border-color 0.15s; appearance: none; -webkit-appearance: none; }
+select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px; cursor: pointer; }
 select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(108,71,255,0.12); background: var(--surface); }
-textarea { resize: vertical; min-height: 100px; line-height: 1.6; font-size: 15px; }
+textarea { resize: vertical; min-height: 110px; line-height: 1.6; font-size: 15px; }
 textarea::placeholder { color: var(--text-3); font-size: 14px; }
 
 .form-row { display: grid; grid-template-columns: 1fr; gap: 0; }
@@ -92,12 +70,7 @@ textarea::placeholder { color: var(--text-3); font-size: 14px; }
 
 .btn-row { display: flex; flex-direction: column; gap: 8px; margin-top: 1rem; }
 @media (min-width: 480px) { .btn-row { flex-direction: row; flex-wrap: wrap; } }
-
-button {
-  width: 100%; padding: 14px 20px; border-radius: 10px;
-  font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.15s;
-  font-family: inherit; border: 1.5px solid transparent; touch-action: manipulation;
-}
+button { width: 100%; padding: 14px 20px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.15s; font-family: inherit; border: 1.5px solid transparent; touch-action: manipulation; -webkit-appearance: none; }
 @media (min-width: 480px) { button { width: auto; } }
 .btn-primary { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 2px 8px rgba(108,71,255,0.3); }
 .btn-primary:active { background: var(--primary-dark); transform: scale(0.98); }
@@ -107,19 +80,12 @@ button {
 .btn-ai { background: var(--accent-light); color: #0e7490; border-color: #a5f3fc; }
 .btn-ai:active { background: #cffafe; transform: scale(0.98); }
 .btn-ai:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+.btn-save { background: var(--primary); color: white; border-color: var(--primary); padding: 12px 16px; white-space: nowrap; }
+.btn-save:active { background: var(--primary-dark); }
 
-.divider {
-  display: flex; align-items: center; gap: 10px;
-  margin: 1rem 0; color: var(--text-3); font-size: 11px;
-  font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
-}
+.divider { display: flex; align-items: center; gap: 10px; margin: 1rem 0; color: var(--text-3); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
 .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
-.section-label {
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.06em; color: var(--primary); margin-bottom: 10px;
-  display: flex; align-items: center; gap: 6px;
-}
+.section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--primary); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
 .section-label::before { content: ''; width: 3px; height: 13px; background: var(--primary); border-radius: 2px; display: inline-block; }
 
 .parsing-status { font-size: 13px; color: var(--primary); margin-top: 8px; min-height: 20px; display: flex; align-items: center; gap: 6px; font-weight: 500; }
@@ -131,6 +97,7 @@ button {
 .banner.visible { display: block; }
 .banner-green { background: var(--success-light); border: 1px solid #6ee7b7; color: #065f46; }
 .banner-yellow { background: var(--warning-light); border: 1px solid #fcd34d; color: #92400e; }
+.banner-red { background: var(--danger-light); border: 1px solid #fca5a5; color: #991b1b; }
 
 .result-wrap { margin-top: 0.875rem; }
 .result-header { font-size: 13px; color: var(--text-2); margin-bottom: 10px; font-weight: 500; line-height: 1.5; }
@@ -147,12 +114,10 @@ tr:last-child td { border-bottom: none; }
 .badge-match { background: var(--success-light); color: #065f46; }
 .badge-stretch { background: var(--warning-light); color: #92400e; }
 .badge-reach { background: var(--danger-light); color: #991b1b; }
-
 .level-pill { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px; background: var(--primary-light); color: var(--primary); border: 1px solid var(--border-2); display: inline-block; white-space: nowrap; }
 
 .note { font-size: 13px; color: var(--text-2); margin-top: 1rem; line-height: 1.7; background: var(--bg); padding: 12px 14px; border-radius: 10px; border: 1px solid var(--border); }
 .note strong { color: var(--primary); }
-
 .ai-insight { margin-top: 0.875rem; background: var(--primary-light); border: 1px solid var(--border-2); border-radius: 10px; padding: 12px 14px; font-size: 13px; color: var(--text); line-height: 1.7; display: none; }
 .ai-insight.visible { display: block; }
 .ai-insight-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--primary); margin-bottom: 6px; }
@@ -183,6 +148,17 @@ tr:last-child td { border-bottom: none; }
       <p>Market Intel · PM Calibration · Sourcing Strategy</p>
     </div>
   </header>
+
+  <!-- API KEY -->
+  <div class="api-key-card">
+    <label for="api-key-input">Anthropic API Key <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-3);font-size:11px;">(required for AI features)</span></label>
+    <div class="api-key-row">
+      <input type="password" id="api-key-input" placeholder="sk-ant-api03-..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+      <button class="btn-save" onclick="saveApiKey()">Save</button>
+    </div>
+    <div id="api-key-status" class="api-key-status"></div>
+    <p class="api-key-note">Your key is only stored in this browser tab and sent directly to Anthropic. Get yours at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>.</p>
+  </div>
 
   <nav class="tabs">
     <button class="tab-btn active" onclick="openTab(event,'tab-intel')">Market Intel</button>
@@ -228,15 +204,13 @@ tr:last-child td { border-bottom: none; }
         <div class="spinner" id="spinner"></div>
         <span id="status-text"></span>
       </div>
+      <div id="linkedin-error" class="banner banner-red" style="margin-bottom:0;margin-top:8px;"></div>
       <div class="btn-row">
         <button class="btn-ai" onclick="parseLinkedIn()">Auto-fill from LinkedIn text</button>
       </div>
-
       <div class="divider">or fill in manually</div>
-
       <div class="section-label">Option 2 — Enter details manually</div>
       <div id="parsed-banner" class="banner banner-green"></div>
-
       <div class="form-row">
         <div class="field">
           <label>Current Company</label>
@@ -286,6 +260,7 @@ tr:last-child td { border-bottom: none; }
         <div class="spinner" id="sourcing-spinner"></div>
         <span id="sourcing-status"></span>
       </div>
+      <div id="sourcing-error" class="banner banner-red" style="margin-bottom:0;margin-top:8px;"></div>
       <div class="btn-row">
         <button class="btn-primary" id="sourcing-btn" onclick="runSourcing()">Map Talent Clusters</button>
       </div>
@@ -307,6 +282,7 @@ tr:last-child td { border-bottom: none; }
         <div class="spinner" id="strategy-spinner"></div>
         <span id="strategy-status"></span>
       </div>
+      <div id="strategy-error" class="banner banner-red" style="margin-bottom:0;margin-top:8px;"></div>
       <div class="btn-row">
         <button class="btn-primary" id="strategy-btn" onclick="generateStrategy()">Synthesize Strategy</button>
       </div>
@@ -319,6 +295,75 @@ tr:last-child td { border-bottom: none; }
 
 </div>
 <script>
+var apiKey = "";
+
+function saveApiKey() {
+  var val = document.getElementById("api-key-input").value.trim();
+  var statusEl = document.getElementById("api-key-status");
+  if (!val) { statusEl.textContent = "Please enter a key."; statusEl.className = "api-key-status err"; return; }
+  if (val.indexOf("sk-ant") !== 0) { statusEl.textContent = "That doesn't look like an Anthropic key (should start with sk-ant-)."; statusEl.className = "api-key-status err"; return; }
+  apiKey = val;
+  statusEl.textContent = "Key saved. AI features are now enabled.";
+  statusEl.className = "api-key-status ok";
+}
+
+function getApiKey() {
+  if (!apiKey) {
+    var val = document.getElementById("api-key-input").value.trim();
+    if (val && val.indexOf("sk-ant") === 0) { apiKey = val; }
+  }
+  return apiKey;
+}
+
+function callAPI(prompt, onSuccess, onError) {
+  var key = getApiKey();
+  if (!key) {
+    onError("No API key found. Please enter your Anthropic API key at the top of the page.");
+    return;
+  }
+  fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": key,
+      "anthropic-version": "2023-06-01",
+      "anthropic-dangerous-direct-browser-access": "true"
+    },
+    body: JSON.stringify({
+      model: "claude-sonnet-4-20250514",
+      max_tokens: 1000,
+      messages: [{ role: "user", content: prompt }]
+    })
+  })
+  .then(function(r) {
+    if (!r.ok) {
+      return r.json().then(function(e) {
+        throw new Error(e.error ? e.error.message : "API error " + r.status);
+      });
+    }
+    return r.json();
+  })
+  .then(function(data) {
+    var text = "";
+    for (var i = 0; i < data.content.length; i++) {
+      if (data.content[i].type === "text") { text = data.content[i].text; break; }
+    }
+    onSuccess(text);
+  })
+  .catch(function(err) {
+    onError(err.message || "Something went wrong. Check your API key and connection.");
+  });
+}
+
+function showError(elId, msg) {
+  var el = document.getElementById(elId);
+  if (el) { el.textContent = msg; el.classList.add("visible"); }
+}
+function hideError(elId) {
+  var el = document.getElementById(elId);
+  if (el) { el.textContent = ""; el.classList.remove("visible"); }
+}
+
 /* DATA */
 var levelMap = {
   "Google": ["APM","PM II","Senior PM","Staff PM","Group PM","Director of PM","VP of Product"],
@@ -344,7 +389,6 @@ var levelMap = {
   "Other (consulting / finance)": ["Analyst","Associate / Consultant","Manager","Senior Manager","Director","Managing Director","Partner / VP"],
   "Other (startup / mid-size)": ["PM","PM","Senior PM","Senior PM / PM Lead","Head of Product","Director of PM","VP / CPO"]
 };
-
 var metaLevels = ["IC3 (APM)","IC4 (PM)","IC5 (Senior PM)","IC6 (Staff PM)","IC7 (Group PM / Director)","IC8 (Director)","IC9+ (VP)"];
 var metaDescriptions = [
   "Entry-level. Works on defined problems with close mentorship.",
@@ -407,56 +451,30 @@ function populateLevels(selectedLabel) {
     var levels = levelMap[co];
     for (var i = 0; i < levels.length; i++) {
       var opt = document.createElement("option");
-      opt.value = i;
-      opt.textContent = levels[i];
+      opt.value = i; opt.textContent = levels[i];
       if (selectedLabel && levels[i].toLowerCase().indexOf(selectedLabel.toLowerCase()) !== -1) opt.selected = true;
       sel.appendChild(opt);
     }
   }
 }
-
 document.getElementById("company").addEventListener("change", function() { populateLevels(); });
 
 function parseLinkedIn() {
   var text = document.getElementById("linkedin-text").value.trim();
   if (!text) { setLevelStatus("Please paste some LinkedIn profile text first.", false); return; }
+  hideError("linkedin-error");
   setLevelStatus("Analyzing profile...", true);
   document.querySelector(".btn-ai").disabled = true;
 
-  fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      model: "claude-sonnet-4-20250514",
-      max_tokens: 1000,
-      messages: [{
-        role: "user",
-        content: "You are a recruiting specialist. Analyze this LinkedIn profile text and extract the candidate's current information for PM leveling at Meta.\n\nLinkedIn text:\n" + text + "\n\nReturn ONLY a JSON object with no markdown or backticks:\n{\"company\": \"exact company name matching one of: Google, Apple, Amazon, Microsoft, Salesforce, Uber, Airbnb, Stripe, LinkedIn, Netflix, Twitter / X, Snap, ByteDance / TikTok, PwC, Deloitte, McKinsey, Accenture, JPMorgan, Goldman Sachs, Other (large tech), Other (consulting / finance), Other (startup / mid-size)\",\"title\": \"their most recent product or consulting title\",\"yoe\": \"estimated years as one of: 0-1, 1-2, 2-4, 4-6, 6-9, 9-12, 12+\",\"insight\": \"1-2 sentences on how this background maps to Meta PM leveling\",\"confidence\": \"high, medium, or low\"}"
-      }]
-    })
-  })
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    var raw = "";
-    for (var i = 0; i < data.content.length; i++) {
-      if (data.content[i].type === "text") { raw = data.content[i].text; break; }
-    }
+  var prompt = "You are a recruiting specialist. Analyze this LinkedIn profile text and extract the candidate's current information for PM leveling at Meta.\n\nLinkedIn text:\n" + text + "\n\nReturn ONLY a JSON object with no markdown or backticks:\n{\"company\": \"exact company name matching one of: Google, Apple, Amazon, Microsoft, Salesforce, Uber, Airbnb, Stripe, LinkedIn, Netflix, Twitter / X, Snap, ByteDance / TikTok, PwC, Deloitte, McKinsey, Accenture, JPMorgan, Goldman Sachs, Other (large tech), Other (consulting / finance), Other (startup / mid-size)\",\"title\": \"their most recent product or consulting title\",\"yoe\": \"estimated years as one of: 0-1, 1-2, 2-4, 4-6, 6-9, 9-12, 12+\",\"insight\": \"1-2 sentences on how this background maps to Meta PM leveling\",\"confidence\": \"high, medium, or low\"}";
+
+  callAPI(prompt, function(raw) {
     var parsed;
     try { parsed = JSON.parse(raw.replace(/```json|```/g, "").trim()); }
-    catch(e) { setLevelStatus("Could not parse the profile. Try adding more detail.", false); document.querySelector(".btn-ai").disabled = false; return; }
-
+    catch(e) { setLevelStatus("", false); showError("linkedin-error", "Could not parse the profile. Try adding more detail."); document.querySelector(".btn-ai").disabled = false; return; }
     var compSel = document.getElementById("company");
     for (var i = 0; i < compSel.options.length; i++) {
-      if (compSel.options[i].value && parsed.company && compSel.options[i].value.toLowerCase() === parsed.company.toLowerCase()) {
-        compSel.value = compSel.options[i].value; break;
-      }
-    }
-    if (!compSel.value && parsed.company) {
-      for (var i = 0; i < compSel.options.length; i++) {
-        if (compSel.options[i].value && parsed.company && parsed.company.toLowerCase().indexOf(compSel.options[i].value.toLowerCase().split(" ")[0]) !== -1) {
-          compSel.value = compSel.options[i].value; break;
-        }
-      }
+      if (compSel.options[i].value && parsed.company && compSel.options[i].value.toLowerCase() === parsed.company.toLowerCase()) { compSel.value = compSel.options[i].value; break; }
     }
     populateLevels(parsed.title);
     var yoeSel = document.getElementById("yoe");
@@ -469,9 +487,9 @@ function parseLinkedIn() {
     aiInsight = parsed.insight || null;
     setLevelStatus("Profile parsed. Review fields below then tap Show Meta leveling.", false);
     document.querySelector(".btn-ai").disabled = false;
-  })
-  .catch(function() {
-    setLevelStatus("Something went wrong. Check your connection and try again.", false);
+  }, function(err) {
+    setLevelStatus("", false);
+    showError("linkedin-error", err);
     document.querySelector(".btn-ai").disabled = false;
   });
 }
@@ -498,8 +516,7 @@ function computeLevel() {
     var s = 0;
     var diff = Math.abs(mi - srcIdx);
     if (diff === 0) s += 3; else if (diff === 1) s += 2; else if (diff === 2) s += 1;
-    var gridRow = Math.min(yoeIdx * 2, yoeGrid.length - 1);
-    s += (yoeGrid[gridRow][mi] || 0);
+    s += (yoeGrid[Math.min(yoeIdx * 2, yoeGrid.length - 1)][mi] || 0);
     scores.push(s);
   }
   var maxScore = Math.max.apply(null, scores);
@@ -511,16 +528,12 @@ function computeLevel() {
   }
   var top = null;
   for (var i = 0; i < rows.length; i++) { if (rows[i].isTop) { top = rows[i]; break; } }
-
   var html = '<div class="card result-wrap">';
   html += '<p class="result-header">Meta PM mapping for <strong>' + srcLabel + '</strong> at <strong>' + co + '</strong> &middot; <strong>' + yoe + ' yrs</strong></p>';
   html += '<div class="table-wrap"><table><thead><tr><th>Meta level</th><th>Fit</th><th>What this means</th></tr></thead><tbody>';
   for (var i = 0; i < rows.length; i++) {
     var r = rows[i];
-    html += '<tr' + (r.isTop ? ' class="highlight-row"' : '') + '>';
-    html += '<td><span class="level-pill">' + r.ml + '</span></td>';
-    html += '<td><span class="badge ' + fitBadge[r.fitIdx] + '">' + fitLabels[r.fitIdx] + '</span></td>';
-    html += '<td>' + metaDescriptions[r.i] + '</td></tr>';
+    html += '<tr' + (r.isTop ? ' class="highlight-row"' : '') + '><td><span class="level-pill">' + r.ml + '</span></td><td><span class="badge ' + fitBadge[r.fitIdx] + '">' + fitLabels[r.fitIdx] + '</span></td><td>' + metaDescriptions[r.i] + '</td></tr>';
   }
   html += '</tbody></table></div>';
   html += '<p class="note"><strong>Recommended target:</strong> ' + top.ml + ' — ' + metaDescriptions[top.i] + '<br><br>Leveling at Meta depends heavily on interview performance and scope signal. Final decisions are made by the hiring committee.</p>';
@@ -536,44 +549,30 @@ function resetLeveling() {
   document.getElementById("yoe").value = "";
   document.getElementById("linkedin-text").value = "";
   document.getElementById("parsed-banner").classList.remove("visible");
+  hideError("linkedin-error");
   document.getElementById("leveling-results").innerHTML = '<div class="empty">Fill in the fields above or paste a LinkedIn summary to see the cross-company level mapping.</div>';
-  setLevelStatus("", false);
-  aiInsight = null;
+  setLevelStatus("", false); aiInsight = null;
 }
 
 /* SOURCING */
 function runSourcing() {
   var jd = document.getElementById("jd-input").value.trim();
   if (!jd) { setSourcingStatus("Please paste a job description first.", false); return; }
+  hideError("sourcing-error");
   setSourcingStatus("Mapping talent clusters...", true);
   document.getElementById("sourcing-btn").disabled = true;
   document.getElementById("sourcing-output").classList.remove("visible");
 
-  fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      model: "claude-sonnet-4-20250514",
-      max_tokens: 1000,
-      messages: [{
-        role: "user",
-        content: "You are a senior technical recruiter at Meta. Analyze this job description and produce a sourcing intelligence brief.\n\nJob Description:\n" + jd + "\n\nRespond in plain text (no markdown) with these sections:\nTARGET TALENT CLUSTERS: 2-3 specific candidate profiles to prioritize\nTOP DONOR COMPANIES: 4-5 companies to source from and why\nSEARCH STRATEGY: Specific Boolean or LinkedIn search tips for this role\nWATCH-OUTS: 1-2 common mistakes when sourcing for this role"
-      }]
-    })
-  })
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    var text = "";
-    for (var i = 0; i < data.content.length; i++) {
-      if (data.content[i].type === "text") { text = data.content[i].text; break; }
-    }
+  var prompt = "You are a senior technical recruiter at Meta. Analyze this job description and produce a sourcing intelligence brief.\n\nJob Description:\n" + jd + "\n\nRespond in plain text (no markdown) with these sections:\nTARGET TALENT CLUSTERS: 2-3 specific candidate profiles to prioritize\nTOP DONOR COMPANIES: 4-5 companies to source from and why\nSEARCH STRATEGY: Specific Boolean or LinkedIn search tips for this role\nWATCH-OUTS: 1-2 common mistakes when sourcing for this role";
+
+  callAPI(prompt, function(text) {
     document.getElementById("sourcing-content").textContent = text || "No response received.";
     document.getElementById("sourcing-output").classList.add("visible");
     setSourcingStatus("", false);
     document.getElementById("sourcing-btn").disabled = false;
-  })
-  .catch(function() {
-    setSourcingStatus("Something went wrong. Try again.", false);
+  }, function(err) {
+    setSourcingStatus("", false);
+    showError("sourcing-error", err);
     document.getElementById("sourcing-btn").disabled = false;
   });
 }
@@ -588,35 +587,21 @@ function setSourcingStatus(msg, loading) {
 function generateStrategy() {
   var profile = document.getElementById("profile-snippet").value.trim();
   if (!profile) { setStrategyStatus("Please paste a candidate profile first.", false); return; }
+  hideError("strategy-error");
   setStrategyStatus("Synthesizing engagement strategy...", true);
   document.getElementById("strategy-btn").disabled = true;
   document.getElementById("strategy-output").classList.remove("visible");
 
-  fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      model: "claude-sonnet-4-20250514",
-      max_tokens: 1000,
-      messages: [{
-        role: "user",
-        content: "You are a senior recruiter at Meta. Analyze this candidate profile and create a personalized outreach and engagement strategy.\n\nCandidate Profile:\n" + profile + "\n\nRespond in plain text (no markdown) with these sections:\nCANDIDATE SNAPSHOT: 2-3 sentences on who this person is and what they care about\nHOOK / OPENING ANGLE: The single most compelling reason Meta would appeal to them\nOUTREACH MESSAGE: A short, personalized 3-4 sentence LinkedIn message to send\nENGAGEMENT STRATEGY: How to move them through the process, key concerns to address, timing, and objection handling\nRISK FACTORS: Likely reasons they might decline and how to preempt them"
-      }]
-    })
-  })
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    var text = "";
-    for (var i = 0; i < data.content.length; i++) {
-      if (data.content[i].type === "text") { text = data.content[i].text; break; }
-    }
+  var prompt = "You are a senior recruiter at Meta. Analyze this candidate profile and create a personalized outreach and engagement strategy.\n\nCandidate Profile:\n" + profile + "\n\nRespond in plain text (no markdown) with these sections:\nCANDIDATE SNAPSHOT: 2-3 sentences on who this person is and what they care about\nHOOK / OPENING ANGLE: The single most compelling reason Meta would appeal to them\nOUTREACH MESSAGE: A short, personalized 3-4 sentence LinkedIn message to send\nENGAGEMENT STRATEGY: How to move them through the process, key concerns to address, timing, and objection handling\nRISK FACTORS: Likely reasons they might decline and how to preempt them";
+
+  callAPI(prompt, function(text) {
     document.getElementById("strategy-content").textContent = text || "No response received.";
     document.getElementById("strategy-output").classList.add("visible");
     setStrategyStatus("", false);
     document.getElementById("strategy-btn").disabled = false;
-  })
-  .catch(function() {
-    setStrategyStatus("Something went wrong. Try again.", false);
+  }, function(err) {
+    setStrategyStatus("", false);
+    showError("strategy-error", err);
     document.getElementById("strategy-btn").disabled = false;
   });
 }
