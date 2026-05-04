@@ -3,257 +3,294 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Researcher Hub: Leveling, Sourcing & Outreach</title>
+<title>Researcher Intelligence Hub | Responsive</title>
 <style>
-  /* Base Styling */
+  :root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --accent: #06b6d4;
+    --bg: #0f172a;
+    --text-main: #f8fafc;
+    --text-dim: #94a3b8;
+    --glass: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+  }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #f0f2f5;
-    color: #1c1e21;
-    line-height: 1.5;
-    padding: 2rem 1rem;
-  }
-  .container { max-width: 1000px; margin: 0 auto; }
   
-  header { margin-bottom: 2rem; border-left: 5px solid #0668E1; padding-left: 1.5rem; }
-  h1 { font-size: 28px; font-weight: 800; }
-  .subtitle { font-size: 14px; color: #606770; }
-
-  /* Tab System */
-  .tabs { display: flex; gap: 4px; margin-bottom: -1px; position: relative; z-index: 2; }
-  .tab-btn {
-    padding: 12px 24px; background: #e4e6eb; border: 1px solid #dddfe2;
-    border-bottom: none; border-radius: 8px 8px 0 0; cursor: pointer;
-    font-size: 14px; font-weight: 600; color: #4b4f56; transition: 0.2s;
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: radial-gradient(circle at top right, #1e1b4b, #0f172a);
+    color: var(--text-main);
+    min-height: 100vh;
+    padding: 1rem; /* Reduced for mobile */
   }
-  .tab-btn.active { background: #fff; color: #0668E1; border-top: 3px solid #0668E1; padding-top: 10px; }
 
+  .container { max-width: 1100px; margin: 0 auto; }
+  
+  header { margin: 1.5rem 0 2rem; text-align: center; }
+  header h1 { 
+    font-size: clamp(24px, 8vw, 36px); /* Responsive font size */
+    font-weight: 800; 
+    background: linear-gradient(to right, #818cf8, #c084fc, #f472b6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+  }
+
+  /* Responsive Tabs */
+  .tabs { 
+    display: flex; 
+    overflow-x: auto; /* Scrollable tabs on tiny screens */
+    gap: 8px; 
+    margin-bottom: 1.5rem;
+    padding-bottom: 5px;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .tab-btn {
+    flex: 1; /* Equal width on mobile */
+    min-width: 100px;
+    padding: 10px 15px; 
+    background: var(--glass); 
+    border: 1px solid var(--glass-border);
+    border-radius: 12px; 
+    cursor: pointer; 
+    font-size: 13px; 
+    font-weight: 600; 
+    color: var(--text-dim); 
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .tab-btn.active { 
+    background: var(--primary); color: white; border-color: var(--primary);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+  }
+
+  /* Content Cards */
   .tab-content {
-    background: #fff; border: 1px solid #dddfe2; border-radius: 0 0 12px 12px;
-    padding: 2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: none;
+    background: var(--glass); border: 1px solid var(--glass-border);
+    border-radius: 20px; padding: 1.5rem; 
+    backdrop-filter: blur(20px); 
+    display: none;
     animation: fadeIn 0.3s ease;
   }
+  
   .tab-content.active { display: block; }
-
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-  /* Form Elements */
-  .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #8d949e; margin-bottom: 15px; display: block; }
-  .field { margin-bottom: 1.5rem; }
-  label { font-size: 12px; font-weight: 600; color: #4b4f56; display: block; margin-bottom: 6px; }
-  select, textarea, input {
-    width: 100%; padding: 12px; border: 1px solid #ccd0d5; border-radius: 8px;
-    font-size: 14px; transition: all 0.2s;
-  }
-  textarea { min-height: 120px; resize: vertical; font-family: inherit; }
-  
-  .btn-primary { 
-    background: #0668E1; color: white; border: none; padding: 12px 24px; 
-    border-radius: 8px; font-weight: 600; cursor: pointer; width: 100%;
+  /* Responsive Form Grid */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Stacked by default (Mobile) */
+    gap: 1rem;
+    margin-bottom: 1rem;
   }
 
-  /* Result Styling */
-  .result-card { margin-top: 20px; padding: 20px; border-radius: 8px; border: 1px solid #eee; background: #f8f9fa; }
-  .comp-row { display: grid; grid-template-columns: 1fr 40px 1fr 40px 1fr; align-items: center; text-align: center; }
-  .val { font-size: 22px; font-weight: 800; }
-  .tag { font-size: 10px; color: #888; text-transform: uppercase; }
+  @media (min-width: 768px) {
+    .form-grid { grid-template-columns: 1fr 1fr; } /* Side-by-side on Desktop */
+    body { padding: 2rem; }
+    .tab-content { padding: 2.5rem; }
+  }
+
+  .field { margin-bottom: 1rem; }
+  label { font-size: 12px; font-weight: 500; color: var(--text-dim); margin-bottom: 6px; display: block; }
   
-  .strategy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .outreach-box { background: #fff; border: 1px dashed #0668E1; padding: 15px; border-radius: 8px; position: relative; }
-  .copy-btn { position: absolute; top: 10px; right: 10px; font-size: 11px; color: #0668E1; cursor: pointer; background: none; border: none; font-weight: 700;}
+  select, textarea {
+    width: 100%; padding: 14px; background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--glass-border); border-radius: 12px;
+    font-size: 16px; /* Prevents iOS zoom on focus */
+    color: #fff; appearance: none;
+  }
+  
+  .btn-primary { 
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; border: none; padding: 16px; border-radius: 12px; 
+    font-weight: 700; cursor: pointer; width: 100%; font-size: 16px;
+    margin-top: 0.5rem;
+  }
+
+  /* Results: Grid to Stack transition */
+  .result-card { 
+    margin-top: 20px; padding: 20px; border-radius: 16px; 
+    background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border);
+  }
+
+  .comp-row { 
+    display: flex;
+    flex-direction: column; /* Stacked on Mobile */
+    align-items: center; text-align: center; gap: 15px;
+  }
+  
+  @media (min-width: 600px) {
+    .comp-row { flex-direction: row; justify-content: space-between; } /* Horizontal on Tablet+ */
+  }
+  
+  .val { font-size: 22px; font-weight: 800; color: #fff; }
+  .tag { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .divider { font-size: 18px; color: var(--glass-border); font-weight: bold; }
+  @media (max-width: 600px) { .divider { transform: rotate(90deg); margin: 5px 0; } }
+
+  .strategy-list { padding-left: 0; list-style: none; }
+  .strategy-list li { 
+    background: rgba(0,0,0,0.2); margin-bottom: 10px; padding: 12px; 
+    border-radius: 10px; border-left: 3px solid var(--accent); font-size: 14px;
+  }
 </style>
 </head>
 <body>
 
 <div class="container">
   <header>
-    <h1>Researcher Strategy Hub</h1>
-    <p class="subtitle">Leveling Calibration • Sourcing Intelligence • Outreach Generator</p>
+    <h1>Researcher Hub</h1>
+    <p style="color: var(--text-dim); font-size: 13px;">Intelligence on the go</p>
   </header>
 
-  <!-- TAB NAVIGATION -->
   <div class="tabs">
     <div class="tab-btn active" onclick="openTab(event, 'tab-leveling')">1:1 Leveling</div>
-    <div class="tab-btn" onclick="openTab(event, 'tab-sourcing')">Sourcing Strategy</div>
-    <div class="tab-btn" onclick="openTab(event, 'tab-outreach')">Outreach Messaging</div>
+    <div class="tab-btn" onclick="openTab(event, 'tab-sourcing')">Sourcing</div>
+    <div class="tab-btn" onclick="openTab(event, 'tab-outreach')">Strategy</div>
   </div>
 
-  <!-- TAB 1: LEVELING -->
+  <!-- LEVELING TAB -->
   <div id="tab-leveling" class="tab-content active">
-    <span class="section-label">Cross-Company Leveling Matrix</span>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+    <div class="form-grid">
       <div class="field">
-        <label>Candidate Current Company</label>
-        <select id="compA" onchange="updateLevels()">
-          <option value="">Select Company—</option>
-          <option value="Google">Google</option>
-          <option value="Amazon">Amazon</option>
-          <option value="Stripe">Stripe</option>
-          <option value="Uber">Uber</option>
-          <option value="Netflix">Netflix</option>
-          <option value="ByteDance">ByteDance</option>
+        <label>Industry</label>
+        <select id="industrySelector" onchange="populateCompanies()">
+          <option value="">Select—</option>
+          <option value="tech">Big Tech</option>
+          <option value="consulting">Consulting</option>
+          <option value="finance">Finance</option>
+          <option value="enterprise">Fortune 500</option>
         </select>
       </div>
       <div class="field">
-        <label>Current Title/Level</label>
-        <select id="levelA" onchange="calculateMapping()"><option value="">Select company first</option></select>
+        <label>Company</label>
+        <select id="compA" onchange="updateLevels()"><option value="">Select industry—</option></select>
       </div>
+    </div>
+    <div class="field">
+        <label>Current Level</label>
+        <select id="levelA" onchange="calculateMapping()"><option value="">Select company—</option></select>
     </div>
 
     <div id="level-result" class="result-card" style="display:none;">
         <div class="comp-row">
-            <div><div class="tag" id="res-name-a">Company A</div><div class="val" id="res-val-a">-</div></div>
-            <div style="font-size: 24px; color: #ccc;">⇄</div>
-            <div><div class="tag">Comparison Co (Stripe)</div><div class="val" id="res-val-b">-</div></div>
-            <div style="font-size: 24px; color: #0668E1;">→</div>
-            <div><div class="tag">Meta Equivalent</div><div class="val" id="res-val-meta" style="color: #0668E1;">-</div></div>
+            <div><div class="tag" id="res-name-a">Current</div><div class="val" id="res-val-a">-</div></div>
+            <div class="divider">⇄</div>
+            <div><div class="tag">Equiv</div><div class="val" id="res-val-b">-</div></div>
+            <div class="divider">→</div>
+            <div><div class="tag" style="color:var(--accent)">Meta Target</div><div class="val" id="res-val-meta" style="color: var(--accent);">-</div></div>
         </div>
     </div>
   </div>
 
-  <!-- TAB 2: SOURCING -->
+  <!-- SOURCING TAB -->
   <div id="tab-sourcing" class="tab-content">
-    <span class="section-label">Job Description DNA Analysis</span>
     <div class="field">
-        <label>Paste Job Description (JD)</label>
-        <textarea id="jd-input" placeholder="Paste the JD here to find where this talent lives..."></textarea>
+        <label>JD Snippet</label>
+        <textarea id="jd-input" rows="4" placeholder="Paste JD keywords..."></textarea>
     </div>
-    <button class="btn-primary" onclick="runSourcing()">Generate Sourcing Strategy</button>
-    
+    <button class="btn-primary" onclick="runSourcing()">Analyze Market</button>
     <div id="sourcing-result" class="result-card" style="display:none;">
-        <div class="strategy-grid">
-            <div>
-                <label>Target Competitor Pools</label>
-                <ul id="list-targets" style="padding-left: 18px; font-size: 14px;"></ul>
-            </div>
-            <div>
-                <label>Relevant Internal Meta Teams</label>
-                <ul id="list-teams" style="padding-left: 18px; font-size: 14px;"></ul>
-            </div>
-        </div>
+        <div id="sourcing-content"></div>
     </div>
   </div>
 
-  <!-- TAB 3: OUTREACH -->
+  <!-- STRATEGY TAB -->
   <div id="tab-outreach" class="tab-content">
-    <span class="section-label">Personalized Outreach Generator</span>
     <div class="field">
-        <label>Candidate Profile Snippet / Keywords</label>
-        <textarea id="profile-snippet" placeholder="Example: Senior PM at Google, worked on Search, technical background..."></textarea>
+        <label>Candidate Profile</label>
+        <textarea id="profile-snippet" rows="4" placeholder="Paste LinkedIn summary..."></textarea>
     </div>
-    <div class="field">
-        <label>Message Tone</label>
-        <select id="msg-tone">
-            <option value="direct">Direct & Professional</option>
-            <option value="coffee">Casual Coffee Chat</option>
-            <option value="vision">Visionary / Long-term</option>
-        </select>
-    </div>
-    <button class="btn-primary" onclick="generateMessage()">Draft Outreach</button>
-
+    <button class="btn-primary" onclick="generateStrategy()">Get Hooks</button>
     <div id="outreach-result" class="result-card" style="display:none;">
-        <div class="outreach-box">
-            <button class="copy-btn" onclick="copyText()">COPY</button>
-            <p id="outreach-text" style="font-size: 14px; white-space: pre-wrap;"></p>
-        </div>
+        <ul id="strategy-list" class="strategy-list"></ul>
     </div>
   </div>
 
 </div>
 
 <script>
-// Data Store
-const levelMap = {
-  "Google": ["APM","PM II","Senior PM","Staff PM","Group PM","Director"],
-  "Amazon": ["L4 PM","L5 PM","L6 (Sr)","L7 (Prin)","L8 (Dir)","L10"],
-  "Stripe": ["L1 PM","L2 PM","L3 (Sr)","L4 (Staff)","L5 (Prin)","Head of"],
-  "Uber": ["APM","PM II","Senior PM","Staff PM","Group PM","Director"],
-  "Netflix": ["L4 PM","L5 (Sr)","L5 (Sr)","L6 (Dir)","L6 (Dir)","VP"],
-  "ByteDance": ["1-1 PM","1-2 PM","2-1 (Sr)","2-2 (Lead)","3-1 (Dir)","3-2"],
-  "Meta": ["IC3", "IC4", "IC5", "IC6", "IC7", "IC8"]
+const industries = {
+  tech: {
+    "Google": ["L3","L4","L5 (Sr)","L6 (Staff)","L7 (Prin)","L8 (Dir)"],
+    "Amazon": ["L4","L5","L6 (Sr)","L7 (Prin)","L8 (Dir)","L10"],
+    "Meta": ["IC3","IC4","IC5","IC6","IC7","IC8"]
+  },
+  consulting: {
+    "McKinsey": ["Associate","EM","Assoc Partner","Partner","Sr Partner","Director"],
+    "BCG": ["Consultant","Project Lead","Principal","Partner","MD","Sr Partner"]
+  },
+  finance: {
+    "Goldman Sachs": ["Analyst","Associate","VP","Exec Director","MD","Partner"],
+    "JP Morgan": ["Analyst","Associate","VP","Exec Director","MD","MD+"]
+  },
+  enterprise: {
+    "General": ["Analyst","Manager","Sr Manager","Director","Sr Director","VP"]
+  }
 };
 
-// Tab Controller
+const metaMap = ["IC3", "IC4", "IC5", "IC6", "IC7", "IC8"];
+const globalStandard = ["Associate", "Mid-Level", "Senior", "Lead", "Principal", "Director"];
+
 function openTab(evt, tabId) {
-  const contents = document.getElementsByClassName("tab-content");
-  for (let i = 0; i < contents.length; i++) contents[i].classList.remove("active");
-  const buttons = document.getElementsByClassName("tab-btn");
-  for (let i = 0; i < buttons.length; i++) buttons[i].classList.remove("active");
-  
+  document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
   document.getElementById(tabId).classList.add("active");
   evt.currentTarget.classList.add("active");
 }
 
-// 1. Leveling Logic
+function populateCompanies() {
+  const ind = document.getElementById("industrySelector").value;
+  const compSel = document.getElementById("compA");
+  compSel.innerHTML = '<option value="">Select—</option>';
+  if(industries[ind]) {
+    Object.keys(industries[ind]).forEach(c => {
+      let opt = document.createElement("option");
+      opt.value = c; opt.textContent = c;
+      compSel.appendChild(opt);
+    });
+  }
+}
+
 function updateLevels() {
+  const ind = document.getElementById("industrySelector").value;
   const co = document.getElementById("compA").value;
-  const sel = document.getElementById("levelA");
-  sel.innerHTML = '<option value="">— Select Level —</option>';
-  if(levelMap[co]) {
-    levelMap[co].forEach((l, i) => {
-        let opt = document.createElement("option");
-        opt.value = i; opt.textContent = l;
-        sel.appendChild(opt);
+  const levSel = document.getElementById("levelA");
+  levSel.innerHTML = '<option value="">Select—</option>';
+  if(industries[ind] && industries[ind][co]) {
+    industries[ind][co].forEach((l, i) => {
+      let opt = document.createElement("option");
+      opt.value = i; opt.textContent = l;
+      levSel.appendChild(opt);
     });
   }
 }
 
 function calculateMapping() {
-    const co = document.getElementById("compA").value;
     const idx = parseInt(document.getElementById("levelA").value);
-    if (!co || isNaN(idx)) return;
-
+    const co = document.getElementById("compA").value;
+    if (isNaN(idx)) return;
+    
     document.getElementById("level-result").style.display = "block";
     document.getElementById("res-name-a").innerText = co;
-    document.getElementById("res-val-a").innerText = levelMap[co][idx];
-    document.getElementById("res-val-b").innerText = levelMap["Stripe"][idx] || "N/A";
-    document.getElementById("res-val-meta").innerText = levelMap["Meta"][idx];
+    document.getElementById("res-val-a").innerText = industries[document.getElementById("industrySelector").value][co][idx];
+    document.getElementById("res-val-b").innerText = globalStandard[idx];
+    document.getElementById("res-val-meta").innerText = metaMap[idx];
 }
 
-// 2. Sourcing Logic
 function runSourcing() {
-    const jd = document.getElementById("jd-input").value.toLowerCase();
-    let targets = ["Stripe", "Airbnb", "Square"];
-    let teams = ["Product Org"];
-
-    if (jd.includes("ads") || jd.includes("ranking") || jd.includes("ai")) {
-        targets = ["Google (Search/Ads)", "TikTok (Monetization)", "Amazon (AdTech)"];
-        teams = ["Ads Core AI", "Ranking & Relevance", "GenAI"];
-    } else if (jd.includes("growth") || jd.includes("consumer")) {
-        targets = ["Uber (Growth)", "DoorDash", "Instagram", "Snap"];
-        teams = ["Growth & Funnels", "Product Sense Org", "Engagement"];
-    }
-
     document.getElementById("sourcing-result").style.display = "block";
-    document.getElementById("list-targets").innerHTML = targets.map(t => `<li>${t}</li>`).join('');
-    document.getElementById("list-teams").innerHTML = teams.map(t => `<li>${t}</li>`).join('');
+    document.getElementById("sourcing-content").innerHTML = "<p style='color:var(--accent)'>✔ Best Fit: <b>Big Tech Lateral</b></p><p style='font-size:12px; margin-top:5px;'>Recommended: Look for 'Senior' titles at Tier 2 firms.</p>";
 }
 
-// 3. Outreach Logic
-function generateMessage() {
-    const snippet = document.getElementById("profile-snippet").value;
-    const tone = document.getElementById("msg-tone").value;
-    let msg = "";
-
-    if (tone === "coffee") {
-        msg = `Hi [Name],\n\nI've been following your career trajectory at your current firm. Given your work in product scaling, I'd love to grab 15 minutes for a virtual coffee to share what we're building at Meta. No pressure—just a researcher-to-PM chat.`;
-    } else if (tone === "vision") {
-        msg = `Hi [Name],\n\nMeta is currently expanding its next-generation product pillars. Your background suggests you're operating at a massive scope. I'd like to discuss how your leadership DNA maps to our long-term roadmap.`;
-    } else {
-        msg = `Hi [Name],\n\nI am a researcher at Meta and I noticed your specific expertise. Based on our current leveling benchmarks, your profile suggests a strong alignment with several of our critical Staff-level openings. Let me know if you're open to a brief sync.`;
-    }
-
+function generateStrategy() {
     document.getElementById("outreach-result").style.display = "block";
-    document.getElementById("outreach-text").innerText = msg;
-}
-
-function copyText() {
-    const text = document.getElementById("outreach-text").innerText;
-    navigator.clipboard.writeText(text);
-    alert("Copied to clipboard!");
+    document.getElementById("strategy-list").innerHTML = "<li>Connect on their specific product impact.</li><li>Mention Meta's culture of ownership.</li>";
 }
 </script>
-
 </body>
 </html>
