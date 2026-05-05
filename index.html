@@ -923,7 +923,42 @@ tr:last-child td{border-bottom:none;}
                 </select>
               </div>
               <div class="field"><label>Role / function at current company</label>
-                <input type="text" id="strat-current-role" placeholder="e.g. Senior SWE, Staff PM, EM" oninput="updateStrategy()"/>
+                <select id="strat-current-role" onchange="updateStrategy()">
+                  <option value="">&#8212; Select role &#8212;</option>
+                  <optgroup label="Core Engineering">
+                    <option value="swe">Software Engineering (IC)</option>
+                    <option value="em">Engineering Management</option>
+                    <option value="sre">Site Reliability / DevOps</option>
+                    <option value="qa">QA / SDET</option>
+                  </optgroup>
+                  <optgroup label="Product &amp; Design">
+                    <option value="pm">Product Management</option>
+                    <option value="tpm">Technical Program Manager</option>
+                    <option value="ux">Product Design / UX</option>
+                  </optgroup>
+                  <optgroup label="Data &amp; AI">
+                    <option value="ds">Data Science / ML Engineering</option>
+                    <option value="de">Data Engineering</option>
+                    <option value="mlinfra">ML Infrastructure / MLOps</option>
+                    <option value="quant">Quantitative Developer / Researcher</option>
+                  </optgroup>
+                  <optgroup label="Specialized Engineering">
+                    <option value="sec">Security Engineering</option>
+                    <option value="mobile">Mobile Engineering (iOS / Android)</option>
+                    <option value="embedded">Embedded Systems / Firmware</option>
+                    <option value="hw">Hardware / Silicon Engineering</option>
+                    <option value="chip">Chip Architecture / CPU Design</option>
+                    <option value="robotics">Robotics Engineering</option>
+                    <option value="arvr">AR / VR / XR Engineering</option>
+                    <option value="game">Game Engineering</option>
+                    <option value="compiler">Compiler / Programming Languages</option>
+                    <option value="bio">Bioinformatics / Computational Biology</option>
+                  </optgroup>
+                  <optgroup label="Go-to-Market Tech">
+                    <option value="se">Solutions / Sales Engineering</option>
+                    <option value="devrel">Developer Relations / Advocacy</option>
+                  </optgroup>
+                </select>
               </div>
             </div>
             <div class="form-2col">
@@ -2384,9 +2419,104 @@ function updateStrategy(){
   var level = document.getElementById('strat-level').value;
   var motivation = document.getElementById('strat-motivation').value;
   var candName = document.getElementById('strat-cand-name') ? document.getElementById('strat-cand-name').value.trim() : '';
-  var currentRole = document.getElementById('strat-current-role') ? document.getElementById('strat-current-role').value.trim() : '';
+  var currentRole = document.getElementById('strat-current-role') ? document.getElementById('strat-current-role').value : '';
   var pushAway = document.getElementById('strat-push') ? document.getElementById('strat-push').value.trim() : '';
   var pullToward = document.getElementById('strat-pull') ? document.getElementById('strat-pull').value.trim() : '';
+
+  // ── Role family context ───────────────────────────────────────────────
+  var roleLabelMap = {
+    swe:'Software Engineer', em:'Engineering Manager', sre:'SRE / DevOps Engineer',
+    qa:'QA / SDET', pm:'Product Manager', tpm:'Technical Program Manager',
+    ux:'Product Designer', ds:'Data Scientist / ML Engineer', de:'Data Engineer',
+    mlinfra:'ML Infrastructure Engineer', quant:'Quantitative Researcher/Developer',
+    sec:'Security Engineer', mobile:'Mobile Engineer', embedded:'Embedded / Firmware Engineer',
+    hw:'Hardware Engineer', chip:'Chip Architect', robotics:'Robotics Engineer',
+    arvr:'AR / VR Engineer', game:'Game Engineer', compiler:'Compiler Engineer',
+    bio:'Bioinformatics Engineer', se:'Solutions Engineer', devrel:'Developer Advocate'
+  };
+  var roleLabel = roleLabelMap[currentRole] || (currentRole || 'engineer');
+
+  // Role-specific TC ranges by source company (approximate, Senior IC level)
+  // Format: [sourceCompanyTC, targetMarketLow, targetMarketHigh, notes]
+  var roleTCBySource = {
+    swe:{
+      google: {src:'$550K–$650K (L5)', mkt:'$400K–$620K', note:'Google SWE TC is strong — pitch ownership and scope, not comp. At Staff+ the delta narrows significantly.'},
+      amazon: {src:'$380K–$430K (SDE III)', mkt:'$350K–$500K', note:'Amazon base is capped low — the TC comparison often favors a move. Back-loaded vesting makes the all-in number misleading.'},
+      meta: {src:'$600K–$680K (E5)', mkt:'$400K–$620K', note:'Meta pays at the top of market. TC alone will not win this — pitch ownership and scope. Focus on what they cannot get at Meta.'},
+      apple: {src:'$430K–$500K (ICT4)', mkt:'$380K–$560K', note:'Apple SWE TC is below Google and Meta — there is often room to be competitive or close.'},
+      microsoft: {src:'$320K–$370K (L62)', mkt:'$320K–$500K', note:'Microsoft is below market — the TC comparison is frequently a positive surprise. Lead with it.'},
+      netflix: {src:'$600K–$750K (cash-heavy)', mkt:'$400K–$620K', note:'Netflix pays at the top and structures comp as cash-heavy. Very hard to match. Pitch ownership and career structure instead.'},
+      openai: {src:'$800K–$1M+', mkt:'$400K–$700K', note:'OpenAI TC is extremely high. Do not try to win on comp — pitch deployment scale, career structure, and stability.'},
+      stripe: {src:'$430K–$500K', mkt:'$380K–$550K', note:'Stripe is competitive but below FAANG at senior levels. There is often room to be comparable or better.'},
+      uber: {src:'$350K–$400K', mkt:'$350K–$500K', note:'Uber TC is mid-market — a strong offer from '+targetCoName+' can be competitive or better.'},
+      databricks: {src:'$450K–$500K', mkt:'$380K–$550K', note:'Databricks TC is mid-market. Pre-IPO equity uncertainty makes a liquid offer from '+targetCoName+' appealing.'},
+      intel: {src:'$260K–$300K', mkt:'$300K–$500K', note:'Intel is well below market — the TC comparison is almost always a strong positive. Lead with it.'},
+      salesforce: {src:'$280K–$320K', mkt:'$300K–$480K', note:'Salesforce is below market — the TC comparison is a strong positive. Share ranges early.'}
+    },
+    pm:{
+      google: {src:'$520K–$620K (Senior PM L5)', mkt:'$380K–$580K', note:'Google PM TC is strong. Pitch product ownership and shipping velocity — PMs at Google often feel they influence but do not decide.'},
+      amazon: {src:'$360K–$410K (Senior PM)', mkt:'$340K–$500K', note:'Amazon PM TC can be beaten or matched. The 6-pager culture is a genuine pain — pitch faster iteration cycles.'},
+      meta: {src:'$560K–$650K (IC5 PM)', mkt:'$380K–$560K', note:'Meta PM TC is very high. Pitch ownership over influence — Meta PMs drive impact but within a highly metric-driven framework.'},
+      microsoft: {src:'$300K–$360K (Senior PM)', mkt:'$300K–$480K', note:'Microsoft PM is below market. The TC comparison is positive. Non-AI PMs are the most moveable.'},
+      mckinsey: {src:'$200K–$250K (Associate)', mkt:'$280K–$450K', note:'McKinsey TC is dramatically below tech PM market. This is the strongest comp story you have — share it early.'},
+      stripe: {src:'$400K–$460K', mkt:'$350K–$520K', note:'Stripe PM TC is competitive. Pitch consumer scale and product breadth beyond payments.'}
+    },
+    em:{
+      google: {src:'$620K–$800K (L7 EM)', mkt:'$450K–$700K', note:'Google EM TC at L7 is very high. Pitch org ownership and leadership autonomy — Google EMs often feel they operate within heavy process.'},
+      amazon: {src:'$400K–$460K (SDM)', mkt:'$380K–$580K', note:'Amazon SDM TC is competitive. The 18-month sourcing window is key — target SDMs who have cleared the year-1 cliff.'},
+      meta: {src:'$650K–$820K (M2 EM)', mkt:'$450K–$700K', note:'Meta EM TC is very high. Pitch team stability and a longer time horizon — Meta EMs can feel the performance pressure acutely.'},
+      startup_late: {src:'$300K–$400K (Director/VP)', mkt:'$400K–$650K', note:'Late-stage startup EMs are often underpaid for their scope. The TC comparison with established companies can be very favorable.'}
+    },
+    ds:{
+      google: {src:'$580K–$700K (L5 Research Scientist)', mkt:'$450K–$700K', note:'Google ML/DS TC is strong. Pitch production deployment scale and impact visibility — many Google researchers feel their work is distant from real users.'},
+      openai: {src:'$800K–$1M+', mkt:'$500K–$800K', note:'OpenAI research TC is extraordinary. Do not compete on comp — pitch deployment at consumer scale and career structure.'},
+      anthropic: {src:'$750K–$900K', mkt:'$500K–$800K', note:'Anthropic research TC is very high. Pitch consumer reach and resource depth for deploying research at scale.'},
+      meta: {src:'$600K–$750K (Research Scientist)', mkt:'$450K–$700K', note:'Meta FAIR TC is strong. Pitch specific deployment and the ability to see research reach end users directly.'},
+      amazon: {src:'$380K–$440K (Applied Scientist)', mkt:'$400K–$620K', note:'Amazon Applied Scientist TC is competitive. A strong offer can match or beat it — share ranges early.'},
+      intel: {src:'$270K–$320K', mkt:'$400K–$650K', note:'Intel is well below market for ML/DS. This is a very strong comp story — lead with it immediately.'}
+    },
+    sec:{
+      crowdstrike: {src:'$350K–$400K', mkt:'$380K–$550K', note:'CrowdStrike is mid-market for security engineers. A strong offer from '+targetCoName+' can be competitive or better.'},
+      palo_alto: {src:'$340K–$390K', mkt:'$360K–$530K', note:'Palo Alto TC is mid-market. Security engineers here are often comp-moveable with a competitive offer.'},
+      google: {src:'$540K–$650K (Security/Project Zero)', mkt:'$420K–$620K', note:'Google security TC is strong. Pitch research depth and the specific security surface — comp alone will not move them.'}
+    },
+    hw:{
+      apple: {src:'$440K–$540K (Silicon)', mkt:'$380K–$560K', note:'Apple Silicon engineer TC is strong but not extraordinary. The pitch is about ownership and public visibility — they cannot talk about their work at Apple.'},
+      nvidia: {src:'$550K–$680K', mkt:'$400K–$600K', note:'NVIDIA TC is very high with exceptional equity performance. Do not try to win on comp — pitch the specific technical challenge and what they would own.'},
+      intel: {src:'$260K–$310K', mkt:'$350K–$560K', note:'Intel is dramatically below market for hardware engineers. This is your strongest comp argument — lead with it.'},
+      qualcomm: {src:'$320K–$380K', mkt:'$350K–$540K', note:'Qualcomm is below market. A competitive offer from '+targetCoName+' can be meaningfully better.'},
+      amd: {src:'$300K–$360K', mkt:'$340K–$530K', note:'AMD is below top-tier hardware comp. A strong offer can be competitive or better.'}
+    },
+    quant:{
+      citadel: {src:'$600K–$1.5M+', mkt:'N/A — cannot compete on TC', note:'Citadel TC is extraordinary. Do not try to win on comp. Pitch intellectual breadth, life balance, and career optionality beyond systematic trading.'},
+      twosigma: {src:'$600K–$1.2M+', mkt:'N/A — cannot compete on TC', note:'Two Sigma TC is very high. Same approach as Citadel — pitch breadth and impact, not comp.'},
+      goldman: {src:'$350K–$450K (tech-facing)', mkt:'$500K–$900K', note:'Goldman technology TC is well below the quant market. If they are in a technology role at Goldman, the comparison to tech-market quant roles is a strong positive.'}
+    },
+    mobile:{
+      apple: {src:'$430K–$500K', mkt:'$380K–$520K', note:'Apple mobile TC is competitive. Pitch the ability to talk about their work publicly and ship at a faster cadence.'},
+      snap: {src:'$320K–$370K', mkt:'$340K–$500K', note:'Snap mobile TC is below market. A strong offer from '+targetCoName+' can be meaningfully better — share ranges early.'},
+      meta: {src:'$580K–$670K', mkt:'$380K–$520K', note:'Meta mobile TC is very high. Pitch the specific technical challenge and ownership over the platform.'}
+    },
+    de:{
+      databricks: {src:'$440K–$490K', mkt:'$380K–$520K', note:'Databricks DE TC is mid-market. The pre-IPO uncertainty makes a liquid offer attractive — frame it that way.'},
+      snowflake: {src:'$400K–$450K', mkt:'$360K–$510K', note:'Snowflake DE TC is competitive. Pitch the data problem scale at '+targetCoName+' specifically.'},
+      amazon: {src:'$370K–$420K (DE)', mkt:'$360K–$510K', note:'Amazon DE TC is mid-market. The vesting schedule comparison is important — target the 18-month window.'}
+    }
+  };
+
+  // Get role-specific TC intel for this source company
+  var roleTCIntel = null;
+  if(currentRole && roleTCBySource[currentRole]){
+    var roleMap = roleTCBySource[currentRole];
+    roleTCIntel = roleMap[coCompanyId] || null;
+    // Fallback to type-level if no company-specific data
+    if(!roleTCIntel){
+      var typeKey = coType;
+      roleTCIntel = roleMap[typeKey] || null;
+    }
+  }
+
+
   var outputEl = document.getElementById('strategy-output');
   if(!coCompanyId||!level||!motivation){ outputEl.classList.remove('visible'); return; }
 
@@ -2403,7 +2533,7 @@ function updateStrategy(){
   var coType = typeMap[co.type] || 'midtech';
   var coName = co.name;
   var targetCoName = activeCompany ? activeCompany.name : 'your company';
-  var name = candName ? candName : (currentRole ? currentRole + ' at ' + coName : coName + ' candidate');
+  var name = candName ? candName : (currentRole ? roleLabel + ' at ' + coName : coName + ' candidate');
   var roleCtx = currentRole ? currentRole + ' at ' + coName : coName;
 
   // ── Company-specific facts for the SOURCE company (where candidate is now)
@@ -3153,7 +3283,7 @@ function updateStrategy(){
   h += '<div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px;">';
   h += '<span class="chip">'+coName+'</span>';
   h += '<span class="chip">'+co.type+'</span>';
-  if(currentRole) h += '<span class="chip">'+currentRole+'</span>';
+  if(currentRole) h += '<span class="chip">'+roleLabel+'</span>';
   h += '<span class="chip">'+(level==='junior'?'Junior / Mid':level==='senior'?'Senior IC':level==='staff'?'Staff / Principal':'Director / VP')+'</span>';
   if(name !== coName+' candidate') h += '<span class="chip">'+name+'</span>';
   h += '</div>';
@@ -3223,6 +3353,28 @@ function updateStrategy(){
   }
   h += '</div>';
 
+  // Role-specific comp intel
+  if(roleTCIntel){
+    h += '<div class="output-section" style="background:var(--bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;">';
+    h += '<div style="padding:10px 14px;border-bottom:1px solid var(--border);background:var(--surface);">';
+    h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);">Comp context — '+roleLabel+' from '+coName+'</div>';
+    h += '</div>';
+    h += '<div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border);">';
+    h += '<div style="padding:9px 13px;border-right:1px solid var(--border);">';
+    h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-bottom:3px;">Current TC at '+coName+'</div>';
+    h += '<div style="font-size:15px;font-weight:700;color:var(--primary);">'+roleTCIntel.src+'</div>';
+    h += '</div>';
+    h += '<div style="padding:9px 13px;">';
+    h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-bottom:3px;">Market range for '+roleLabel+'</div>';
+    h += '<div style="font-size:15px;font-weight:700;color:#065f46;">'+roleTCIntel.mkt+'</div>';
+    h += '</div>';
+    h += '</div>';
+    h += '<div style="padding:9px 13px;background:var(--primary-light);">';
+    h += '<div style="font-size:12px;color:var(--primary-dark);line-height:1.6;">'+roleTCIntel.note+'</div>';
+    h += '</div>';
+    h += '</div>';
+  }
+
   // Attraction strategy
   h += '<div class="output-section">';
   h += '<div class="output-section-label">'+hook.headline+' — '+coName+' to '+targetCoName+'</div>';
@@ -3254,7 +3406,7 @@ function updateStrategy(){
   var motivationAngles = {
     scale:'Lead with the scale of the problem. Be specific — number of users, data volume, system complexity. Abstract "big impact" language does not land with senior engineers.',
     growth:'Lead with the career path. Be explicit: what level are they joining, what does the next level look like, and what is the realistic timeline?',
-    money:'Be transparent about comp early. Share the range before they ask. Especially important coming from '+coName+(sourceFacts?' where '+sourceFacts.tc:'')+'.',
+    money:'Be transparent about comp early. Share the range before they ask. Especially important for a '+roleLabel+' coming from '+coName+(roleTCIntel?' where the typical TC is '+roleTCIntel.src:'')+'.',
     tech:'Lead with the technical problem. Describe the hardest engineering challenge, who they would work with, and what they could build here that they cannot build anywhere else.',
     brand:'The brand matters to them. Show what '+targetCoName+' does for their career — the network, the pedigree, and what doors it opens that '+coName+' does not.',
     change:'They are already looking — your job is to be the most compelling option fast. The window from '+coName+' is real'+(sourceFacts?': '+sourceFacts.window:'.')+' Move quickly.',
