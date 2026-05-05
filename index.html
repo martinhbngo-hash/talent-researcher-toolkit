@@ -618,11 +618,11 @@ tr:last-child td{border-bottom:none;}
           </div>
         </div>
         <div id="icp-summary" style="display:none;margin-bottom:.875rem;"></div>
-      <div style="margin-bottom:.875rem;">
-        <button class="btn-primary" onclick="generateSearchString()" style="width:100%;font-size:12px;padding:11px 16px;">Build full search string from JD + intake + ICP + title equivalents</button>
+      <div id="sourcing-output" class="output-block"></div>
+      <div style="margin-top:.875rem;">
+        <button class="btn-primary" onclick="generateSearchString()" style="width:100%;font-size:12px;padding:11px 16px;">&#128269; Build full search string from JD + intake + ICP + title equivalents</button>
         <div id="search-gen-container" style="display:none;margin-top:10px;"></div>
       </div>
-      <div id="sourcing-output" class="output-block"></div>
       </div>
 
       <!-- ═══ STRATEGY ═══ -->
@@ -1650,52 +1650,60 @@ function buildTitleEquivalency(role) {
   if (!data) return '';
   var h = '';
 
-  // Section 1: Same function, different titles
-  h += '<div class="output-section">';
-  h += '<div class="output-section-label">Title equivalency — same function, different titles</div>';
-  h += '<p style="font-size:12px;color:var(--text-2);margin-bottom:10px;">These titles represent the same job function. Expand your search to include all of them.</p>';
-  for (var i = 0; i < data.same.length; i++) {
-    var item = data.same[i];
-    h += '<div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);">';
-    h += (i === data.same.length - 1) ? '<div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;">' : '';
-    h += '<div style="flex:1;">';
-    h += '<div style="display:flex;align-items:center;gap:7px;margin-bottom:3px;">';
-    h += '<span style="font-size:13px;font-weight:600;color:var(--text);">' + item.title + '</span>';
-    h += '<span style="font-size:10px;font-weight:600;background:var(--primary-light);color:var(--primary);padding:2px 7px;border-radius:20px;border:1px solid var(--border-2);">Same function</span>';
-    h += '</div>';
-    h += '<p style="font-size:12px;color:var(--text-2);line-height:1.5;">' + item.note + '</p>';
-    h += '</div></div>';
-  }
+  // Card wrapper
+  h += '<div class="output-section" style="background:var(--surface);border:1.5px solid var(--border-2);padding:0;overflow:hidden;">';
+
+  // Header strip
+  h += '<div style="background:var(--primary-light);padding:10px 14px;border-bottom:1px solid var(--border-2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">';
+  h += '<div><div class="output-section-label" style="margin-bottom:2px;">Title Equivalency & Similar Roles</div>';
+  h += '<p style="font-size:11px;color:var(--primary-dark);line-height:1.4;">Expand your search beyond the obvious title. These roles share the same function or enough skills to be worth sourcing from.</p></div>';
   h += '</div>';
 
+  // Section 1: Same function
+  h += '<div style="padding:12px 14px;border-bottom:1px solid var(--border);">';
+  h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-2);margin-bottom:10px;display:flex;align-items:center;gap:6px;">';
+  h += '<span style="background:var(--primary);color:white;font-size:9px;padding:2px 7px;border-radius:20px;">Same function</span>';
+  h += 'Different title — same job. Include all of these in your search string.';
+  h += '</div>';
+  h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;">';
+  for (var i = 0; i < data.same.length; i++) {
+    var item = data.same[i];
+    h += '<div style="background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:9px 11px;">';
+    h += '<div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;">'+item.title+'</div>';
+    h += '<p style="font-size:11px;color:var(--text-2);line-height:1.5;">'+item.note+'</p>';
+    h += '</div>';
+  }
+  h += '</div></div>';
+
   // Section 2: Adjacent functions
-  h += '<div class="output-section">';
-  h += '<div class="output-section-label">Adjacent functions — worth exploring</div>';
-  h += '<p style="font-size:12px;color:var(--text-2);margin-bottom:10px;">These roles share ~80% of the same skills but carry different titles. Often overlooked — and less competitive to hire from.</p>';
+  h += '<div style="padding:12px 14px;">';
+  h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-2);margin-bottom:10px;display:flex;align-items:center;gap:6px;">';
+  h += '<span style="background:#0f766e;color:white;font-size:9px;padding:2px 7px;border-radius:20px;">Adjacent function</span>';
+  h += 'Different role — high skills overlap. Less competitive to hire from.';
+  h += '</div>';
   for (var i = 0; i < data.adjacent.length; i++) {
     var item = data.adjacent[i];
     var overlapNum = parseInt(item.overlap);
-    var overlapColor = overlapNum >= 82 ? '#065f46' : overlapNum >= 78 ? '#185FA5' : '#92400e';
+    var overlapColor = overlapNum >= 82 ? '#065f46' : overlapNum >= 78 ? 'var(--primary)' : '#92400e';
     var overlapBg = overlapNum >= 82 ? 'var(--success-light)' : overlapNum >= 78 ? 'var(--primary-light)' : 'var(--warning-light)';
     var overlapBorder = overlapNum >= 82 ? '#6ee7b7' : overlapNum >= 78 ? 'var(--border-2)' : '#fcd34d';
-
-    h += '<div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:11px 13px;margin-bottom:8px;">';
+    h += '<div style="background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:10px 12px;margin-bottom:8px;">';
     h += '<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px;">';
-    h += '<span style="font-size:13px;font-weight:600;color:var(--text);">' + item.title + '</span>';
-    h += '<span style="font-size:11px;font-weight:700;background:'+overlapBg+';color:'+overlapColor+';padding:3px 9px;border-radius:20px;border:1px solid '+overlapBorder+';">' + item.overlap + ' skills overlap</span>';
+    h += '<span style="font-size:13px;font-weight:700;color:var(--text);">'+item.title+'</span>';
+    h += '<span style="font-size:11px;font-weight:700;background:'+overlapBg+';color:'+overlapColor+';padding:3px 9px;border-radius:20px;border:1px solid '+overlapBorder+';">'+item.overlap+' skills overlap</span>';
     h += '</div>';
-    h += '<p style="font-size:12px;color:var(--text-2);line-height:1.5;margin-bottom:8px;">' + item.note + '</p>';
+    h += '<p style="font-size:12px;color:var(--text-2);line-height:1.55;margin-bottom:'+(item.probes&&item.probes.length?'8':'0')+'px;">'+item.note+'</p>';
     if (item.probes && item.probes.length) {
       h += '<div style="background:var(--warning-light);border:1px solid #fcd34d;border-radius:8px;padding:8px 10px;">';
       h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#92400e;margin-bottom:5px;">Probe before advancing</div>';
       for (var pi = 0; pi < item.probes.length; pi++) {
-        h += '<div style="font-size:12px;color:#633806;line-height:1.55;margin-bottom:'+(pi<item.probes.length-1?'5':'0')+'px;padding-left:8px;border-left:2px solid #fcd34d;">' + item.probes[pi] + '</div>';
+        h += '<div style="font-size:12px;color:#633806;line-height:1.55;margin-bottom:'+(pi<item.probes.length-1?'5':'0')+'px;padding-left:8px;border-left:2px solid #fcd34d;">'+item.probes[pi]+'</div>';
       }
       h += '</div>';
     }
     h += '</div>';
   }
-  h += '</div>';
+  h += '</div></div>';
   return h;
 }
 
@@ -1805,6 +1813,7 @@ function runSourcing(){
     h+='</div>';
   }
   h+='<div class="output-section"><div class="output-section-label">Level Signal — '+levelText+'</div><p>'+levelNote+'</p></div>';
+  h += buildTitleEquivalency(role);
   h+='<div class="output-section"><div class="output-section-label">Target Talent Clusters</div><ul>';
   for(var i=0;i<data.clusters.length;i++) h+='<li>'+data.clusters[i]+'</li>';
   h+='</ul></div>';
@@ -1818,9 +1827,6 @@ function runSourcing(){
   h+='<div class="output-section"><div class="output-section-label">Watch-outs</div><ul>';
   for(var i=0;i<data.watchouts.length;i++) h+='<li><span class="chip chip-warn" style="margin-right:6px;">!</span>'+data.watchouts[i]+'</li>';
   h+='</ul></div>';
-  // Title equivalency section
-  h += buildTitleEquivalency(role);
-
   // Calibration insights for this role
   if(typeof getCalibrationInsights === 'function'){
     var calI = getCalibrationInsights(role);
@@ -4863,6 +4869,7 @@ function runSourcing(){
     h+='</div>';
   }
   h+='<div class="output-section"><div class="output-section-label">Level Signal — '+levelText+'</div><p>'+levelNote+'</p></div>';
+  h += buildTitleEquivalency(role);
   h+='<div class="output-section"><div class="output-section-label">Target Talent Clusters</div><ul>';
   for(var i=0;i<data.clusters.length;i++) h+='<li>'+data.clusters[i]+'</li>';
   h+='</ul></div>';
@@ -4876,9 +4883,6 @@ function runSourcing(){
   h+='<div class="output-section"><div class="output-section-label">Watch-outs</div><ul>';
   for(var i=0;i<data.watchouts.length;i++) h+='<li><span class="chip chip-warn" style="margin-right:6px;">!</span>'+data.watchouts[i]+'</li>';
   h+='</ul></div>';
-  // Title equivalency section
-  h += buildTitleEquivalency(role);
-
   // Calibration insights for this role
   if(typeof getCalibrationInsights === 'function'){
     var calI = getCalibrationInsights(role);
