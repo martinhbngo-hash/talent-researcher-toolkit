@@ -2409,132 +2409,284 @@ function updateStrategy(){
   // ── Company-specific facts for the SOURCE company (where candidate is now)
   var companyFacts = {
     google:{
-      culture:'Google operates at enormous scale but engineers are typically scoped to a narrow slice of a very large system. Cross-team collaboration requires significant alignment overhead.',
-      pain:'Engineers often feel that individual contributions get absorbed into the machine — attribution is hard, shipping velocity is slow, and the gap between building something and seeing it used is wide.',
-      tc:'Median Senior IC TC at Google is approximately $600K–$650K. RSU refreshes annually after the 4-year cliff.',
-      retention:'Google counter-offers aggressively and refreshes equity annually. The walk-away cost is real.',
-      window:'Best sourcing window: 18–24 months in, before the first major RSU refresh. Ask which year they are in.'
+      culture:'Google operates at enormous scale with a strong academic and systems-thinking culture. Engineering is respected but the org is large enough that individual contributions disappear into the machine. Shipping externally is slow — most engineers touch 1-2% of a massive system.',
+      pain:'Individual ownership is limited. Getting anything shipped cross-functionally requires extensive alignment. Attribution is hard. The promotion system is opaque and often feels political at L6+. Many engineers feel bored by year 3.',
+      tc:'Median Senior IC (L5) TC: ~$550K–$650K. L6 Staff: ~$700K–$850K. Annual RSU refresh after year 4 cliff.',
+      retention:'Annual RSU refresh is the primary anchor. Google counter-offers fast and aggressively. The peer quality and infrastructure are genuine draws.',
+      window:'Best window: 18–24 months in, before the first RSU refresh. Ask which year they are in on the first call. L5 engineers who have been passed over for L6 are especially moveable.',
+      bar:'Very high across the board. Systems design, coding, and Googleyness bar is consistent. Alumni are generally strong.',
+      growth:'Promotion to L6 is the major sticking point — it can take 5–8 years and is heavily committee-driven. Engineers who feel stuck at L5 are the most moveable.',
+      objections:[
+        {obj:'My comp is very competitive here', counter:'It is — but comp is not the only story. At '+targetCoName+', you would own the outcome, not a narrow slice of it. The question is whether ownership and visibility matter to you, not just the number.'},
+        {obj:'I like the engineering infrastructure and peer quality', counter:'That is a real advantage and we are not going to pretend otherwise. What we can offer is a problem that is genuinely yours — where you see it from concept to production to user impact without 15 sign-offs.'},
+        {obj:'I am up for promotion soon', counter:'That is worth understanding. If the timing is 6 months away, we can work around it. But if you have been waiting longer than a year, it might be worth asking whether the path is as clear as you think.'},
+        {obj:'Google has better infrastructure and tooling', counter:'True at scale. But most of what makes Google infrastructure great is applied to someone else\'s product. At '+targetCoName+', you would have resources to build something that is entirely yours.'}
+      ]
     },
     amazon:{
-      culture:'Amazon has a strong execution culture but heavy process overhead — 6-pagers, working backwards, and PR/FAQ for everything. Org structure creates significant coordination cost.',
-      pain:'The 20/20/60 RSU vesting schedule creates golden handcuffs at the 2-year mark. Engineers often feel the scope is narrow and the promotion bar is opaque.',
-      tc:'Median Senior IC TC at Amazon is approximately $380K–$420K. Back-loaded equity is the main retention hook.',
-      retention:'Amazon will counter-offer at the 2-year mark but the RSU cliff is the real anchor. Timing the conversation around their vest schedule is critical.',
-      window:'Best sourcing window: 18–22 months in — they have cleared the first 40% and the 60% cliff is still 2 years away.'
+      culture:'Amazon has a strong execution culture built around the leadership principles. Decision-making is rigorous (6-pagers, working backwards) but slow. Org structure creates significant coordination overhead. The bar for written communication is genuinely high.',
+      pain:'The 20/20/60 RSU vesting schedule is the most aggressive retention mechanism in Big Tech. Year 2 is the golden handcuff year. Salary is low relative to other FAANG — base is capped at ~$185K and engineers are often surprised by how equity-heavy the TC is.',
+      tc:'Median Senior IC (SDE III) TC: ~$380K–$430K. Back-loaded: Year 1 gets 5% equity, Year 2 gets 15%, Years 3-4 get 40% each. Base salary capped lower than peers.',
+      retention:'The 2-year cliff is the strongest retention mechanism. Counter-offers are common. Amazon also has a non-solicitation culture — tread carefully on approach method.',
+      window:'Optimal: 18–22 months in. They have cleared the year 1+2 vesting (20+20=40%) and the 40% cliffs are still 12+ months away. This is the window where they feel financially free but not yet locked into the second major vest.',
+      bar:'Strong execution and operational bar. Systems design is solid. Writing ability and LP alignment matter. Alumni tend to be strong on delivery and project management.',
+      growth:'Promotion requires "bar raising" and is heavily document-driven. SDE III to Principal requires a technical vision document and significant org-level impact. Stalls are common.',
+      objections:[
+        {obj:'I have a big vest coming up', counter:'I know — and I want to make sure we are realistic about that. Can you tell me when the cliff hits? If it\'s within 3 months, we can time this. If it\'s 6–12 months, let\'s talk about what bridging that gap could look like.'},
+        {obj:'Amazon has great scale and impact', counter:'The scale is real. The question is whether you own it. At Amazon, the impact is often shared across 50 people in a chain. At '+targetCoName+', the line from your decision to the user outcome is much shorter.'},
+        {obj:'I like the ownership culture here', counter:'The LP around ownership is real — but how much of what you\'re building actually feels owned by you vs. owned by the process? At '+targetCoName+', we mean ownership in the sense that you make the call and live with it.'},
+        {obj:'My base is lower but the equity makes up for it', counter:'That\'s worth running the math on — especially given the vesting schedule. Would you be open to comparing the full picture? I want to make sure the comparison is honest on both sides.'}
+      ]
     },
     meta:{
-      culture:'Meta moves fast and operates at genuine consumer scale — the engineering bar is high and the pace is real. Performance culture (Metamates, Meta) can feel intense.',
-      pain:'Post-restructuring, morale has been mixed. Engineers building on Reels or Threads have strong product momentum; those on legacy products less so. Attribution and internal mobility can be competitive.',
-      tc:'Median Senior IC TC at Meta is approximately $620K–$680K. Annual performance review drives significant comp variance.',
-      retention:'Meta retains well when engineers are on a hot product. Engineers on slower products are more moveable.',
-      window:'Engineers who are on a product that has been deprioritized or reorganized are the most moveable. Ask what team they are on first.'
+      culture:'Meta operates with genuine urgency and expects engineers to move fast and break things — even at scale. The performance management system is rigorous and highly visible. High-impact engineers do well; those on slower products feel it.',
+      pain:'Post-restructuring, morale is mixed. Engineers on deprioritized products (Workplace, Portal, early Metaverse teams) have felt the instability directly. Performance culture can feel intense — the "Metamates, Meta" framing landed poorly with many engineers.',
+      tc:'Median Senior IC (E5) TC: ~$600K–$680K. E6 Staff: ~$750K–$900K+. Annual performance cycle heavily impacts comp variance.',
+      retention:'Strong comp and peer quality retain well. Engineers on successful products (Instagram, Reels, WhatsApp) are much harder to move than those on struggling products.',
+      window:'Ask what team they are on before pitching hard. Engineers on a product that has been reorganized, deprioritized, or that had layoffs are significantly more moveable.',
+      bar:'High. Strong on execution speed and data-driven thinking. The bar for ambiguity and speed is genuine. Alumni tend to be strong performers who move fast.',
+      growth:'Promotion is heavily tied to product impact — "impact" is the word that matters at Meta. Engineers who are on a product that doesn\'t have clear metrics struggle to build the case for promotion.',
+      objections:[
+        {obj:'Meta has massive scale and real product impact', counter:'It does — and that is a genuine advantage. The question I\'d push back on gently is: how traceable is your personal impact to the metric? At '+targetCoName+', the line is shorter.'},
+        {obj:'Comp is very strong', counter:'It is. We are not going to win on a straight TC comparison at senior levels. What we are pitching is ownership, a specific technical problem, and a team structure where you are building something from a different angle.'},
+        {obj:'I might be up for promotion soon', counter:'That\'s worth understanding the timing on. If you\'ve been passed for E6 before, it might be worth asking whether the path is as clear as the manager is signaling. Happy to talk through what E6 looks like at '+targetCoName+' instead.'},
+        {obj:'I like the pace and execution culture here', counter:'That\'s a real advantage and we want to match it — not slow you down. The pitch isn\'t a slower culture, it\'s a smaller surface where the pace feels even more direct because there\'s less coordination overhead.'}
+      ]
     },
     apple:{
-      culture:'Apple is engineering-led and deeply secretive. Product direction is top-down; individual contributors have limited product voice. The craft bar is exceptionally high.',
-      pain:'Engineers frequently cite frustration with the inability to talk publicly about their work, slow external shipping cadence, and limited product influence compared to design and executive leadership.',
-      tc:'Median Senior IC TC at Apple is approximately $450K–$500K. Equity is granted but Apple does not refresh as aggressively as others.',
-      retention:'Apple retains through brand identity and peer quality. Engineers who want more autonomy and external visibility are moveable.',
-      window:'Apple engineers on hardware programs are slow to move — product cycles lock them in. Software engineers are more accessible.'
+      culture:'Apple is engineering-led and deeply secretive. Product direction comes from the top — engineering builds what product and design specify with exceptional craft. The hardware-software integration depth is unmatched anywhere in the industry.',
+      pain:'Engineers cannot talk about their work publicly. Shipping externally is rare and slow. Individual product voice is limited compared to design and executive leadership. The culture can feel hierarchical and slow to change from the inside.',
+      tc:'Median Senior IC (ICT4) TC: ~$430K–$500K. ICT5: ~$550K–$650K. Apple refreshes equity but less aggressively than Google or Meta.',
+      retention:'Brand identity and peer quality are the primary retention drivers. Engineers often stay because they genuinely believe Apple makes the best products in the world and want to be part of that.',
+      window:'Apple hardware engineers are locked in by product cycles — ask about project milestones first. Software engineers on platform teams (iOS, macOS, Swift) are more accessible. Engineers who want external visibility are the most moveable.',
+      bar:'Extremely high on craft and quality. Apple engineers have deep platform knowledge and an unusually strong focus on the end-to-end user experience. Generalists who can work across layers are especially valuable.',
+      growth:'Apple promotes slowly and deliberately. The Principal/Senior Principal track requires exceptional technical depth and cross-team influence. Many strong engineers plateau at ICT4.',
+      objections:[
+        {obj:'I am proud of what Apple builds and want to be part of it', counter:'That\'s a legitimate reason to stay — and we respect it. The question is whether the pride comes from the product or from the work itself. At '+targetCoName+', you can be equally proud of the work and also talk about it publicly.'},
+        {obj:'Apple\'s engineering infrastructure is world-class', counter:'It genuinely is. We won\'t pretend otherwise. What we can offer is a problem that is closer to being yours — where you influence the direction, not just the implementation quality.'},
+        {obj:'I can\'t talk about what I work on anyway, so external visibility doesn\'t matter to me', counter:'That might be true now. But five years from now, when you want to lead a team or join a startup, the ability to point to your work publicly matters more than it might feel like today.'},
+        {obj:'The hardware-software depth here is irreplaceable', counter:'For hardware-adjacent roles, yes. But if you\'re working primarily on software, that depth is a platform advantage — not something you personally own. At '+targetCoName+', the depth you build is yours to keep and talk about.'}
+      ]
     },
     microsoft:{
-      culture:'Microsoft culture has improved significantly under Satya Nadella but pace and ambition vary enormously by team. Copilot and Azure teams move fast; legacy product teams much less so.',
-      pain:'Non-AI engineers often feel left behind by the AI wave. The leveling system is non-standard and opaque externally. WLB is good but can mask lack of ambition.',
-      tc:'Median Senior IC TC at Microsoft is approximately $320K–$360K, lower than other Big Tech. This is often a positive surprise in comparison.',
-      retention:'WLB and stability are the main retention drivers. Engineers who want harder problems and faster pace are moveable.',
-      window:'Non-AI Microsoft engineers are among the most moveable in Big Tech right now. Azure infra and security teams are high-quality sources.'
+      culture:'Microsoft has meaningfully improved its culture under Satya Nadella. Growth mindset is real in some teams. But pace and ambition vary enormously — Azure and Copilot teams are energized; legacy Office and Windows teams less so.',
+      pain:'Non-AI engineers feel the innovation is happening elsewhere in the building. The leveling system uses non-standard titles (59, 62, 65) that are hard to map externally. WLB is good but can mask a lack of urgency.',
+      tc:'Median Senior IC (L62) TC: ~$320K–$370K. L63 Principal: ~$420K–$500K. Below other Big Tech — this is often a positive surprise in comparison.',
+      retention:'WLB and job stability are the main retention drivers. Engineers who prioritize predictability stay. Engineers who want harder problems and faster pace are moveable.',
+      window:'Non-AI Microsoft engineers are among the most moveable in Big Tech right now. Azure infra, security, and developer tools teams are high-quality sources. Copilot engineers are harder — they feel the momentum.',
+      bar:'Solid. Strong on systems design and distributed infrastructure. Office and Windows teams have deep platform knowledge. The bar is consistent but not as intense as Google or Meta.',
+      growth:'Principal (L63) is the major step up and requires org-wide technical influence. Many strong engineers stay at L62 for years. The path can feel undefined compared to Google.',
+      objections:[
+        {obj:'Microsoft is stable and I have good WLB', counter:'That is a real and legitimate thing to value. The question is whether stability is what you want most right now, or whether part of you is ready for a harder problem. Those are both honest answers.'},
+        {obj:'Copilot and AI work is interesting here', counter:'If you\'re on the Copilot team, the momentum is real — and we want to understand what you\'re working on before we make the case. If you\'re adjacent to it, the question is how close you are to the core.'},
+        {obj:'My TC might be lower but the stability is worth it', counter:'That\'s honest. And worth running the full comparison on — Microsoft TC is often lower than engineers expect relative to the market. Would you be open to seeing the actual ranges side by side?'},
+        {obj:'The Azure platform gives me access to real scale', counter:'It does — but you are building infrastructure for other companies to scale, not scaling your own product. At '+targetCoName+', the scale you touch is directly connected to what you build.'}
+      ]
     },
     netflix:{
-      culture:'Netflix operates on a high-talent-density, no-process philosophy. Freedom and responsibility — engineers own significant outcomes with minimal oversight.',
-      pain:'The culture is not for everyone. The "keeper test" creates implicit anxiety. Role scope can be very broad, which some engineers find exhausting rather than energizing.',
-      tc:'Netflix pays at the top of market — median Senior IC TC is approximately $650K–$750K+ with cash-heavy comp. This is very hard to beat on pure TC.',
-      retention:'Netflix retains through comp and autonomy. Engineers who feel they need more structure, collaboration, or product context are the most moveable.',
-      window:'Netflix engineers who have been there 3+ years and are looking for more team-oriented work or a defined product roadmap are the best targets.'
+      culture:'Netflix operates on a "freedom and responsibility" model — high autonomy, high expectations, minimal process. The keeper test creates implicit pressure. Engineers are expected to make big decisions independently and live with the outcomes.',
+      pain:'The autonomy is real but can be isolating. The keeper test creates underlying anxiety even for strong performers. Role scope is very broad, which exhausts some engineers rather than energizing them. Collaboration can feel optional.',
+      tc:'Netflix pays at or above the top of market: Senior IC ~$600K–$750K+, with comp structured heavily in cash rather than equity. They match or beat competing offers.',
+      retention:'Comp and autonomy are the primary retention levers. Engineers who want more structure, more collaboration, or a more defined product roadmap are the most moveable.',
+      window:'Engineers who have been there 3+ years and are looking for more team-oriented work, or who are becoming aware of the keeper test pressure, are the best targets. Ask what they are working on and whether it feels like a team effort.',
+      bar:'Very high. Netflix engineers are expected to operate at Staff level regardless of title. Generalism and strong judgment are prized over deep specialization.',
+      growth:'Netflix has limited formal career structure by design. There are no levels — you are either performing at the expected bar or you are not. Engineers who want a defined growth path find this frustrating.',
+      objections:[
+        {obj:'My comp here is very high and hard to match', counter:'It is — Netflix pays exceptionally well. We are not going to pretend we always match it. What we can offer is a team structure and a career path that Netflix deliberately does not have. The question is what matters most to you right now.'},
+        {obj:'I love the autonomy and freedom here', counter:'That\'s real — and it\'s one of the best things about Netflix. The question is whether autonomy alone is what energizes you, or whether you\'d also like to feel like your outcomes are more directly tied to a team you\'re building with.'},
+        {obj:'The keeper test doesn\'t bother me', counter:'That\'s worth taking at face value. Though I\'d push back gently: it\'s worth asking whether the implicit performance pressure shapes how you take risks and how much you push back. At '+targetCoName+', you have more room to fail forward.'},
+        {obj:'I can work on whatever I find most interesting', counter:'The intellectual freedom is real. At '+targetCoName+', the scope is more defined — but you own the outcome in a way that Netflix\'s individual-contributor model makes harder to feel.'}
+      ]
     },
     openai:{
-      culture:'OpenAI is mission-driven and moves at an extraordinary pace. The team is small relative to impact, which creates both ownership and stress. Equity upside is a major belief-driver.',
-      pain:'Career structure is limited — the org is flat and promotion paths are unclear. Research and product priorities shift rapidly. Counter-offer risk is extreme.',
-      tc:'OpenAI TC is extremely high — $800K–$1M+ at senior levels. Beating this on comp alone is nearly impossible.',
-      retention:'Mission and equity upside are the primary retention levers. Engineers who want more deployment scale, career structure, or stability are moveable.',
-      window:'OpenAI engineers who feel their research is not reaching real users, or who are earlier in their career and want clearer growth paths, are the best targets.'
+      culture:'OpenAI is mission-driven and moves at extraordinary pace. The team is small relative to the size of the impact. Research and product priorities shift rapidly with the model release cycle. Counter-offer risk is extreme.',
+      pain:'Career structure is minimal — the org is flat and promotion paths are unclear. Research and product priorities shift with every major model release. The pace is exciting but unsustainable for many. Equity structure is complex and opaque.',
+      tc:'Senior IC TC: ~$800K–$1M+. Extremely high — beating OpenAI on TC alone is nearly impossible. Equity upside is the primary retention narrative.',
+      retention:'Mission belief and equity upside are the primary anchors. Engineers who want more deployment scale, career structure, or platform stability are the exception — but they exist.',
+      window:'OpenAI engineers who feel their research or engineering is not reaching real users at scale are moveable. Those who want clearer career growth are moveable. Those who are burned out by the pace but still believe in the mission are the hardest — they need time.',
+      bar:'Extremely high on research and ML systems. Strong systems engineering for infra roles. The bar for intellectual ambition and speed is real. Alumni are generally exceptional.',
+      growth:'Career paths are not well-defined. The org moves fast enough that formal growth tracks feel secondary. This frustrates engineers who have been there 2+ years without clear advancement.',
+      objections:[
+        {obj:'The mission here is as important as it gets', counter:'It genuinely is — and we are not going to argue with that. What we can offer is something different: the ability to deploy that mission to an order of magnitude more users, with more infrastructure behind you. Scale of deployment is its own form of mission.'},
+        {obj:'My equity upside here could be enormous', counter:'It could be. It\'s worth asking how much of that upside you can estimate with confidence. If the answer is "I believe in the company," that\'s a bet — and we think '+targetCoName+' is also a bet worth understanding fully.'},
+        {obj:'I am working on the most important technology in the world', counter:'That\'s a meaningful thing to feel. The question is whether the work itself is as important as the technology — whether you own a piece of the outcome, or whether your contribution gets absorbed into the model the same way a layer of training data does.'},
+        {obj:'OpenAI is the most exciting place in tech right now', counter:'Right now, yes. The question worth sitting with is whether you can stay excited about that in 18 months if the org has restructured twice more and your role has shifted three times. '+targetCoName+' offers a different kind of stability alongside the ambition.'}
+      ]
     },
     anthropic:{
-      culture:'Anthropic is safety-focused and research-oriented. Small team with significant autonomy. Engineers believe deeply in the mission.',
-      pain:'Deployment scale is limited relative to mission ambition. The org is lean which can mean resource constraints. Career paths are not well-defined.',
-      tc:'Anthropic TC is approximately $800K–$900K at senior levels. Equity upside depends heavily on company trajectory.',
-      retention:'Mission retention is strong. Engineers who want to see their work deployed at massive consumer scale are moveable.',
-      window:'Anthropic engineers who want their research or engineering to reach billions of users rather than thousands are the clearest opportunity.'
+      culture:'Anthropic is safety-focused and research-oriented. Small team with significant individual autonomy. The mission is genuine and the researchers deeply believe in it. The technical depth is exceptional.',
+      pain:'Deployment scale is limited relative to the ambition. The org is lean which can mean resource constraints. Career paths are not well-defined. The gap between research output and real-world user impact is wider than at product companies.',
+      tc:'Senior IC TC: ~$800K–$900K. Equity upside depends on company trajectory and IPO path.',
+      retention:'Mission and research autonomy are strong anchors. Engineers who want consumer scale, more resources, or clearer career structure are moveable.',
+      window:'Anthropic engineers who feel their work is not reaching enough people, or who want to see their models deployed at consumer scale, are the best targets.',
+      bar:'Extremely high on research depth and safety-aware engineering. Strong systems engineering for infra roles. Alumni are generally exceptional.',
+      growth:'Flat org with limited formal career structure. Strong performers have significant autonomy but limited formal advancement milestones.',
+      objections:[
+        {obj:'The safety mission is genuinely important to me', counter:'That comes through — and it\'s a real differentiator about who works at Anthropic. At '+targetCoName+', we can connect to that mission too: the way we deploy AI responsibly at scale is its own version of the safety story, reaching orders of magnitude more people.'},
+        {obj:'The research autonomy here is exceptional', counter:'It is — and we won\'t match it on pure research latitude. What we can offer is the outcome side: research that reaches millions of people, with the infrastructure to deploy it properly and measure the real-world impact.'},
+        {obj:'My equity upside here could be meaningful', counter:'It could be. It\'s a bet on the company\'s trajectory and liquidity path. That\'s worth understanding clearly — what is the expected IPO timeline, and how does the fully diluted share count affect your stake?'},
+        {obj:'Anthropic has a unique culture that I haven\'t found elsewhere', counter:'That\'s honest — and culture is hard to replicate. The question is what specifically about the culture drives you: is it the mission, the people quality, the intellectual depth? Most of those things exist at '+targetCoName+' in a different form.'}
+      ]
     },
     stripe:{
-      culture:'Stripe has an exceptionally high craft bar and strong developer empathy culture. Engineers care deeply about API design and documentation quality. Remote-first.',
-      pain:'Stripe has experienced layoffs and slower growth post-2022. Some engineers feel the product surface is narrowing. The comp is competitive but below FAANG at senior levels.',
-      tc:'Median Senior IC TC at Stripe is approximately $450K–$500K. Equity is meaningful but liquidity depends on IPO timing.',
-      retention:'Culture and craft are the primary retention drivers. Engineers who want consumer scale or broader product ownership are moveable.',
-      window:'Stripe engineers who joined pre-2021 and are seeing slower growth and fewer opportunities are more moveable than they were 3 years ago.'
+      culture:'Stripe has an exceptionally high craft bar and strong developer empathy culture. Engineers care deeply about API design, documentation quality, and the developer experience. The company is remote-first and writing-driven.',
+      pain:'Stripe has experienced slower growth and layoffs post-2022. Some engineers feel the product surface is narrowing toward the core payments and financial infrastructure narrative. Pre-IPO equity timing has been a growing concern.',
+      tc:'Senior IC TC: ~$430K–$500K. Below FAANG at senior levels. Equity is meaningful but liquidity depends entirely on IPO timing.',
+      retention:'Culture and craft are the primary retention drivers. Engineers who want consumer scale, broader product ownership, or more liquidity certainty are moveable.',
+      window:'Stripe engineers who joined pre-2021 and are experiencing slower growth, or who are frustrated by IPO uncertainty, are more moveable than they were 3 years ago.',
+      bar:'Very high on craft and API design thinking. Strong distributed systems depth. Engineers bring an unusually high standard for developer experience. Alumni tend to have exceptional attention to detail.',
+      growth:'The career ladder is well-defined but progression is slow in a slower-growth environment. Staff engineers who want to lead larger orgs can feel constrained.',
+      objections:[
+        {obj:'I love the craft culture and developer focus here', counter:'That\'s one of the best things about Stripe — the bar is genuine. At '+targetCoName+', we share that bar. The difference is we would give you a larger product surface to apply that craft to.'},
+        {obj:'IPO is coming eventually and my equity will be worth it', counter:'That\'s a bet worth understanding clearly. Stripe has been private for 14+ years. The question is not whether it will IPO — it\'s whether the timeline and terms match what you expected when you joined.'},
+        {obj:'The team quality and culture here is hard to find elsewhere', counter:'We agree it\'s rare. At '+targetCoName+', we have worked to build a culture that shares that standard. The best way to evaluate that is to meet the team rather than take our word for it.'},
+        {obj:'Stripe is focused and I like that', counter:'Focus is a real advantage. The question is whether the focus is energizing or narrowing. At '+targetCoName+', you would have more surface area to apply the same depth of thinking.'}
+      ]
+    },
+    microsoft:{
+      culture:'Microsoft has meaningfully improved its culture under Satya Nadella. Growth mindset is real in some teams. But pace and ambition vary enormously — Azure and Copilot teams are energized; legacy Office and Windows teams much less so.',
+      pain:'Non-AI engineers feel the innovation is happening elsewhere in the building. The leveling system uses non-standard titles that are hard to map externally. WLB is good but can mask a lack of urgency.',
+      tc:'Senior IC (L62) TC: ~$320K–$370K. L63 Principal: ~$420K–$500K. Below other Big Tech — this is often a positive surprise in comparison.',
+      retention:'WLB and job stability are the main retention drivers. Engineers who prioritize predictability stay. Engineers who want harder problems and faster pace are moveable.',
+      window:'Non-AI Microsoft engineers are among the most moveable in Big Tech right now. Azure infra, security, and developer tools teams are high-quality sources.',
+      bar:'Solid. Strong on systems design and distributed infrastructure. The bar is consistent but not as intense as Google or Meta.',
+      growth:'Principal (L63) is the major step up and requires org-wide technical influence. Many strong engineers stay at L62 for years.',
+      objections:[
+        {obj:'Microsoft is stable and I have good WLB', counter:'That is real and worth valuing. The question is whether stability is what you want most right now, or whether part of you is ready for a harder problem. Those are both honest answers.'},
+        {obj:'Copilot and AI work is exciting here', counter:'If you\'re on the Copilot team, the momentum is genuine and we want to understand what you\'re working on first. If you\'re adjacent to it, the question is how close you are to the core decisions.'},
+        {obj:'My TC is lower but the stability compensates', counter:'That\'s honest. And worth running the full comparison — Microsoft TC is often lower than engineers expect relative to the market. Would you be open to seeing the ranges side by side?'}
+      ]
     },
     databricks:{
-      culture:'Databricks has a strong data engineering and open source culture. Pre-IPO equity is a significant retention hook. Technical bar is high.',
-      pain:'Engineers are aware that IPO timing is uncertain. The product surface is narrowing toward the lakehouse narrative. Some engineers want broader consumer-facing work.',
-      tc:'Median Senior IC TC at Databricks is approximately $450K–$500K. Equity upside depends heavily on IPO trajectory.',
-      retention:'Pre-IPO equity is the primary retention anchor. If IPO timing slips, engineers become significantly more moveable.',
-      window:'Watch for IPO timeline signals. Engineers at the 3-year mark with significant unvested equity are locked in; those at 1–2 years are more accessible.'
-    },
-    mckinsey:{
-      culture:'McKinsey is structured, analytical, and client-serving. The work is advisory — consultants design strategies that others implement. High prestige, high travel, high pressure.',
-      pain:'Most consultants at the 2–3 year mark are asking the same question: do I want to make partner, or do I want to actually build something? The gap between recommending and executing is a known frustration.',
-      tc:'McKinsey TC is approximately $200K–$250K at Associate level. This is a positive surprise compared to most tech offers.',
-      retention:'Partnership track retains the most ambitious consultants. Those who are not on that path, or who have doubts about it, are very moveable.',
-      window:'The optimal move window is 2–3 years in, at the Associate-to-EM transition point. Many consultants make their industry move here.'
-    },
-    goldman:{
-      culture:'Goldman is prestige-driven and performance-oriented. Technology engineers work on internal systems — trading infrastructure, risk systems, and client platforms.',
-      pain:'Goldman technology engineers are often underpaid relative to tech market norms. The work is high-stakes but limited in external visibility. Career mobility outside finance can feel constrained.',
-      tc:'Goldman technology TC is approximately $350K–$420K at senior levels. The tech market comparison is almost always a positive surprise for candidates.',
-      retention:'Prestige and bonus culture retain senior finance engineers. Those who want external product impact and better tech TC are moveable.',
-      window:'Goldman engineers who have been there 3+ years and are feeling the ceiling of finance tech careers are the most open to a conversation.'
+      culture:'Databricks has a strong data engineering and open source culture. Pre-IPO equity is a significant retention hook. The technical bar is high and the Lakehouse vision is well-articulated internally.',
+      pain:'Engineers are aware that IPO timing is uncertain after multiple delays. The product surface is narrowing toward the Lakehouse narrative. Some engineers want broader consumer-facing or ML-product work.',
+      tc:'Senior IC TC: ~$450K–$500K. Pre-IPO equity upside depends entirely on IPO valuation and timing.',
+      retention:'Pre-IPO equity is the primary retention anchor. Engineering culture and open source mission retain engineers who care about the data ecosystem.',
+      window:'Watch for IPO timeline signals. Engineers at the 3-year mark with significant unvested equity are locked in; those at 1–2 years are more accessible. Engineers frustrated by the narrowing product surface are moveable.',
+      bar:'High on distributed systems, data engineering, and Spark/Delta Lake depth. Strong on open source contribution culture.',
+      growth:'Principal and Staff tracks are well-defined. The path is clear for strong engineers in the data infra space.',
+      objections:[
+        {obj:'My pre-IPO equity could be very valuable', counter:'It could be — and that is a legitimate reason to stay. The question worth asking clearly is: what is your best estimate of the timeline and the dilution? Are you betting on a 2-year horizon or a 5-year one?'},
+        {obj:'The Lakehouse vision is compelling and I believe in it', counter:'The vision is well-articulated. At '+targetCoName+', we have a data problem at comparable or greater scale. The question is whether you want to build the platform or build on it.'},
+        {obj:'The open source culture here is unique', counter:'It is. At '+targetCoName+', we value engineers who have that background — the credibility and the community. You would not lose that by moving here.'}
+      ]
     },
     intel:{
-      culture:'Intel has been through significant strategic turbulence. Execution has lagged the market on process nodes. Morale in engineering teams has been significantly affected.',
-      pain:'Stock underperformance, strategic uncertainty, layoffs, and a narrative of decline have made Intel one of the most moveable engineering pools in hardware. Many engineers are actively looking.',
-      tc:'Intel TC is approximately $260K–$300K at senior levels — notably below the tech market. The comparison is a strong positive.',
-      retention:'Retention is low relative to historical norms. The combination of stock performance and strategic uncertainty has broken the traditional Intel loyalty.',
-      window:'Now. Intel engineers are actively open in a way they have not been in a decade. Move quickly — they are in multiple pipelines simultaneously.'
+      culture:'Intel has been through significant strategic turbulence. Execution has lagged the market on process nodes for nearly a decade. Engineering culture remains strong in pockets — CPU architecture, SoC design — but the narrative of decline has affected morale broadly.',
+      pain:'Stock has significantly underperformed the market. Strategic uncertainty (foundry pivot, layoffs, product delays) has eroded confidence. Many engineers feel they are working on technology that is playing catch-up rather than leading.',
+      tc:'Senior IC TC: ~$260K–$300K. Notably below market for hardware engineers. Stock underperformance has made equity less meaningful.',
+      retention:'Intel historically retained through a loyalty culture and the prestige of working on the world\'s most advanced chips. That culture is significantly weaker now.',
+      window:'Now. Intel engineers are actively looking in a way they have not been in a decade. Many are in multiple pipelines simultaneously — move quickly.',
+      bar:'Deep hardware and CPU architecture knowledge. Exceptional depth in process-level optimization, power efficiency, and microarchitecture. Alumni bring rare and valuable domain expertise.',
+      growth:'Career advancement has slowed with the broader org slowdown. The path from Senior to Principal is long and less rewarding given the comp and stock situation.',
+      objections:[
+        {obj:'I am loyal to Intel and believe in the turnaround', counter:'That loyalty is real — and Pat Gelsinger\'s roadmap is not without merit. The honest question is: how long is your personal runway to wait? At '+targetCoName+', we can offer momentum now rather than a bet on a multi-year recovery.'},
+        {obj:'The technical depth here is unmatched', counter:'In processor design, yes — and that expertise is exactly why '+targetCoName+' is interested in you. The difference is that at '+targetCoName+', that depth is applied to a platform that is winning.'},
+        {obj:'I have significant unvested equity', counter:'At current valuations, what is the actual value? That is not rhetorical — it is worth calculating honestly. A meaningful equity grant at '+targetCoName+' on a stronger trajectory may compare more favorably than it first appears.'}
+      ]
     },
     nvidia:{
-      culture:'NVIDIA has been transformed by the AI wave. Engineers believe they are building the infrastructure layer for the entire AI industry. Equity performance has been extraordinary.',
-      pain:'NVIDIA retains exceptionally well through equity and mission. Engineers who want to work on software products at consumer scale, or who want to see their work used by end users rather than data centers, are the exception.',
-      tc:'NVIDIA TC is approximately $550K–$620K at senior levels, with extraordinary equity performance. This is very hard to beat.',
-      retention:'Equity performance and mission make NVIDIA extremely sticky. Only candidates who are genuinely looking for something different will engage.',
-      window:'NVIDIA searches require a 6–12 month relationship-building timeline. Start early and be very specific about the technical challenge.'
+      culture:'NVIDIA has been transformed by the AI wave. Engineers believe they are building the infrastructure layer for the entire AI industry. The technical ambition is genuine. The pace has accelerated dramatically since 2020.',
+      pain:'NVIDIA retains exceptionally well. Engineers who are dissatisfied are rare. Those who exist typically want to work on software products at consumer scale, or want to see their work used by end users rather than data center operators.',
+      tc:'Senior IC TC: ~$550K–$650K+ with extraordinary equity performance over the past 4 years. Very hard to beat on pure financial terms.',
+      retention:'Equity performance and mission make NVIDIA extremely sticky. Engineers who are looking tend to have specific reasons — burnout at the pace, desire for consumer product work, or interest in a different technical domain.',
+      window:'NVIDIA searches require relationship-building over 6–12 months. Engineers who are open are rare. Start early, be very specific about the technical challenge, and play a long game.',
+      bar:'Elite on GPU architecture, CUDA, and AI systems engineering. Strong on performance optimization. Alumni are exceptionally rare and exceptionally valuable.',
+      growth:'The pace of the company has created unusual opportunities — strong engineers have moved fast. But the org is growing faster than the management structure, which creates its own growing pains.',
+      objections:[
+        {obj:'My equity has performed better than any offer you can match', counter:'It has — and we won\'t pretend otherwise. What we are asking you to consider is whether the next 4 years look like the last 4. The stock is priced for extraordinary continued execution. At '+targetCoName+', we think the risk-adjusted return is worth understanding.'},
+        {obj:'We are building the infrastructure for all of AI', counter:'You are — and that is a genuine and important thing. The question is whether you personally own that impact, or whether you are a node in an infrastructure that other people\'s products run on. At '+targetCoName+', you would build the product itself.'},
+        {obj:'The technical problems here are the hardest in the world', counter:'In GPU architecture, yes. The question is whether that is the hardest problem you want to work on specifically — or whether there is a different class of hard problem that interests you more.'}
+      ]
+    },
+    mckinsey:{
+      culture:'McKinsey is structured, analytical, and client-serving. The work is advisory — consultants design strategies that others implement. The prestige is real and the peer quality is exceptional. Travel and client pressure are constant.',
+      pain:'Most consultants at the 2–3 year mark face the same question: do I want to make partner, or do I want to actually build something? The gap between recommending and executing is a known and documented frustration. Many leave exactly at this inflection point.',
+      tc:'Associate TC: ~$200K–$250K. Engagement Manager: ~$280K–$350K. Below tech market — and often a positive surprise when compared directly.',
+      retention:'Partnership track retains the most ambitious consultants. Those who are not on that path, or who have doubts about it, are very moveable at the 2–3 year mark.',
+      window:'Optimal window: 2–3 years in, at the Associate-to-EM transition. Many consultants make their industry move here. Those who stay past EM are committed to the partner track.',
+      bar:'Exceptional on structured problem-solving, communication, and stakeholder management. Variable on technical depth — some consultants in the tech practice have built real products; many have not. Validate technical depth carefully.',
+      growth:'The partnership track is clear but intensely competitive. The attrition rate is designed to be high — McKinsey selects for the few who make it to partner.',
+      objections:[
+        {obj:'I am on track for partner and the financial upside is real', counter:'The partner path is real for some. The honest question is: what does your managing partner say about your trajectory? And what does making partner actually look like in terms of lifestyle and type of work, five years from now?'},
+        {obj:'I like the breadth of problems I see here', counter:'The breadth is genuinely one of consulting\'s best features. At '+targetCoName+', the problem is narrower but deeper — and more importantly, you own the outcome rather than the recommendation.'},
+        {obj:'My MBA and consulting experience is valued here', counter:'It is valued at '+targetCoName+' too — possibly more so because you would be rare. The data, the structure, the stakeholder management — all of that transfers directly and makes you unusually effective in a product environment.'},
+        {obj:'I\'m still learning a lot here', counter:'That\'s the best reason to stay in any job. The question is whether you\'re learning things that will matter in 5 years — whether the learning is compounding, or whether you\'re getting incrementally better at the same type of client problem.'}
+      ]
+    },
+    goldman:{
+      culture:'Goldman is prestige-driven and performance-oriented. Technology engineers work on high-stakes internal systems — trading infrastructure, risk engines, and client platforms. The engineering bar has improved significantly in the last decade.',
+      pain:'Goldman technology engineers are often underpaid relative to tech market norms. The work is high-stakes but limited in external visibility. Career mobility outside finance can feel constrained. The internal culture can be politically complex.',
+      tc:'Technology TC: ~$350K–$420K at senior levels. Bonus-heavy — base is strong but the bonus structure creates income variability. Below tech market.',
+      retention:'Prestige and bonus culture retain senior finance engineers. Those who want external product impact, better comp certainty, or broader career options are moveable.',
+      window:'Goldman engineers who have been there 3+ years and are aware of the ceiling of finance technology careers are the most open. Those frustrated by internal political dynamics are also moveable.',
+      bar:'Strong on reliability, low-latency systems, and financial domain knowledge. Variable on consumer product instincts and modern cloud-native stack. Alumni bring valuable systems thinking.',
+      growth:'The career path in Goldman technology is well-defined internally but does not translate cleanly to tech. VP and MD in banking is not the same as Principal or Staff in tech.',
+      objections:[
+        {obj:'The prestige and brand of Goldman is still valuable', counter:'It is — and Goldman on a resume opens doors in finance. The question is which doors you want open. Goldman technology does not translate as cleanly to tech as you might think — and '+targetCoName+' may actually open more of the doors that matter to you.'},
+        {obj:'My bonus could be very significant this year', counter:'Timing around bonuses is real and we can work with it. When does your bonus typically pay out? Let\'s make sure we are not asking you to leave money on the table unnecessarily.'},
+        {obj:'The financial domain knowledge I have is rare', counter:'It is — and it is one of the things that makes you interesting to '+targetCoName+'. That knowledge transfers and gives you an angle that pure tech engineers do not have. You would not be starting from zero.'},
+        {obj:'I like working on high-stakes, mission-critical systems', counter:'That instinct is exactly what '+targetCoName+' needs. The difference is that at '+targetCoName+', those systems are at consumer scale — the mission-criticality is different but the engineering rigor is the same.'}
+      ]
     },
     bytedance:{
-      culture:'ByteDance and TikTok engineers operate at genuine consumer scale with a fast-paced, data-driven culture. The technical bar is high and the pace is relentless.',
-      pain:'Regulatory uncertainty around TikTok in the US is the primary pain point. Engineers are genuinely worried about platform stability and long-term career investment in a platform that could be forced to restructure or divest.',
-      tc:'ByteDance TC is approximately $380K–$450K at senior levels for US-based roles.',
-      retention:'Regulatory uncertainty is actively undermining retention. This is the strongest sourcing window for TikTok engineers in the US in years.',
-      window:'Now. Regulatory risk is acute and engineers are actively evaluating alternatives. First mover advantage is significant.'
+      culture:'ByteDance and TikTok engineers operate at genuine consumer scale with a fast-paced, data-driven culture. The technical bar is high and the pace is relentless. Strong A/B testing and experimentation culture.',
+      pain:'Regulatory uncertainty around TikTok in the US is the primary and acute pain point. Engineers are genuinely worried about platform stability and long-term career investment in a platform that could face forced divestiture or shutdown.',
+      tc:'Senior IC TC: ~$380K–$450K for US-based roles. Below FAANG but competitive for the product scale.',
+      retention:'Regulatory uncertainty is actively undermining retention. Many engineers are evaluating alternatives in a way they were not 18 months ago.',
+      window:'Now. Regulatory risk is acute and engineers are actively planning. First mover advantage is significant — many are in multiple conversations simultaneously.',
+      bar:'High on recommendation systems, ads infrastructure, and consumer scale. Strong A/B testing and data-driven engineering culture. Variable on US tech stack fluency.',
+      growth:'Career growth has been strong during the hypergrowth phase. The regulatory overhang is now creating uncertainty about future growth and headcount.',
+      objections:[
+        {obj:'I believe TikTok will resolve the regulatory issues', counter:'It might. The question is the timeline and the personal cost of that uncertainty — the months of not knowing whether the platform you are building on will exist next year. At '+targetCoName+', that uncertainty is removed.'},
+        {obj:'The scale and pace here is hard to find elsewhere', counter:'The scale is real — and '+targetCoName+' can offer comparable scale. The pace at '+targetCoName+' is different but the engineering problems at consumer scale are equally challenging.'},
+        {obj:'I have significant unvested equity', counter:'That is worth understanding clearly — especially in the context of regulatory risk. What is the vesting timeline, and what does the equity value look like under different regulatory scenarios? That is worth modeling honestly.'}
+      ]
     },
     palantir:{
-      culture:'Palantir is mission-driven and deploys technology to government and enterprise clients. Engineers have broad ownership and work with sensitive, classified, or high-stakes data.',
-      pain:'Work is often NDA-bound or classified — engineers cannot talk publicly about what they have built. The problem surface is deep but narrow. Consumer scale is absent.',
-      tc:'Palantir TC is approximately $320K–$370K at senior levels. Post-IPO equity has been volatile.',
-      retention:'Mission and the uniqueness of the work retain Palantir engineers. Those who want public visibility and consumer scale are moveable.',
-      window:'Palantir engineers who are government-adjacent and want to work on products that civilians actually use are the best targets.'
+      culture:'Palantir is mission-driven and deploys technology to government and enterprise clients. Engineers have broad ownership and work with sensitive, high-stakes data. The internal culture is intellectually intense.',
+      pain:'Work is often NDA-bound or classified — engineers cannot discuss what they have built. The problem surface is deep but narrow. Consumer scale is absent. Compensation is below FAANG market.',
+      tc:'Senior IC TC: ~$320K–$370K. Post-IPO equity has been volatile.',
+      retention:'Mission and the uniqueness of the work retain engineers who believe in it. Those who want public visibility, consumer scale, or better comp are moveable.',
+      window:'Palantir engineers who have been there 3+ years and are beginning to feel the ceiling of the NDA-constrained career path are the most open.',
+      bar:'Broad ownership and strong data instincts. Deep experience with large-scale data analysis and government/enterprise deployment. Unusual combination of software engineering and domain expertise.',
+      growth:'The career path is well-defined internally but does not translate cleanly to consumer tech. Growth often comes through deployment leadership rather than technical specialization.',
+      objections:[
+        {obj:'The mission and impact here is important to me', counter:'That matters — and we take it seriously. At '+targetCoName+', we can connect to a different version of that mission: technology that reaches millions of ordinary people, with accountability for that impact. Different scale of mission, not lesser.'},
+        {obj:'I have a security clearance and that\'s valuable', counter:'It is — and we are not asking you to give that up. If anything, the domain expertise you\'ve built is rare in the consumer tech world and gives you an angle that few engineers can offer.'},
+        {obj:'I can\'t talk about my work here anyway, so external visibility doesn\'t feel like a loss', counter:'That might feel true now. In 5 years, when you want to demonstrate your expertise to the industry, the ability to point to your work publicly matters more than it might feel like today.'}
+      ]
     },
     crowdstrike:{
-      culture:'CrowdStrike is security-focused with strong threat intelligence and endpoint detection depth. Engineering culture is rigorous and the domain expertise is highly specialized.',
-      pain:'Post-IPO and post-incident (2024 outage), morale has been mixed in some teams. Engineers with broad security research skills sometimes feel constrained to a narrow product surface.',
-      tc:'CrowdStrike TC is approximately $350K–$400K at senior levels.',
-      retention:'Security domain passion retains CrowdStrike engineers. Those who want broader research latitude or a different security surface are accessible.',
-      window:'CrowdStrike security engineers with broad offensive or detection research backgrounds are valuable and increasingly willing to have a conversation.'
+      culture:'CrowdStrike is security-focused with strong threat intelligence and endpoint detection depth. Engineering culture is rigorous and the domain expertise is highly specialized. Post-IPO and post-2024-incident, the culture is navigating a reset.',
+      pain:'The 2024 incident affected morale and customer trust in some teams. Engineers with broad security research skills sometimes feel constrained to a narrow endpoint detection product surface. Compensation is competitive but below FAANG.',
+      tc:'Senior IC TC: ~$350K–$400K.',
+      retention:'Security domain passion and the sense of mission ("stopping breaches") retain core engineers. Those who want broader research latitude or better comp are moveable.',
+      window:'Post-2024-incident is a real sourcing window. Security engineers who are reflecting on their career trajectory are more open to conversations than usual.',
+      bar:'Deep security domain expertise — threat intelligence, kernel-level endpoint detection, threat hunting. Alumni bring rare and specialized knowledge that translates well to security-adjacent roles.',
+      growth:'Security specialization can narrow career options outside the security domain. Engineers who want to branch into broader product roles can feel constrained.',
+      objections:[
+        {obj:'The mission of stopping breaches is important to me', counter:'It is — and that domain expertise is exactly why we are talking. At '+targetCoName+', the security surface is different but the stakes are real. The question is whether you want to apply that expertise to a new problem.'},
+        {obj:'I have deep endpoint security expertise that is hard to replicate', counter:'That expertise is exactly what makes you interesting. At '+targetCoName+', we need people who understand the attacker mindset and can apply it to a different problem surface.'},
+        {obj:'The post-incident situation will stabilize', counter:'It may — Falcon is still a market leader. The question is whether you want to wait for the stabilization, or whether this is a natural inflection point to explore what else is possible.'}
+      ]
     },
     salesforce:{
-      culture:'Salesforce is a mature enterprise SaaS company. Post-restructuring, culture has been unsettled. Product development pace is slow relative to modern tech norms.',
-      pain:'Layoffs, leadership changes, and slower product innovation have reduced morale. Engineers frequently cite slow execution, legacy codebase, and limited career acceleration.',
-      tc:'Salesforce TC is approximately $280K–$320K at senior levels — notably below tech market norms.',
-      retention:'Retention is lower post-restructure. Engineers who want faster pace, harder technical problems, and better comp are actively looking.',
-      window:'Salesforce engineers are more moveable right now than at any point in the past five years. Strong source for enterprise, B2B, and platform engineering roles.'
+      culture:'Salesforce is a mature enterprise SaaS company. Post-restructuring, culture has been unsettled. Ohana culture has weakened. Product development pace is slow relative to modern tech norms.',
+      pain:'Layoffs, leadership changes, and slower product innovation have reduced morale significantly. Engineers frequently cite slow execution, legacy codebase constraint, and limited career acceleration as frustrations.',
+      tc:'Senior IC TC: ~$280K–$320K — notably below tech market norms. This is usually a strong positive surprise in comparison.',
+      retention:'Retention is lower post-restructure. Engineers who want faster pace, harder technical problems, and better comp are actively evaluating alternatives.',
+      window:'Salesforce engineers are more moveable right now than at any point in the past five years. The combination of post-layoff uncertainty and slow innovation has created the most significant sourcing window in a decade.',
+      bar:'Strong on enterprise systems, stakeholder management, and complex B2B product development. Weaker on consumer instincts and modern cloud-native stack. Alumni bring valuable enterprise domain expertise.',
+      growth:'The career path has slowed with the broader org slowdown. Promotion opportunities have reduced post-restructuring.',
+      objections:[
+        {obj:'Salesforce is a large and stable employer', counter:'Stability has been less certain post-restructuring than it once was. The question is whether the current stability is structural or temporary. At '+targetCoName+', we offer stability with more momentum behind it.'},
+        {obj:'I work on Slack and that product is interesting', counter:'Slack is a strong product and the team has maintained quality. The question is what the trajectory looks like — is Slack getting investment and attention, or is it a managed asset? That distinction matters for your career.'},
+        {obj:'My comp is lower but the company is well-known', counter:'The brand is real — but Salesforce technology on a resume opens fewer doors in tech than you might expect. A strong '+targetCoName+' tenure with clear impact would likely be more valuable for what comes next.'}
+      ]
     }
   };
+
 
   var sourceFacts = companyFacts[coCompanyId] || null;
   var compIntel = compData ? compData.find(function(c){ return c.name === coName; }) : null;
@@ -2579,31 +2731,47 @@ function updateStrategy(){
 
   // Source company facts card
   if(sourceFacts){
-    h += '<div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;">';
-    // Culture & context
-    h += '<div style="padding:10px 13px;border-bottom:1px solid var(--border);">';
-    h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-bottom:4px;">'+coName+' context</div>';
-    h += '<p style="font-size:12px;color:var(--text-2);line-height:1.6;">'+sourceFacts.culture+'</p>';
+    h += '<div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:10px;">';
+    // Header
+    h += '<div style="padding:10px 14px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">';
+    h += '<div style="font-size:13px;font-weight:700;color:var(--text);">'+coName+(currentRole?' · '+currentRole:'')+' Intelligence</div>';
+    h += '<span class="chip" style="font-size:10px;">'+co.type+'</span>';
     h += '</div>';
-    // Known pain
-    h += '<div style="padding:10px 13px;border-bottom:1px solid var(--border);background:var(--warning-light);">';
-    h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#92400e;margin-bottom:4px;">Known friction points at '+coName+'</div>';
-    h += '<p style="font-size:12px;color:#854f0b;line-height:1.6;">'+sourceFacts.pain+'</p>';
+    // Culture
+    h += '<div style="padding:10px 14px;border-bottom:1px solid var(--border);">';
+    h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-bottom:4px;">Culture &amp; operating model</div>';
+    h += '<p style="font-size:12px;color:var(--text-2);line-height:1.65;">'+sourceFacts.culture+'</p>';
     h += '</div>';
-    // TC & retention
+    // Pain points
+    h += '<div style="padding:10px 14px;border-bottom:1px solid var(--border);background:var(--warning-light);">';
+    h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#92400e;margin-bottom:5px;">Known friction points — what makes them moveable</div>';
+    h += '<p style="font-size:12px;color:#854f0b;line-height:1.65;">'+sourceFacts.pain+'</p>';
+    h += '</div>';
+    // Bar + growth
     h += '<div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border);">';
-    h += '<div style="padding:9px 12px;border-right:1px solid var(--border);">';
-    h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-bottom:3px;">TC at '+coName+'</div>';
+    h += '<div style="padding:9px 13px;border-right:1px solid var(--border);">';
+    h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-bottom:3px;">Engineering bar &amp; alumni signal</div>';
+    h += '<p style="font-size:12px;color:var(--text);line-height:1.5;">'+sourceFacts.bar+'</p>';
+    h += '</div>';
+    h += '<div style="padding:9px 13px;">';
+    h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-bottom:3px;">Career growth patterns</div>';
+    h += '<p style="font-size:12px;color:var(--text);line-height:1.5;">'+sourceFacts.growth+'</p>';
+    h += '</div>';
+    h += '</div>';
+    // TC + retention side by side
+    h += '<div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border);">';
+    h += '<div style="padding:9px 13px;border-right:1px solid var(--border);">';
+    h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-bottom:3px;">Compensation at '+coName+'</div>';
     h += '<p style="font-size:12px;color:var(--text);line-height:1.5;">'+sourceFacts.tc+'</p>';
     h += '</div>';
-    h += '<div style="padding:9px 12px;">';
-    h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-bottom:3px;">Retention risk</div>';
+    h += '<div style="padding:9px 13px;">';
+    h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-bottom:3px;">What keeps them — retention risk</div>';
     h += '<p style="font-size:12px;color:var(--text);line-height:1.5;">'+sourceFacts.retention+'</p>';
     h += '</div>';
     h += '</div>';
     // Sourcing window
-    h += '<div style="padding:9px 12px;background:var(--success-light);border-top:0;">';
-    h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#065f46;margin-bottom:3px;">Sourcing window</div>';
+    h += '<div style="padding:9px 13px;background:var(--success-light);">';
+    h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#065f46;margin-bottom:3px;">Best sourcing window</div>';
     h += '<p style="font-size:12px;color:#065f46;line-height:1.5;">'+sourceFacts.window+'</p>';
     h += '</div>';
     h += '</div>';
@@ -2664,7 +2832,28 @@ function updateStrategy(){
     mission:'Find the genuine connection between their background and what '+targetCoName+' is building. Research their work, then connect it specifically to the role.'
   };
 
-  h += '<div class="output-section"><div class="output-section-label">Outreach angle — '+motivation+' motivated</div>';
+  // Objection handling
+  if(sourceFacts && sourceFacts.objections && sourceFacts.objections.length){
+    h += '<div class="output-section">';
+    h += '<div class="output-section-label">Objections to anticipate &amp; how to handle them</div>';
+    h += '<p style="font-size:12px;color:var(--text-2);margin-bottom:10px;line-height:1.5;">These are the most common reasons a '+coName+' candidate hesitates. Have these answers ready before the first call — do not wait for them to come up.</p>';
+    for(var oi=0;oi<sourceFacts.objections.length;oi++){
+      var obj = sourceFacts.objections[oi];
+      h += '<div style="border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:8px;">';
+      h += '<div style="background:var(--surface);padding:9px 13px;border-bottom:1px solid var(--border);">';
+      h += '<div style="font-size:11px;font-weight:700;color:var(--text-2);margin-bottom:2px;">They say:</div>';
+      h += '<div style="font-size:13px;font-weight:600;color:var(--text);">&ldquo;'+obj.obj+'&rdquo;</div>';
+      h += '</div>';
+      h += '<div style="padding:9px 13px;background:var(--primary-light);">';
+      h += '<div style="font-size:11px;font-weight:700;color:var(--primary);margin-bottom:2px;">You say:</div>';
+      h += '<div style="font-size:13px;color:var(--text);line-height:1.65;">'+obj.counter+'</div>';
+      h += '</div>';
+      h += '</div>';
+    }
+    h += '</div>';
+  }
+
+    h += '<div class="output-section"><div class="output-section-label">Outreach angle — '+motivation+' motivated</div>';
   h += '<p style="font-size:13px;color:var(--text);line-height:1.7;margin-bottom:10px;">'+motivationAngles[motivation]+'</p>';
   h += '<div style="background:var(--primary-light);border:1px solid var(--border-2);border-radius:9px;padding:11px 13px;">';
   h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--primary);margin-bottom:6px;">Message template</div>';
