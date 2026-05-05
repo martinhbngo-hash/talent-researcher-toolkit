@@ -2440,69 +2440,151 @@ function updateStrategy(){
   // Format: [sourceCompanyTC, targetMarketLow, targetMarketHigh, notes]
   var roleTCBySource = {
     swe:{
-      google: {src:'$550K–$650K (L5)', mkt:'$400K–$620K', note:'Google SWE TC is strong — pitch ownership and scope, not comp. At Staff+ the delta narrows significantly.'},
-      amazon: {src:'$380K–$430K (SDE III)', mkt:'$350K–$500K', note:'Amazon base is capped low — the TC comparison often favors a move. Back-loaded vesting makes the all-in number misleading.'},
-      meta: {src:'$600K–$680K (E5)', mkt:'$400K–$620K', note:'Meta pays at the top of market. TC alone will not win this — pitch ownership and scope. Focus on what they cannot get at Meta.'},
-      apple: {src:'$430K–$500K (ICT4)', mkt:'$380K–$560K', note:'Apple SWE TC is below Google and Meta — there is often room to be competitive or close.'},
-      microsoft: {src:'$320K–$370K (L62)', mkt:'$320K–$500K', note:'Microsoft is below market — the TC comparison is frequently a positive surprise. Lead with it.'},
-      netflix: {src:'$600K–$750K (cash-heavy)', mkt:'$400K–$620K', note:'Netflix pays at the top and structures comp as cash-heavy. Very hard to match. Pitch ownership and career structure instead.'},
-      openai: {src:'$800K–$1M+', mkt:'$400K–$700K', note:'OpenAI TC is extremely high. Do not try to win on comp — pitch deployment scale, career structure, and stability.'},
-      stripe: {src:'$430K–$500K', mkt:'$380K–$550K', note:'Stripe is competitive but below FAANG at senior levels. There is often room to be comparable or better.'},
-      uber: {src:'$350K–$400K', mkt:'$350K–$500K', note:'Uber TC is mid-market — a strong offer from '+targetCoName+' can be competitive or better.'},
-      databricks: {src:'$450K–$500K', mkt:'$380K–$550K', note:'Databricks TC is mid-market. Pre-IPO equity uncertainty makes a liquid offer from '+targetCoName+' appealing.'},
-      intel: {src:'$260K–$300K', mkt:'$300K–$500K', note:'Intel is well below market — the TC comparison is almost always a strong positive. Lead with it.'},
-      salesforce: {src:'$280K–$320K', mkt:'$300K–$480K', note:'Salesforce is below market — the TC comparison is a strong positive. Share ranges early.'}
+      // Base salaries from disclosed job postings; equity annualized over 4yr vest
+      google:    {src:'$550K–$650K (L5)', base:'$189K–$243K', eq:'$180K–$280K/yr', tc:'$420K–$620K', note:'Google L5 TC is strong — pitch ownership and scope. Comp comparison may favor staying unless you can offer Staff-equivalent scope. Google disclosed base: $189K–$243K (L5, 2024 CA postings).'},
+      amazon:    {src:'$182K–$185K base + back-loaded RSU (SDE III)', base:'$161K–$185K', eq:'$80K–$180K/yr', tc:'$280K–$430K', note:'Amazon base is legally capped at ~$185K; equity is back-loaded 20/20/60. All-in TC is often misleading — share the base comparison and the vesting math. Disclosed 2024 SDE III range: $161K–$185K base.'},
+      meta:      {src:'$600K–$680K (E5)', base:'$177K–$281K', eq:'$200K–$320K/yr', tc:'$420K–$680K', note:'Meta E5 TC is at the top of market. Do not try to win on comp at this level — pitch ownership, scope, and the specific technical problem. Meta disclosed base: $177K–$281K (2024 CA postings).'},
+      apple:     {src:'$420K–$500K (ICT4)', base:'$170K–$220K', eq:'$120K–$200K/yr', tc:'$340K–$500K', note:'Apple SWE TC is below Google and Meta — there is often room to be competitive. Apple 2024 disclosed ranges: $180K–$255K base for senior software roles.'},
+      microsoft: {src:'$310K–$370K (L62)', base:'$153K–$200K', eq:'$80K–$150K/yr', tc:'$280K–$420K', note:'Microsoft is below market — the TC comparison is frequently a strong positive. 2024 disclosed: $153K–$200K base for Senior SWE. Share this comparison early.'},
+      netflix:   {src:'$600K–$800K (cash-heavy)', base:'$300K–$600K cash', eq:'Minimal', tc:'$300K–$800K', note:'Netflix structures comp as cash, not equity. Very hard to beat. 2024 disclosed: $310K–$900K for Senior SWE. Pitch career structure and ownership, not comp.'},
+      openai:    {src:'$800K–$1M+ (Senior)', base:'$200K–$370K', eq:'$400K–$700K/yr', tc:'$700K–$1M+', note:'OpenAI TC is extraordinary. 2024 disclosed: $245K–$370K base for Staff SWE. Cannot compete on TC — pitch deployment scale and career structure.'},
+      anthropic: {src:'$750K–$900K', base:'$230K–$350K', eq:'$350K–$550K/yr', tc:'$650K–$950K', note:'Anthropic TC is very high. Pitch consumer reach and resources to deploy research at real scale.'},
+      stripe:    {src:'$420K–$490K', base:'$175K–$230K', eq:'$120K–$200K/yr', tc:'$340K–$500K', note:'Stripe is competitive but below FAANG at senior levels. 2024 disclosed: $175K–$255K base. Room to be comparable or better with a strong offer.'},
+      airbnb:    {src:'$390K–$460K', base:'$175K–$225K', eq:'$120K–$200K/yr', tc:'$350K–$500K', note:'Airbnb SWE TC is mid-market. 2024 disclosed: $185K–$230K base for Senior SWE. A competitive offer can be comparable or better.'},
+      uber:      {src:'$340K–$400K', base:'$165K–$215K', eq:'$100K–$180K/yr', tc:'$310K–$460K', note:'Uber is mid-market. A strong offer from '+targetCoName+' can be competitive. 2024 disclosed: $165K–$220K base.'},
+      databricks:{src:'$430K–$490K', base:'$172K–$230K', eq:'$140K–$240K/yr', tc:'$370K–$540K', note:'Databricks is mid-market with pre-IPO equity uncertainty. 2024 disclosed: $180K–$240K base. Liquid offer from '+targetCoName+' is attractive framing.'},
+      datadog:   {src:'$370K–$430K', base:'$163K–$215K', eq:'$110K–$180K/yr', tc:'$320K–$460K', note:'Datadog is mid-market. A competitive offer can be comparable or better. 2024 disclosed: $170K–$220K base.'},
+      snowflake: {src:'$390K–$450K', base:'$168K–$220K', eq:'$130K–$210K/yr', tc:'$350K–$500K', note:'Snowflake TC is mid-market. Room to be competitive. 2024 disclosed: $172K–$225K base.'},
+      cloudflare:{src:'$370K–$420K', base:'$162K–$210K', eq:'$120K–$180K/yr', tc:'$330K–$460K', note:'Cloudflare is below FAANG. A strong offer is frequently better. 2024 disclosed: $162K–$213K base.'},
+      intel:     {src:'$255K–$300K', base:'$120K–$165K', eq:'$40K–$90K/yr', tc:'$200K–$330K', note:'Intel is dramatically below market. This is your strongest comp argument — share the comparison immediately. 2024 disclosed: $116K–$185K base for Senior SWE.'},
+      nvidia:    {src:'$530K–$650K', base:'$180K–$260K', eq:'$200K–$350K/yr', tc:'$440K–$700K', note:'NVIDIA TC is very high with extraordinary recent equity performance. Do not try to win on comp — pitch the specific technical challenge and ownership.'},
+      salesforce:{src:'$275K–$320K', base:'$143K–$180K', eq:'$80K–$140K/yr', tc:'$260K–$380K', note:'Salesforce is well below market. The TC comparison is a strong positive. 2024 disclosed: $143K–$195K base for Senior SWE. Share ranges early.'},
+      palantir:  {src:'$310K–$360K', base:'$135K–$175K', eq:'$90K–$150K/yr', tc:'$270K–$390K', note:'Palantir is below FAANG. Room to be competitive or better. 2024 disclosed: $135K–$180K base.'},
+      goldman:   {src:'$280K–$350K (technology)', base:'$125K–$175K', eq:'$50K–$100K/yr', tc:'$220K–$350K', note:'Goldman technology TC is well below tech market. This is almost always a strong positive surprise. Share ranges early.'},
+      jpmorgan:  {src:'$260K–$330K (technology)', base:'$115K–$165K', eq:'$40K–$90K/yr', tc:'$200K–$320K', note:'JPMorgan technology is well below tech market. The TC comparison is a strong positive. 2024 disclosed: $118K–$165K base.'},
+      microsoft_fallback: {src:'$310K–$370K', base:'$153K–$200K', eq:'$80K–$150K/yr', tc:'$280K–$420K', note:'Microsoft is below market. Share the TC comparison early.'}
     },
     pm:{
-      google: {src:'$520K–$620K (Senior PM L5)', mkt:'$380K–$580K', note:'Google PM TC is strong. Pitch product ownership and shipping velocity — PMs at Google often feel they influence but do not decide.'},
-      amazon: {src:'$360K–$410K (Senior PM)', mkt:'$340K–$500K', note:'Amazon PM TC can be beaten or matched. The 6-pager culture is a genuine pain — pitch faster iteration cycles.'},
-      meta: {src:'$560K–$650K (IC5 PM)', mkt:'$380K–$560K', note:'Meta PM TC is very high. Pitch ownership over influence — Meta PMs drive impact but within a highly metric-driven framework.'},
-      microsoft: {src:'$300K–$360K (Senior PM)', mkt:'$300K–$480K', note:'Microsoft PM is below market. The TC comparison is positive. Non-AI PMs are the most moveable.'},
-      mckinsey: {src:'$200K–$250K (Associate)', mkt:'$280K–$450K', note:'McKinsey TC is dramatically below tech PM market. This is the strongest comp story you have — share it early.'},
-      stripe: {src:'$400K–$460K', mkt:'$350K–$520K', note:'Stripe PM TC is competitive. Pitch consumer scale and product breadth beyond payments.'}
+      google:    {src:'$500K–$620K (Senior PM L5)', base:'$192K–$248K', eq:'$170K–$260K/yr', tc:'$410K–$600K', note:'Google PM TC is very strong. Pitch product ownership and shipping velocity — Google PMs influence but rarely decide unilaterally. 2024 disclosed: $192K–$248K base (Senior PM).'},
+      amazon:    {src:'$345K–$410K (Senior PM)', base:'$155K–$185K', eq:'$100K–$180K/yr', tc:'$300K–$430K', note:'Amazon PM TC has back-loaded equity. The base comparison is revealing. 2024 disclosed: $155K–$185K base. Pitch faster iteration cycles without the 6-pager overhead.'},
+      meta:      {src:'$550K–$650K (IC5 PM)', base:'$192K–$273K', eq:'$200K–$320K/yr', tc:'$440K–$660K', note:'Meta PM TC is at top of market. Pitch ownership and a longer product time horizon — Meta PMs operate in a highly metric-driven framework. 2024 disclosed: $192K–$273K base.'},
+      microsoft: {src:'$295K–$360K (Senior PM)', base:'$148K–$196K', eq:'$80K–$140K/yr', tc:'$270K–$400K', note:'Microsoft PM is below market. The TC comparison is a positive surprise. 2024 disclosed: $148K–$196K base. Non-AI PMs are the most moveable.'},
+      apple:     {src:'$380K–$460K (Senior PM)', base:'$170K–$220K', eq:'$120K–$190K/yr', tc:'$340K–$480K', note:'Apple PM has limited product voice. TC is mid-market — room to be competitive. Pitch direct ownership of product decisions.'},
+      stripe:    {src:'$390K–$450K', base:'$175K–$225K', eq:'$130K–$200K/yr', tc:'$360K–$500K', note:'Stripe PM is competitive. Pitch consumer product scale and ownership beyond the payments surface.'},
+      airbnb:    {src:'$370K–$440K', base:'$170K–$215K', eq:'$120K–$190K/yr', tc:'$340K–$470K', note:'Airbnb PM TC is mid-market. A competitive offer can match or beat it. Pitch broader product surface.'},
+      uber:      {src:'$320K–$380K', base:'$158K–$200K', eq:'$100K–$160K/yr', tc:'$300K–$420K', note:'Uber PM is mid-market. Room to be competitive. Pitch ownership and reduced process overhead.'},
+      mckinsey:  {src:'$185K–$250K (Associate)', base:'$155K–$200K', eq:'$80K–$160K/yr', tc:'$280K–$420K', note:'McKinsey TC is dramatically below tech PM market. This is your strongest comp story. 2024 tech PM disclosed ranges are $280K–$500K+ — share this clearly and early.'},
+      bcg:       {src:'$185K–$245K', base:'$155K–$200K', eq:'$80K–$160K/yr', tc:'$280K–$420K', note:'BCG TC is well below tech PM market. The comparison is a strong positive — lead with it.'},
+      salesforce:{src:'$260K–$300K', base:'$138K–$175K', eq:'$75K–$130K/yr', tc:'$250K–$360K', note:'Salesforce PM is below market. Room to be competitive or meaningfully better.'}
     },
     em:{
-      google: {src:'$620K–$800K (L7 EM)', mkt:'$450K–$700K', note:'Google EM TC at L7 is very high. Pitch org ownership and leadership autonomy — Google EMs often feel they operate within heavy process.'},
-      amazon: {src:'$400K–$460K (SDM)', mkt:'$380K–$580K', note:'Amazon SDM TC is competitive. The 18-month sourcing window is key — target SDMs who have cleared the year-1 cliff.'},
-      meta: {src:'$650K–$820K (M2 EM)', mkt:'$450K–$700K', note:'Meta EM TC is very high. Pitch team stability and a longer time horizon — Meta EMs can feel the performance pressure acutely.'},
-      startup_late: {src:'$300K–$400K (Director/VP)', mkt:'$400K–$650K', note:'Late-stage startup EMs are often underpaid for their scope. The TC comparison with established companies can be very favorable.'}
+      google:    {src:'$620K–$820K (L7 EM)', base:'$220K–$310K', eq:'$250K–$450K/yr', tc:'$520K–$850K', note:'Google L7 EM TC is very high. Pitch leadership autonomy and org ownership — Google EMs operate within heavy process. 2024 disclosed: $220K–$310K base (Engineering Manager).'},
+      amazon:    {src:'$390K–$460K (SDM)', base:'$171K–$200K', eq:'$120K–$220K/yr', tc:'$340K–$490K', note:'Amazon SDM TC is mid-market. 18-month sourcing window is key. 2024 disclosed: $171K–$200K base (Software Dev Manager).'},
+      meta:      {src:'$640K–$830K (M2 EM)', base:'$219K–$320K', eq:'$250K–$450K/yr', tc:'$520K–$840K', note:'Meta EM TC is very high. Pitch team stability and longer time horizon — Meta EMs feel intense performance pressure. 2024 disclosed: $219K–$320K base.'},
+      microsoft: {src:'$340K–$420K (L63 Principal EM)', base:'$171K–$224K', eq:'$100K–$180K/yr', tc:'$310K–$480K', note:'Microsoft EM is below market. The TC comparison is often a positive surprise. 2024 disclosed: $171K–$224K base.'},
+      apple:     {src:'$430K–$530K (Director EM)', base:'$195K–$255K', eq:'$150K–$260K/yr', tc:'$400K–$590K', note:'Apple EM TC is solid but below Google/Meta. Pitch leadership voice and faster product influence.'},
+      stripe:    {src:'$450K–$530K', base:'$195K–$250K', eq:'$160K–$260K/yr', tc:'$410K–$580K', note:'Stripe EM is competitive. Pitch team scale and broader engineering org ownership.'},
+      startup_late:{src:'$280K–$400K (Director/VP)', base:'$180K–$250K', eq:'$150K–$350K/yr', tc:'$380K–$700K', note:'Late-stage startup EMs are often underpaid relative to established companies. A strong offer from '+targetCoName+' with liquid equity may be significantly better.'}
     },
     ds:{
-      google: {src:'$580K–$700K (L5 Research Scientist)', mkt:'$450K–$700K', note:'Google ML/DS TC is strong. Pitch production deployment scale and impact visibility — many Google researchers feel their work is distant from real users.'},
-      openai: {src:'$800K–$1M+', mkt:'$500K–$800K', note:'OpenAI research TC is extraordinary. Do not compete on comp — pitch deployment at consumer scale and career structure.'},
-      anthropic: {src:'$750K–$900K', mkt:'$500K–$800K', note:'Anthropic research TC is very high. Pitch consumer reach and resource depth for deploying research at scale.'},
-      meta: {src:'$600K–$750K (Research Scientist)', mkt:'$450K–$700K', note:'Meta FAIR TC is strong. Pitch specific deployment and the ability to see research reach end users directly.'},
-      amazon: {src:'$380K–$440K (Applied Scientist)', mkt:'$400K–$620K', note:'Amazon Applied Scientist TC is competitive. A strong offer can match or beat it — share ranges early.'},
-      intel: {src:'$270K–$320K', mkt:'$400K–$650K', note:'Intel is well below market for ML/DS. This is a very strong comp story — lead with it immediately.'}
+      google:    {src:'$560K–$720K (L5 Research Scientist)', base:'$187K–$268K', eq:'$200K–$380K/yr', tc:'$440K–$740K', note:'Google ML/DS TC is strong. Pitch production deployment at consumer scale — researchers often feel work is distant from real users. 2024 disclosed: $187K–$268K base (Research Scientist).'},
+      openai:    {src:'$800K–$1.1M+', base:'$245K–$370K', eq:'$400K–$700K/yr', tc:'$700K–$1.1M+', note:'OpenAI research TC is extraordinary. Cannot compete on comp. 2024 disclosed: $245K–$370K base (Staff Research Engineer). Pitch deployment scale and career structure.'},
+      anthropic: {src:'$720K–$920K', base:'$220K–$350K', eq:'$360K–$580K/yr', tc:'$640K–$960K', note:'Anthropic research TC is very high. Pitch consumer reach and the resources to deploy research at real scale.'},
+      meta:      {src:'$580K–$760K (Research Scientist)', base:'$199K–$297K', eq:'$220K–$400K/yr', tc:'$470K–$780K', note:'Meta FAIR/AI TC is strong. 2024 disclosed: $199K–$297K base. Pitch specific deployment and ability to see research reach end users.'},
+      amazon:    {src:'$370K–$440K (Applied Scientist)', base:'$155K–$185K', eq:'$110K–$200K/yr', tc:'$310K–$460K', note:'Amazon Applied Scientist TC is competitive. A strong offer can match or beat it. 2024 disclosed: $155K–$185K base.'},
+      microsoft: {src:'$330K–$400K (Senior Data Scientist)', base:'$153K–$204K', eq:'$90K–$170K/yr', tc:'$290K–$440K', note:'Microsoft DS is below market. A strong offer is frequently better. 2024 disclosed: $153K–$204K base.'},
+      databricks:{src:'$440K–$510K', base:'$178K–$240K', eq:'$150K–$260K/yr', tc:'$390K–$570K', note:'Databricks ML TC is mid-market. Pre-IPO equity uncertainty makes a liquid offer appealing. Frame it that way.'},
+      intel:     {src:'$260K–$310K', base:'$122K–$168K', eq:'$40K–$90K/yr', tc:'$200K–$330K', note:'Intel ML/DS is dramatically below market. The TC comparison is a strong positive — lead with it.'},
+      nvidia:    {src:'$520K–$660K', base:'$188K–$271K', eq:'$210K–$370K/yr', tc:'$450K–$730K', note:'NVIDIA ML TC is very high with exceptional equity. Do not try to win on comp — pitch the specific AI product problem. 2024 disclosed: $188K–$271K base.'}
+    },
+    mlinfra:{
+      google:    {src:'$580K–$740K (ML Infra L5)', base:'$189K–$268K', eq:'$220K–$400K/yr', tc:'$460K–$760K', note:'Google ML Infra TC is strong. Pitch ownership of the full training and serving stack — Google scale hides individual contribution. 2024 disclosed: $189K–$268K base.'},
+      meta:      {src:'$610K–$780K', base:'$199K–$297K', eq:'$240K–$420K/yr', tc:'$490K–$800K', note:'Meta AI Infra TC is at top of market. Pitch specific model lifecycle ownership. 2024 disclosed: $199K–$297K base.'},
+      openai:    {src:'$820K–$1.1M+', base:'$255K–$380K', eq:'$420K–$720K/yr', tc:'$730K–$1.1M+', note:'OpenAI infra TC is extraordinary. Pitch deployment scale and career structure.'},
+      anthropic: {src:'$760K–$950K', base:'$235K–$360K', eq:'$380K–$600K/yr', tc:'$670K–$990K', note:'Anthropic infra TC is very high. Pitch consumer scale and engineering resources.'},
+      nvidia:    {src:'$550K–$700K', base:'$195K–$280K', eq:'$230K–$400K/yr', tc:'$480K–$760K', note:'NVIDIA ML systems TC is very high. Do not compete on comp — pitch the software product that runs on the infrastructure. 2024 disclosed: $195K–$280K base.'},
+      databricks:{src:'$450K–$530K', base:'$185K–$250K', eq:'$160K–$280K/yr', tc:'$410K–$610K', note:'Databricks ML Infra is mid-market. Pre-IPO uncertainty makes a liquid offer appealing.'}
     },
     sec:{
-      crowdstrike: {src:'$350K–$400K', mkt:'$380K–$550K', note:'CrowdStrike is mid-market for security engineers. A strong offer from '+targetCoName+' can be competitive or better.'},
-      palo_alto: {src:'$340K–$390K', mkt:'$360K–$530K', note:'Palo Alto TC is mid-market. Security engineers here are often comp-moveable with a competitive offer.'},
-      google: {src:'$540K–$650K (Security/Project Zero)', mkt:'$420K–$620K', note:'Google security TC is strong. Pitch research depth and the specific security surface — comp alone will not move them.'}
+      crowdstrike:{src:'$340K–$400K', base:'$150K–$195K', eq:'$100K–$180K/yr', tc:'$300K–$440K', note:'CrowdStrike is mid-market for security. A strong offer can be competitive or better. 2024 disclosed: $150K–$200K base (Senior Security Engineer).'},
+      palo_alto: {src:'$330K–$390K', base:'$148K–$193K', eq:'$95K–$170K/yr', tc:'$290K–$430K', note:'Palo Alto is mid-market. A competitive offer from '+targetCoName+' can match or beat it. 2024 disclosed: $148K–$193K base.'},
+      google:    {src:'$530K–$660K', base:'$189K–$254K', eq:'$190K–$360K/yr', tc:'$430K–$700K', note:'Google security TC is strong. Pitch research depth and the specific security surface you are working on. 2024 disclosed: $189K–$254K base.'},
+      microsoft: {src:'$310K–$380K', base:'$153K–$200K', eq:'$85K–$155K/yr', tc:'$280K–$420K', note:'Microsoft security is below FAANG. A strong offer can be meaningfully better. 2024 disclosed: $153K–$200K base.'},
+      amazon:    {src:'$350K–$420K', base:'$158K–$185K', eq:'$110K–$190K/yr', tc:'$310K–$450K', note:'Amazon AppSec TC is mid-market. A strong offer can be competitive or better.'},
+      okta:      {src:'$300K–$360K', base:'$140K–$185K', eq:'$85K–$150K/yr', tc:'$270K–$400K', note:'Okta is below FAANG. Room to be competitive or better. 2024 disclosed: $140K–$188K base.'}
     },
     hw:{
-      apple: {src:'$440K–$540K (Silicon)', mkt:'$380K–$560K', note:'Apple Silicon engineer TC is strong but not extraordinary. The pitch is about ownership and public visibility — they cannot talk about their work at Apple.'},
-      nvidia: {src:'$550K–$680K', mkt:'$400K–$600K', note:'NVIDIA TC is very high with exceptional equity performance. Do not try to win on comp — pitch the specific technical challenge and what they would own.'},
-      intel: {src:'$260K–$310K', mkt:'$350K–$560K', note:'Intel is dramatically below market for hardware engineers. This is your strongest comp argument — lead with it.'},
-      qualcomm: {src:'$320K–$380K', mkt:'$350K–$540K', note:'Qualcomm is below market. A competitive offer from '+targetCoName+' can be meaningfully better.'},
-      amd: {src:'$300K–$360K', mkt:'$340K–$530K', note:'AMD is below top-tier hardware comp. A strong offer can be competitive or better.'}
+      apple:     {src:'$430K–$550K (ICT4 Silicon)', base:'$185K–$245K', eq:'$150K–$280K/yr', tc:'$390K–$610K', note:'Apple Silicon engineer TC is solid. The pitch is about ownership and visibility — they cannot discuss their work publicly. 2024 disclosed: $185K–$245K base (Hardware Engineer).'},
+      nvidia:    {src:'$520K–$680K', base:'$188K–$271K', eq:'$210K–$400K/yr', tc:'$460K–$760K', note:'NVIDIA hardware TC is very high with exceptional equity. Do not compete on comp. Pitch the software/product layer above the chip. 2024 disclosed: $188K–$271K base.'},
+      intel:     {src:'$255K–$310K', base:'$115K–$160K', eq:'$35K–$80K/yr', tc:'$190K–$320K', note:'Intel is dramatically below market for hardware. The TC comparison is very strong — lead with it. 2024 disclosed: $115K–$168K base.'},
+      qualcomm:  {src:'$310K–$380K', base:'$145K–$195K', eq:'$90K–$170K/yr', tc:'$285K–$440K', note:'Qualcomm is below top-tier hardware comp. A competitive offer can be meaningfully better. 2024 disclosed: $145K–$195K base.'},
+      amd:       {src:'$295K–$365K', base:'$138K–$185K', eq:'$85K–$160K/yr', tc:'$265K–$420K', note:'AMD is below top-tier hardware. Room to be competitive or better. 2024 disclosed: $138K–$185K base.'},
+      broadcom:  {src:'$290K–$355K', base:'$135K–$180K', eq:'$85K–$155K/yr', tc:'$260K–$410K', note:'Broadcom is below FAANG hardware rates. A strong offer is frequently better.'},
+      arm:       {src:'$280K–$350K', base:'$132K–$178K', eq:'$80K–$150K/yr', tc:'$255K–$400K', note:'Arm TC is below top hardware rates. Room to be competitive. 2024 disclosed: $132K–$178K base.'}
     },
-    quant:{
-      citadel: {src:'$600K–$1.5M+', mkt:'N/A — cannot compete on TC', note:'Citadel TC is extraordinary. Do not try to win on comp. Pitch intellectual breadth, life balance, and career optionality beyond systematic trading.'},
-      twosigma: {src:'$600K–$1.2M+', mkt:'N/A — cannot compete on TC', note:'Two Sigma TC is very high. Same approach as Citadel — pitch breadth and impact, not comp.'},
-      goldman: {src:'$350K–$450K (tech-facing)', mkt:'$500K–$900K', note:'Goldman technology TC is well below the quant market. If they are in a technology role at Goldman, the comparison to tech-market quant roles is a strong positive.'}
+    chip:{
+      apple:     {src:'$460K–$600K (Apple Silicon Architect)', base:'$200K–$270K', eq:'$180K–$320K/yr', tc:'$430K–$680K', note:'Apple chip architect TC is strong. Pitch the ability to work on a product where users interact with the chip’s capabilities directly and publicly discuss the work.'},
+      nvidia:    {src:'$560K–$730K (GPU Architect)', base:'$200K–$285K', eq:'$240K–$440K/yr', tc:'$500K–$820K', note:'NVIDIA GPU architect TC is extraordinary. Very hard to compete on comp. Pitch the software or product problem that sits above the architecture layer.'},
+      intel:     {src:'$270K–$330K', base:'$125K–$175K', eq:'$40K–$90K/yr', tc:'$210K–$350K', note:'Intel chip architect is dramatically below market. The comparison to industry norms is a very strong positive. 2024 disclosed: $128K–$183K base.'},
+      amd:       {src:'$310K–$390K', base:'$145K–$195K', eq:'$90K–$175K/yr', tc:'$280K–$450K', note:'AMD is below top chip architecture comp. Room to be competitive. 2024 disclosed: $148K–$198K base.'},
+      qualcomm:  {src:'$330K–$400K', base:'$150K–$200K', eq:'$95K–$175K/yr', tc:'$300K–$460K', note:'Qualcomm chip TC is below top tier. A strong offer can be meaningfully better.'}
     },
     mobile:{
-      apple: {src:'$430K–$500K', mkt:'$380K–$520K', note:'Apple mobile TC is competitive. Pitch the ability to talk about their work publicly and ship at a faster cadence.'},
-      snap: {src:'$320K–$370K', mkt:'$340K–$500K', note:'Snap mobile TC is below market. A strong offer from '+targetCoName+' can be meaningfully better — share ranges early.'},
-      meta: {src:'$580K–$670K', mkt:'$380K–$520K', note:'Meta mobile TC is very high. Pitch the specific technical challenge and ownership over the platform.'}
+      apple:     {src:'$420K–$510K', base:'$178K–$235K', eq:'$130K–$240K/yr', tc:'$370K–$560K', note:'Apple mobile TC is competitive. Pitch the ability to work on products users interact with every day and talk about the work publicly. 2024 disclosed: $178K–$235K base.'},
+      meta:      {src:'$570K–$670K', base:'$188K–$273K', eq:'$220K–$370K/yr', tc:'$460K–$730K', note:'Meta mobile TC is very high. Pitch ownership of the mobile surface and what they would uniquely own at '+targetCoName+'.'},
+      snap:      {src:'$310K–$370K', base:'$140K–$182K', eq:'$90K–$160K/yr', tc:'$275K–$410K', note:'Snap mobile TC is well below market. The comparison is a strong positive. 2024 disclosed: $140K–$182K base. Share ranges early.'},
+      google:    {src:'$520K–$640K (Android)', base:'$186K–$244K', eq:'$180K–$340K/yr', tc:'$420K–$660K', note:'Google Android TC is strong. Pitch platform ownership and consumer product impact. 2024 disclosed: $186K–$244K base.'},
+      uber:      {src:'$330K–$395K', base:'$160K–$210K', eq:'$100K–$170K/yr', tc:'$305K–$450K', note:'Uber mobile is mid-market. Room to be competitive or better.'},
+      airbnb:    {src:'$360K–$430K', base:'$170K–$218K', eq:'$115K–$195K/yr', tc:'$335K–$490K', note:'Airbnb mobile is mid-market. A competitive offer can match or beat it.'}
     },
     de:{
-      databricks: {src:'$440K–$490K', mkt:'$380K–$520K', note:'Databricks DE TC is mid-market. The pre-IPO uncertainty makes a liquid offer attractive — frame it that way.'},
-      snowflake: {src:'$400K–$450K', mkt:'$360K–$510K', note:'Snowflake DE TC is competitive. Pitch the data problem scale at '+targetCoName+' specifically.'},
-      amazon: {src:'$370K–$420K (DE)', mkt:'$360K–$510K', note:'Amazon DE TC is mid-market. The vesting schedule comparison is important — target the 18-month window.'}
+      databricks:{src:'$430K–$500K', base:'$178K–$235K', eq:'$150K–$260K/yr', tc:'$390K–$570K', note:'Databricks DE TC is mid-market. Pre-IPO equity uncertainty makes a liquid offer from '+targetCoName+' appealing — frame it explicitly. 2024 disclosed: $178K–$235K base.'},
+      snowflake: {src:'$385K–$450K', base:'$168K–$220K', eq:'$130K–$215K/yr', tc:'$350K–$510K', note:'Snowflake DE is competitive. Pitch the scale of the data problem at '+targetCoName+'. 2024 disclosed: $170K–$224K base.'},
+      amazon:    {src:'$360K–$425K', base:'$155K–$185K', eq:'$110K–$195K/yr', tc:'$315K–$450K', note:'Amazon DE TC is mid-market with back-loaded equity. The 18-month vesting window matters.'},
+      google:    {src:'$520K–$640K', base:'$186K–$244K', eq:'$180K–$340K/yr', tc:'$420K–$660K', note:'Google BigQuery/Dataflow DE TC is strong. Pitch data problem ownership and the ability to see your pipeline’s impact on real products.'},
+      meta:      {src:'$560K–$680K', base:'$188K–$273K', eq:'$210K–$380K/yr', tc:'$460K–$730K', note:'Meta DE TC is very high. Pitch ownership of the data infrastructure for a product they care about at '+targetCoName+'.'},
+      confluent: {src:'$360K–$420K', base:'$160K–$208K', eq:'$110K–$185K/yr', tc:'$320K–$465K', note:'Confluent is mid-market. The competitive pressure from cloud providers is a real concern for engineers — '+targetCoName+' offers a different problem space.'},
+      dbt:       {src:'$280K–$340K', base:'$130K–$170K', eq:'$80K–$140K/yr', tc:'$250K–$380K', note:'dbt Labs is below market. A strong offer from '+targetCoName+' is frequently better. Share ranges early.'}
+    },
+    sre:{
+      google:    {src:'$540K–$660K (L5 SRE)', base:'$189K–$249K', eq:'$190K–$360K/yr', tc:'$440K–$700K', note:'Google SRE TC is strong. Pitch broader reliability ownership and the ability to influence architecture decisions — Google SREs often own a narrow reliability surface. 2024 disclosed: $189K–$249K base.'},
+      amazon:    {src:'$355K–$425K', base:'$158K–$185K', eq:'$110K–$200K/yr', tc:'$315K–$460K', note:'Amazon SRE (Infra SDE) TC is mid-market. A strong offer can be competitive or better.'},
+      meta:      {src:'$580K–$710K (Production Engineer)', base:'$192K–$281K', eq:'$220K–$400K/yr', tc:'$470K–$770K', note:'Meta Production Engineer TC is very high. Pitch reliability ownership at the product level rather than infrastructure layer.'},
+      cloudflare:{src:'$360K–$420K', base:'$160K–$210K', eq:'$110K–$185K/yr', tc:'$320K–$460K', note:'Cloudflare SRE is mid-market. A competitive offer from '+targetCoName+' is frequently better. 2024 disclosed: $160K–$213K base.'},
+      microsoft: {src:'$300K–$370K', base:'$148K–$196K', eq:'$80K–$150K/yr', tc:'$270K–$410K', note:'Microsoft SRE/infra is below market. The TC comparison is a positive surprise.'}
+    },
+    quant:{
+      citadel:   {src:'$600K–$1.5M+', base:'$200K–$350K', eq:'$400K–$1M+/yr', tc:'$600K–$1.5M+', note:'Citadel TC is extraordinary and nearly impossible to match in tech. Do not compete on comp. Pitch intellectual breadth, impact on non-financial outcomes, life balance, and career optionality outside systematic trading.'},
+      twosigma:  {src:'$600K–$1.2M+', base:'$200K–$320K', eq:'$380K–$900K/yr', tc:'$600K–$1.2M+', note:'Two Sigma TC is very high. Same approach as Citadel — pitch breadth, real-world impact, and a different class of problem.'},
+      goldman:   {src:'$350K–$460K (quant/tech)', base:'$150K–$200K', eq:'$80K–$180K/yr', tc:'$280K–$450K', note:'Goldman technology TC is well below the quant market. A tech market offer is almost always a strong positive for Goldman engineers in technology (vs. trading) roles.'},
+      jpmorgan:  {src:'$280K–$380K (technology)', base:'$130K–$180K', eq:'$60K–$140K/yr', tc:'$240K–$390K', note:'JPMorgan technology TC is well below the quant and tech markets. The comparison is a strong positive — share it.'}
+    },
+    tpm:{
+      google:    {src:'$470K–$590K (Senior TPM)', base:'$180K–$234K', eq:'$160K–$300K/yr', tc:'$390K–$610K', note:'Google TPM TC is strong. Pitch program ownership and the ability to drive decisions rather than coordinate them. 2024 disclosed: $180K–$234K base.'},
+      amazon:    {src:'$330K–$400K (Senior PMT)', base:'$150K–$185K', eq:'$100K–$180K/yr', tc:'$295K–$440K', note:'Amazon TPM TC is mid-market. Pitch faster execution cycles without the 6-pager and Working Backwards process overhead.'},
+      meta:      {src:'$520K–$650K', base:'$185K–$265K', eq:'$190K–$360K/yr', tc:'$430K–$710K', note:'Meta TPM TC is very high. Pitch program ownership with a longer time horizon and less performance pressure.'},
+      microsoft: {src:'$285K–$355K', base:'$145K–$192K', eq:'$80K–$145K/yr', tc:'$265K–$400K', note:'Microsoft TPM is below market. The TC comparison is frequently a positive surprise. 2024 disclosed: $145K–$192K base.'}
+    },
+    se:{
+      salesforce:{src:'$280K–$340K (Senior SE)', base:'$130K–$168K', eq:'$75K–$130K/yr', tc:'$255K–$370K', note:'Salesforce Solutions Engineer is well below market. The TC comparison is a strong positive. 2024 disclosed: $130K–$168K base (Solutions Engineer).'},
+      aws:       {src:'$320K–$390K (Senior SA)', base:'$145K–$185K', eq:'$100K–$175K/yr', tc:'$290K–$440K', note:'AWS Solutions Architect is mid-market. A strong offer from '+targetCoName+' can be competitive or better.'},
+      google:    {src:'$440K–$540K (Senior SE)', base:'$180K–$230K', eq:'$150K–$280K/yr', tc:'$380K–$590K', note:'Google Cloud SE TC is strong. Pitch broader customer impact and the ability to work on problems you can discuss publicly.'},
+      stripe:    {src:'$360K–$430K', base:'$168K–$215K', eq:'$120K–$200K/yr', tc:'$335K–$490K', note:'Stripe SE is competitive. Pitch consumer scale and a broader developer audience beyond payments.'}
+    },
+    ux:{
+      apple:     {src:'$380K–$480K (Senior Designer ICT4)', base:'$165K–$225K', eq:'$120K–$230K/yr', tc:'$335K–$540K', note:'Apple design TC is competitive. Pitch product voice — Apple designers have limited influence on product direction. A role where design drives decisions is a strong pull. 2024 disclosed: $165K–$225K base.'},
+      google:    {src:'$440K–$560K (Senior UXD)', base:'$175K–$235K', eq:'$160K–$300K/yr', tc:'$390K–$620K', note:'Google UX TC is strong. Pitch a product where design decisions are more directly owned and implemented. 2024 disclosed: $175K–$235K base.'},
+      meta:      {src:'$520K–$660K', base:'$188K–$273K', eq:'$200K–$360K/yr', tc:'$440K–$720K', note:'Meta design TC is very high. Pitch ownership and a product where the user relationship is more personal and direct.'},
+      airbnb:    {src:'$360K–$440K', base:'$168K–$218K', eq:'$115K–$200K/yr', tc:'$330K–$500K', note:'Airbnb design TC is mid-market but the culture is genuinely strong. Pitch the specific design challenge at '+targetCoName+' and the scope of design influence.'},
+      figma:     {src:'$370K–$450K', base:'$170K–$220K', eq:'$120K–$210K/yr', tc:'$340K–$510K', note:'Figma design TC is competitive. The design culture is exceptional — pitch the specific problem and what makes the design challenge at '+targetCoName+' uniquely interesting.'}
+    },
+    devrel:{
+      stripe:    {src:'$320K–$390K (Senior DevRel)', base:'$148K–$195K', eq:'$100K–$175K/yr', tc:'$295K–$440K', note:'Stripe DevRel is competitive with high craft standard. Pitch the developer audience scale and the ability to build community around a new platform.'},
+      google:    {src:'$390K–$490K', base:'$175K–$232K', eq:'$140K–$240K/yr', tc:'$360K–$550K', note:'Google DevRel TC is strong. Pitch the specific developer community at '+targetCoName+' and the technical credibility of the work.'},
+      github:    {src:'$310K–$380K', base:'$148K–$192K', eq:'$95K–$165K/yr', tc:'$285K–$430K', note:'GitHub DevRel is mid-market. A competitive offer from '+targetCoName+' can be comparable or better.'}
     }
   };
+
 
   // Get role-specific TC intel for this source company
   var roleTCIntel = null;
@@ -3359,14 +3441,19 @@ function updateStrategy(){
     h += '<div style="padding:10px 14px;border-bottom:1px solid var(--border);background:var(--surface);">';
     h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);">Comp context — '+roleLabel+' from '+coName+'</div>';
     h += '</div>';
-    h += '<div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border);">';
-    h += '<div style="padding:9px 13px;border-right:1px solid var(--border);">';
-    h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-bottom:3px;">Current TC at '+coName+'</div>';
-    h += '<div style="font-size:15px;font-weight:700;color:var(--primary);">'+roleTCIntel.src+'</div>';
+    h += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid var(--border);">';
+    h += '<div style="padding:9px 12px;border-right:1px solid var(--border);">';
+    h += '<div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-bottom:3px;">Est. TC at '+coName+'</div>';
+    h += '<div style="font-size:14px;font-weight:700;color:var(--primary);">'+roleTCIntel.src+'</div>';
     h += '</div>';
-    h += '<div style="padding:9px 13px;">';
-    h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-bottom:3px;">Market range for '+roleLabel+'</div>';
-    h += '<div style="font-size:15px;font-weight:700;color:#065f46;">'+roleTCIntel.mkt+'</div>';
+    h += '<div style="padding:9px 12px;border-right:1px solid var(--border);">';
+    h += '<div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-bottom:3px;">Disclosed base range</div>';
+    h += '<div style="font-size:13px;font-weight:700;color:var(--text);">'+(roleTCIntel.base||'—')+'</div>';
+    h += '<div style="font-size:10px;color:var(--text-3);">from job postings</div>';
+    h += '</div>';
+    h += '<div style="padding:9px 12px;">';
+    h += '<div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-bottom:3px;">Equity/yr annualized</div>';
+    h += '<div style="font-size:13px;font-weight:700;color:var(--text);">'+(roleTCIntel.eq||'—')+'</div>';
     h += '</div>';
     h += '</div>';
     h += '<div style="padding:9px 13px;background:var(--primary-light);">';
