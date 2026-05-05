@@ -458,6 +458,735 @@ tr:last-child td{border-bottom:none;}
 .ob-ghost-btn{width:100%;margin-top:8px;padding:12px;background:none;border:1.5px solid #e8e4f0;border-radius:12px;font-size:13px;color:#7a7388;cursor:pointer;font-family:inherit;transition:all .15s;}
 .ob-ghost-btn:hover{border-color:#b09aed;color:#2d2640;}
 
+</style>
+</head>
+<body>
+
+<!-- ONBOARDING -->
+<div id="onboarding">
+
+  <!-- Step 1: Welcome -->
+  <div class="ob-step active" id="ob-step-1">
+    <div class="ob-welcome">
+      <div class="ob-left">
+        <div class="ob-wordmark">
+          <div class="ob-wordmark-icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <span class="ob-wordmark-text">Talent Researcher Intelligence Hub</span>
+        </div>
+        <h1 class="ob-headline">The intelligence layer<br>for <em>technical talent</em><br>researchers.</h1>
+        <p class="ob-tagline">Market data, sourcing strategy, candidate scoring, and close intelligence — all personalized to the company you are hiring for. Built for the humans doing the hardest hiring work.</p>
+        <div class="ob-feature-list">
+          <div class="ob-feature-item">
+            <div class="ob-feature-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="ob-feature-label">Real market intel for 23 technical role families
+              <span>Scarcity, tenure, donor companies, inflow percentages — updated mid-2025</span>
+            </div>
+          </div>
+          <div class="ob-feature-item">
+            <div class="ob-feature-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="ob-feature-label">Company-personalized sourcing &amp; leveling
+              <span>Every insight adapts to the company you are hiring for</span>
+            </div>
+          </div>
+          <div class="ob-feature-item">
+            <div class="ob-feature-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="ob-feature-label">Candidate scoring, prescreen questions, and comp benchmarking
+              <span>From intake to offer, in one place</span>
+            </div>
+          </div>
+          <div class="ob-feature-item">
+            <div class="ob-feature-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="ob-feature-label">Private by design — no login, no data leaves your browser
+              <span>Everything is stored locally on your device</span>
+            </div>
+          </div>
+        </div>
+        <button class="ob-cta" onclick="obNext(1)">
+          Get started
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+        <p class="ob-private">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          No account required. Nothing is sent to any server.
+        </p>
+      </div>
+      <div class="ob-right">
+        <div class="ob-right-label">What's inside</div>
+        <div class="ob-right-title">Everything a technical recruiter needs, in one place.</div>
+        <div class="ob-card-grid">
+          <div class="ob-mini-card"><div class="ob-mini-card-icon">📊</div><div class="ob-mini-card-title">Market Intel</div><div class="ob-mini-card-desc">Scarcity, tenure, donor companies, and inflow for 23 role families</div></div>
+          <div class="ob-mini-card"><div class="ob-mini-card-icon">🔍</div><div class="ob-mini-card-title">Sourcing</div><div class="ob-mini-card-desc">JD analysis, title equivalency, ICP builder, and Boolean search strings</div></div>
+          <div class="ob-mini-card"><div class="ob-mini-card-icon">📝</div><div class="ob-mini-card-title">Scorecard</div><div class="ob-mini-card-desc">Multi-candidate scoring with auto-detection and prescreen questions</div></div>
+          <div class="ob-mini-card"><div class="ob-mini-card-icon">💰</div><div class="ob-mini-card-title">Comp &amp; Close</div><div class="ob-mini-card-desc">TC benchmarks, close likelihood scoring, and equity gap analysis</div></div>
+          <div class="ob-mini-card"><div class="ob-mini-card-icon">🎯</div><div class="ob-mini-card-title">Strategy</div><div class="ob-mini-card-desc">Company-specific attraction hooks and motivation-aligned outreach</div></div>
+          <div class="ob-mini-card"><div class="ob-mini-card-icon">🤝</div><div class="ob-mini-card-title">HM Partner</div><div class="ob-mini-card-desc">Stage-by-stage action plans for managing hiring managers</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 2: Company -->
+  <div class="ob-step" id="ob-step-2">
+    <div class="ob-card-step">
+      <div class="ob-card">
+        <div class="ob-progress-row">
+          <div class="ob-progress-pills">
+            <div class="ob-progress-pill done"></div>
+            <div class="ob-progress-pill active"></div>
+            <div class="ob-progress-pill pending"></div>
+            <div class="ob-progress-pill pending"></div>
+          </div>
+          <span class="ob-step-label">Step 1 of 3</span>
+        </div>
+        <button class="ob-back" onclick="obBack(2)">&#8592; Back</button>
+        <h2>Which company are you hiring for?</h2>
+        <p class="ob-sub">This personalizes your leveling maps, competitive landscape, attraction strategy, and sourcing intel. You can switch companies at any time from the sidebar.</p>
+        <div id="ob-selected-co-banner" style="display:none;" class="ob-selected-co">
+          <span id="ob-selected-co-emoji" style="font-size:18px;"></span>
+          <div>
+            <div id="ob-selected-co-name" class="ob-selected-co-name"></div>
+            <div id="ob-selected-co-type" class="ob-selected-co-type"></div>
+          </div>
+        </div>
+        <input class="ob-search" id="ob-co-search" placeholder="Search by company name..." oninput="obFilterCompanies()" autocomplete="off" spellcheck="false"/>
+        <div class="ob-co-list" id="ob-co-list"></div>
+        <div class="ob-custom-row">
+          <input class="ob-custom-input" id="ob-custom-input" placeholder="Not listed? Type your company name..."/>
+          <button class="ob-custom-btn" onclick="obSelectCustom()">Use this</button>
+        </div>
+        <div style="margin-top:1.25rem;">
+          <button class="ob-start-btn" id="ob-co-next-btn" onclick="obNext(2)" disabled>Select a company to continue</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 3: Goal -->
+  <div class="ob-step" id="ob-step-3">
+    <div class="ob-card-step">
+      <div class="ob-card">
+        <div class="ob-progress-row">
+          <div class="ob-progress-pills">
+            <div class="ob-progress-pill done"></div>
+            <div class="ob-progress-pill done"></div>
+            <div class="ob-progress-pill active"></div>
+            <div class="ob-progress-pill pending"></div>
+          </div>
+          <span class="ob-step-label">Step 2 of 3</span>
+        </div>
+        <button class="ob-back" onclick="obBack(3)">&#8592; Back</button>
+        <h2>What are you working on today?</h2>
+        <p class="ob-sub">We will suggest where to start based on your answer. You can always access everything from the sidebar.</p>
+        <div class="ob-goal-grid">
+          <div class="ob-goal-card" id="goal-new" onclick="obSelectGoal('new')">
+            <div class="ob-goal-icon">&#128075;</div>
+            <div><div class="ob-goal-title">I am new &#8212; show me what this tool does</div><div class="ob-goal-desc">Get oriented with the main features and a suggested starting point.</div></div>
+          </div>
+          <div class="ob-goal-card" id="goal-sourcing" onclick="obSelectGoal('sourcing')">
+            <div class="ob-goal-icon">&#128269;</div>
+            <div><div class="ob-goal-title">I am sourcing for a specific role right now</div><div class="ob-goal-desc">Paste a JD, build your ICP, get title equivalency and a Boolean search string.</div></div>
+          </div>
+          <div class="ob-goal-card" id="goal-market" onclick="obSelectGoal('market')">
+            <div class="ob-goal-icon">&#128202;</div>
+            <div><div class="ob-goal-title">I want to understand the market for a role</div><div class="ob-goal-desc">Scarcity, tenure, inflow percentages, donor companies, and researcher watch-outs.</div></div>
+          </div>
+          <div class="ob-goal-card" id="goal-scoring" onclick="obSelectGoal('scoring')">
+            <div class="ob-goal-icon">&#128221;</div>
+            <div><div class="ob-goal-title">I need to score or compare candidates</div><div class="ob-goal-desc">Multi-candidate scorecard with auto-scoring, company detection, and prescreen questions.</div></div>
+          </div>
+          <div class="ob-goal-card" id="goal-strategy" onclick="obSelectGoal('strategy')">
+            <div class="ob-goal-icon">&#128172;</div>
+            <div><div class="ob-goal-title">I want to build a close or attraction strategy</div><div class="ob-goal-desc">Company-specific hooks, outreach angles, comp benchmarking, and close likelihood scoring.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 4: Tip -->
+  <div class="ob-step" id="ob-step-4">
+    <div class="ob-card-step">
+      <div class="ob-card">
+        <div class="ob-progress-row">
+          <div class="ob-progress-pills">
+            <div class="ob-progress-pill done"></div>
+            <div class="ob-progress-pill done"></div>
+            <div class="ob-progress-pill done"></div>
+            <div class="ob-progress-pill active"></div>
+          </div>
+          <span class="ob-step-label">Step 3 of 3</span>
+        </div>
+        <button class="ob-back" onclick="obBack(4)">&#8592; Back</button>
+        <div id="ob-tip-content"></div>
+        <button class="ob-start-btn" id="ob-launch-btn" onclick="obLaunch()">Take me there &#8594;</button>
+        <button class="ob-ghost-btn" onclick="obLaunchDefault()">Go to the full dashboard instead</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /onboarding -->
+
+<!-- MAIN APP -->
+<div id="app" style="display:none;">
+  <div class="app-inner">
+    <div class="tab-layout">
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-logo">
+            <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:white;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div>
+            <div class="sidebar-title">Intelligence Hub</div>
+            <div id="topbar-subtitle" class="sidebar-sub">Talent Researcher</div>
+          </div>
+        </div>
+
+        <div class="sidebar-section-label">Intelligence</div>
+        <button class="tab-btn active" onclick="openTab(this,'tab-intel')">&#128202; Market Intel</button>
+        <button class="tab-btn" onclick="openTab(this,'tab-leveling')">&#9993; Leveling</button>
+
+        <div class="sidebar-section-label">Workflow</div>
+        <button class="tab-btn" onclick="openTab(this,'tab-sourcing')">&#128269; Sourcing</button>
+        <button class="tab-btn" onclick="openTab(this,'tab-scorecard')">&#128221; Scorecard</button>
+        <button class="tab-btn" onclick="openTab(this,'tab-strategy')">&#127919; Strategy</button>
+        <button class="tab-btn" onclick="openTab(this,'tab-hmpartner')">&#129309; HM Partner</button>
+
+        <div class="sidebar-section-label">Reference</div>
+        <button class="tab-btn" onclick="openTab(this,'tab-competitive')">&#127942; Competitive</button>
+        <button class="tab-btn" onclick="openTab(this,'tab-candidates')">&#128101; Candidates</button>
+        <button class="tab-btn" onclick="openTab(this,'tab-comp')">&#128176; Comp</button>
+        <button class="tab-btn" onclick="openTab(this,'tab-placements')">&#128203; Placements</button>
+
+        <div id="sidebar-footer-wrap" class="sidebar-footer" style="display:none;">
+          <div class="sidebar-co-chip">
+            <div class="sidebar-co-avatar" id="sidebar-avatar">—</div>
+            <div>
+              <div class="sidebar-co-name" id="sidebar-co-name">—</div>
+              <button class="sidebar-switch-btn" onclick="switchCompany()">Switch company</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main content -->
+      <div class="tab-main" id="topbar-co-name">
+
+        <!-- Market Intel -->
+        <div id="tab-intel" class="tab-content active">
+          <div class="card">
+            <div class="field">
+              <label>Role Family</label>
+              <select id="intel-domain" onchange="updateIntel()">
+                <option value="">&#8212; Select role &#8212;</option>
+                <optgroup label="Core Engineering">
+                  <option value="swe">Software Engineering (IC)</option>
+                  <option value="em">Engineering Management</option>
+                  <option value="sre">Site Reliability / DevOps</option>
+                  <option value="qa">QA / SDET</option>
+                </optgroup>
+                <optgroup label="Product &amp; Design">
+                  <option value="pm">Product Management</option>
+                  <option value="tpm">Technical Program Manager</option>
+                  <option value="ux">Product Design / UX</option>
+                </optgroup>
+                <optgroup label="Data &amp; AI">
+                  <option value="ds">Data Science / ML Engineering</option>
+                  <option value="de">Data Engineering</option>
+                  <option value="mlinfra">ML Infrastructure / MLOps</option>
+                  <option value="quant">Quantitative Developer / Researcher</option>
+                </optgroup>
+                <optgroup label="Specialized Engineering">
+                  <option value="sec">Security Engineering</option>
+                  <option value="mobile">Mobile Engineering (iOS / Android)</option>
+                  <option value="embedded">Embedded Systems / Firmware</option>
+                  <option value="hw">Hardware / Silicon Engineering</option>
+                  <option value="chip">Chip Architecture / CPU Design</option>
+                  <option value="robotics">Robotics Engineering</option>
+                  <option value="arvr">AR / VR / XR Engineering</option>
+                  <option value="game">Game Engineering</option>
+                  <option value="compiler">Compiler / Programming Languages</option>
+                  <option value="bio">Bioinformatics / Computational Biology</option>
+                </optgroup>
+                <optgroup label="Go-to-Market Tech">
+                  <option value="se">Solutions / Sales Engineering</option>
+                  <option value="devrel">Developer Relations / Advocacy</option>
+                </optgroup>
+              </select>
+            </div>
+            <div id="intel-results" style="display:none;">
+              <div class="insight-grid">
+                <div class="stat-card"><span class="stat-label">Talent Scarcity</span><span class="stat-val" id="scarcity-val">&#8212;</span></div>
+                <div class="stat-card"><span class="stat-label">Avg Tenure</span><span class="stat-val" id="tenure-val">&#8212;</span></div>
+                <div class="stat-card"><span class="stat-label">Top Donors</span><span class="stat-val" id="donor-val" style="font-size:12px;line-height:1.4;margin-top:3px;">&#8212;</span></div>
+                <div class="stat-card"><span class="stat-label">Market Trend</span><span class="stat-val" id="trend-val" style="font-size:12px;line-height:1.4;margin-top:3px;">&#8212;</span></div>
+              </div>
+              <div class="alert-box" id="market-alert"></div>
+              <div id="intel-flow"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leveling -->
+        <div id="tab-leveling" class="tab-content">
+          <div class="card">
+            <div class="section-label">Level Mapping</div>
+            <p id="lev-context-note" style="font-size:12px;color:var(--text-2);margin-bottom:1rem;line-height:1.5;">Select a company and role to see how titles map across organizations.</p>
+            <div class="form-2col">
+              <div class="field"><label>Role Family</label>
+                <select id="lev-role-family" onchange="onLevFamilyChange()">
+                  <option value="">&#8212; Select role &#8212;</option>
+                  <option value="swe">Software Engineering (IC)</option>
+                  <option value="em">Engineering Management</option>
+                  <option value="pm">Product Management</option>
+                </select>
+              </div>
+              <div class="field"><label>Source Company</label>
+                <select id="lev-company">
+                  <option value="">&#8212; Select company first &#8212;</option>
+                </select>
+              </div>
+              <div class="field"><label>Title / Level</label>
+                <select id="lev-title">
+                  <option value="">&#8212; Select level &#8212;</option>
+                </select>
+              </div>
+              <div class="field"><label>Years of Experience</label>
+                <select id="lev-yoe">
+                  <option value="">&#8212; Select &#8212;</option>
+                  <option value="0&#8211;1">0&#8211;1 years</option>
+                  <option value="1&#8211;2">1&#8211;2 years</option>
+                  <option value="2&#8211;4">2&#8211;4 years</option>
+                  <option value="4&#8211;6">4&#8211;6 years</option>
+                  <option value="6&#8211;9">6&#8211;9 years</option>
+                  <option value="9&#8211;12">9&#8211;12 years</option>
+                  <option value="12+">12+ years</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn-primary" onclick="computeLevel()">Map this level</button>
+            <div id="leveling-results" class="output-block" style="display:block;margin-top:1rem;"><div class="empty">Select a role family, source company, title, and years of experience to see the level mapping.</div></div>
+          </div>
+        </div>
+
+        <!-- Sourcing -->
+        <div id="tab-sourcing" class="tab-content">
+          <div class="card">
+            <div class="section-label">Option 1 &#8212; Paste a Job Description</div>
+            <div class="field">
+              <textarea id="jd-input" placeholder="Paste the job description here. The tool will detect role family and level automatically..."></textarea>
+            </div>
+            <div class="btn-row" style="margin-bottom:4px;">
+              <button class="btn-primary" onclick="parseJD()">Analyze JD</button>
+            </div>
+            <div id="jd-note" style="display:none;margin-top:12px;"></div>
+            <div class="divider">or select manually</div>
+            <div class="section-label">Option 2 &#8212; Select role and level</div>
+            <div class="form-2col">
+              <div class="field"><label>Role Family</label>
+                <select id="sourcing-role" onchange="runSourcing()">
+                  <option value="">&#8212; Select role &#8212;</option>
+                  <option value="pm">Product Management</option>
+                  <option value="swe">Software Engineering (IC)</option>
+                  <option value="em">Engineering Management</option>
+                  <option value="ds">Data Science / ML Engineering</option>
+                  <option value="de">Data Engineering</option>
+                  <option value="sre">Site Reliability / DevOps</option>
+                  <option value="sec">Security Engineering</option>
+                  <option value="se">Solutions / Sales Engineering</option>
+                  <option value="qa">QA / SDET</option>
+                  <option value="hw">Hardware Engineering</option>
+                </select>
+              </div>
+              <div class="field"><label>Seniority Target</label>
+                <select id="sourcing-level" onchange="runSourcing()">
+                  <option value="">&#8212; Select level &#8212;</option>
+                  <option value="junior">Junior / Mid-level (0&#8211;4 yrs)</option>
+                  <option value="senior">Senior (4&#8211;8 yrs)</option>
+                  <option value="staff">Staff / Principal (8&#8211;12 yrs)</option>
+                  <option value="director">Director / VP (12+ yrs)</option>
+                </select>
+              </div>
+            </div>
+            <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
+              <label class="intake-toggle-row">
+                <input type="checkbox" id="icp-cb" onchange="toggleICP()"/>
+                <span>Define Ideal Candidate Profile (ICP)</span>
+              </label>
+              <div class="intake-fields" id="icp-fields">
+                <div class="form-2col" style="margin-top:1rem;">
+                  <div class="field"><label>Must come from</label><input type="text" id="icp-co-types" placeholder="e.g. Big Tech, AI-Native, Series B+" oninput="updateICP()"/></div>
+                  <div class="field"><label>Must NOT come from</label><input type="text" id="icp-co-exclude" placeholder="e.g. Consulting, Defense" oninput="updateICP()"/></div>
+                  <div class="field"><label>Min scale signal</label><input type="text" id="icp-scale" placeholder="e.g. 10M+ users, 100+ engineers" oninput="updateICP()"/></div>
+                  <div class="field"><label>Min years experience</label><input type="text" id="icp-yoe" placeholder="e.g. 5" oninput="updateICP()"/></div>
+                </div>
+                <div class="field"><label>Must-have skills</label><input type="text" id="icp-skills" placeholder="e.g. Kubernetes, Python, distributed systems" oninput="updateICP()"/></div>
+                <div class="field"><label>Hard no backgrounds</label><input type="text" id="icp-hard-no" placeholder="e.g. No consulting, no enterprise-only" oninput="updateICP()"/></div>
+                <div id="icp-summary" style="display:none;margin-top:.75rem;"></div>
+                <div id="icp-good" style="display:none;"></div>
+                <div id="icp-fail" style="display:none;"></div>
+              </div>
+            </div>
+            <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
+              <label class="intake-toggle-row">
+                <input type="checkbox" id="intake-cb" onchange="toggleIntake()"/>
+                <span>Add Intake Meeting Context (optional)</span>
+              </label>
+              <div class="intake-fields" id="intake-fields">
+                <div class="form-2col" style="margin-top:1rem;">
+                  <div class="field"><label>Hiring Manager</label><input type="text" id="intake-hm" placeholder="e.g. Jane Smith" oninput="runSourcing()"/></div>
+                  <div class="field"><label>Team / Org</label><input type="text" id="intake-team" placeholder="e.g. Core Infrastructure" oninput="runSourcing()"/></div>
+                  <div class="field"><label>Timeline</label>
+                    <select id="intake-timeline" onchange="runSourcing()">
+                      <option value="">&#8212; Select &#8212;</option>
+                      <option value="asap">ASAP &#8212; 3&#8211;4 weeks</option>
+                      <option value="standard">Standard &#8212; 6&#8211;8 weeks</option>
+                      <option value="flexible">Flexible</option>
+                      <option value="backfill">Backfill &#8212; urgent</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="field"><label>Must-haves (from HM)</label><input type="text" id="intake-musthave" placeholder="e.g. Go, distributed systems, 5+ yrs" oninput="runSourcing()"/></div>
+                <div class="field"><label>Nice-to-haves</label><input type="text" id="intake-nicetohave" placeholder="e.g. ML experience, open source contributions" oninput="runSourcing()"/></div>
+                <div class="field"><label>Deal-breakers</label><input type="text" id="intake-dealbreakers" placeholder="e.g. No consulting, no front-end only" oninput="runSourcing()"/></div>
+                <div class="field"><label>HM preferences</label><input type="text" id="intake-hm-prefs" placeholder="e.g. Prefers candidates who have managed on-call" oninput="runSourcing()"/></div>
+                <div class="field"><label>Red flags to screen for</label><input type="text" id="intake-redflags" placeholder="e.g. Short tenures, no production ownership" oninput="runSourcing()"/></div>
+                <div class="field"><label>Notes</label><textarea id="intake-notes" style="min-height:60px;" placeholder="Any other context from the intake meeting..." oninput="runSourcing()"></textarea></div>
+              </div>
+            </div>
+          </div>
+          <div id="sourcing-output" class="output-block"></div>
+          <div style="margin-top:.875rem;">
+            <button class="btn-primary" onclick="generateSearchString()" style="width:100%;font-size:12px;padding:11px 16px;">&#128269; Build full search string from JD + intake + ICP + title equivalents</button>
+            <div id="search-gen-container" style="display:none;margin-top:10px;"></div>
+          </div>
+        </div>
+
+        <!-- Scorecard -->
+        <div id="tab-scorecard" class="tab-content">
+          <div id="sc-jd-section" class="card">
+            <div class="section-label">Step 1 &#8212; Job Description</div>
+            <div class="field"><textarea id="sc-jd-input" placeholder="Paste the job description here to extract required skills and set up the scorecard dimensions..."></textarea></div>
+            <div id="sc-intake-banner" style="display:none;" class="alert-box" style="background:var(--primary-light);border-color:var(--border-2);color:var(--primary);">Intake context loaded from Sourcing tab &#8212; must-haves will be added to required skills.</div>
+            <button class="btn-primary" onclick="parseScJD()">Extract skills &amp; set up scorecard</button>
+            <div id="sc-jd-parsed" style="margin-top:8px;"></div>
+            <div id="sc-skill-chips" style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"></div>
+          </div>
+          <div id="sc-dimensions-section" class="card" style="display:none;">
+            <div class="section-label">Step 2 &#8212; Scoring Dimensions</div>
+            <p style="font-size:12px;color:var(--text-2);margin-bottom:10px;">Adjust weights to match what matters most for this role. Weights must total 100.</p>
+            <div id="sc-dimensions-list"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
+              <span id="sc-weight-total" style="font-size:12px;font-weight:600;color:var(--primary);">Total: 100</span>
+              <button onclick="resetDimensions()" style="background:none;border:none;color:var(--text-3);font-size:12px;cursor:pointer;font-family:inherit;">Reset defaults</button>
+            </div>
+          </div>
+          <div id="sc-candidates-section" class="card" style="display:none;">
+            <div class="section-label">Step 3 &#8212; Candidates</div>
+            <div id="sc-candidates-grid" class="sc-candidates-grid"></div>
+            <button class="btn-secondary" onclick="addCandidate()" id="sc-add-cand-btn">+ Add candidate</button>
+          </div>
+          <div id="sc-prescreen-section" style="display:none;margin-top:.875rem;"></div>
+        <div id="sc-score-section" style="display:none;margin-top:.875rem;">
+            <button class="btn-primary" onclick="scoreAll()" style="width:100%;">Score all candidates</button>
+          </div>
+          <div id="sc-results" class="output-block"></div>
+        </div>
+
+        <!-- Strategy -->
+        <div id="tab-strategy" class="tab-content">
+          <div class="card">
+            <div class="field"><label>Candidate name (optional)</label>
+              <input type="text" id="strat-cand-name" placeholder="e.g. Alex M. &#8212; personalizes the strategy" oninput="updateStrategy()"/>
+            </div>
+            <div class="field"><label>Candidate current company</label>
+              <select id="strat-co-company" onchange="updateStrategy()">
+                <option value="">&#8212; Select company &#8212;</option>
+              </select>
+            </div>
+            <div class="form-2col">
+              <div class="field"><label>Candidate seniority</label>
+                <select id="strat-level" onchange="updateStrategy()">
+                  <option value="">&#8212; Select &#8212;</option>
+                  <option value="junior">Junior / Mid-level (0&#8211;4 yrs)</option>
+                  <option value="senior">Senior IC (4&#8211;8 yrs)</option>
+                  <option value="staff">Staff / Principal (8&#8211;12 yrs)</option>
+                  <option value="director">Director / VP (12+ yrs)</option>
+                </select>
+              </div>
+              <div class="field"><label>Candidate motivation</label>
+                <select id="strat-motivation" onchange="updateStrategy()">
+                  <option value="">&#8212; Select &#8212;</option>
+                  <option value="scale">Scale &amp; Impact &#8212; wants massive systems</option>
+                  <option value="growth">Career Growth &#8212; wants to level up</option>
+                  <option value="money">Compensation &#8212; driven by TC</option>
+                  <option value="tech">Technical Challenge &#8212; wants harder problems</option>
+                  <option value="brand">Brand / Prestige &#8212; values company name</option>
+                  <option value="change">Change &#8212; unhappy at current company</option>
+                  <option value="mission">Mission &#8212; wants meaningful work</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div id="strategy-output" class="output-block"></div>
+        </div>
+
+        <!-- HM Partner -->
+        <div id="tab-hmpartner" class="tab-content">
+          <div class="card">
+            <div class="section-label">Requisition Context</div>
+            <div class="hm-input-row">
+              <div class="field"><label>Hiring Manager Name</label><input type="text" id="hm-name" placeholder="e.g. Jane Smith" oninput="updateHMContext()"/></div>
+              <div class="field"><label>Role Title</label><input type="text" id="hm-role-title" placeholder="e.g. Staff SWE &#8212; Infrastructure" oninput="updateHMContext()"/></div>
+              <div class="field"><label>Team / Org</label><input type="text" id="hm-team" placeholder="e.g. Core Infrastructure" oninput="updateHMContext()"/></div>
+              <div class="field"><label>Date Req Opened</label><input type="text" id="hm-date-opened" placeholder="e.g. May 1, 2025" oninput="updateHMContext()"/></div>
+              <div class="field"><label>Target Start Date</label><input type="text" id="hm-target-start" placeholder="e.g. July 2025" oninput="updateHMContext()"/></div>
+              <div class="field"><label>Profiles to Present</label>
+                <select id="hm-profiles-target" onchange="updateHMContext()">
+                  <option value="3">3 profiles</option>
+                  <option value="5" selected>5 profiles</option>
+                  <option value="8">8 profiles</option>
+                  <option value="10">10+</option>
+                </select>
+              </div>
+            </div>
+            <div id="hm-context-banner" style="display:none;" class="hm-callout">
+              <div class="hm-callout-label">Active Req</div>
+              <p id="hm-context-text"></p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="section-label" style="margin-bottom:.75rem;">Where are you in the search?</div>
+            <div class="stage-selector">
+              <div class="stage-pill active" onclick="selectHMStage(this,'present')">Presenting profiles</div>
+              <div class="stage-pill" onclick="selectHMStage(this,'screen')">Prescreens underway</div>
+              <div class="stage-pill" onclick="selectHMStage(this,'loop')">Interview loop</div>
+              <div class="stage-pill" onclick="selectHMStage(this,'offer')">Offer &amp; close</div>
+              <div class="stage-pill" onclick="selectHMStage(this,'stalled')">Search stalled</div>
+            </div>
+            <div class="hm-progress-bar"><div class="hm-progress-fill" id="hm-progress-fill" style="width:20%;"></div></div>
+            <div style="font-size:10px;color:var(--text-3);text-align:right;" id="hm-progress-label">Stage 1 of 5</div>
+          </div>
+          <div id="hm-action-plan"></div>
+        </div>
+
+        <!-- Competitive -->
+        <div id="tab-competitive" class="tab-content">
+          <div class="card">
+            <div class="section-label">Competitive Landscape</div>
+            <div class="field"><label>Filter by role</label>
+              <select id="comp-filter" onchange="renderCompetitive()">
+                <option value="all">All roles</option>
+                <option value="pm">Product Management</option>
+                <option value="swe">Software Engineering</option>
+                <option value="em">Engineering Management</option>
+                <option value="ds">Data Science / ML</option>
+                <option value="de">Data Engineering</option>
+                <option value="sre">SRE / DevOps</option>
+                <option value="sec">Security</option>
+                <option value="se">Solutions Engineering</option>
+                <option value="qa">QA / SDET</option>
+                <option value="hw">Hardware</option>
+              </select>
+            </div>
+          </div>
+          <div id="comp-output"></div>
+        </div>
+
+        <!-- Candidates -->
+        <div id="tab-candidates" class="tab-content">
+          <div class="card">
+            <div class="section-label">Candidate Narratives</div>
+            <p style="font-size:12px;color:var(--text-2);margin-bottom:1rem;line-height:1.5;">Auto-generates a one-paragraph candidate narrative for each scored candidate. Edit before sharing with the hiring manager.</p>
+            <button class="btn-primary" onclick="generateNarratives()">Generate narratives from scorecard</button>
+            <div id="narratives-output" style="margin-top:1rem;"></div>
+          </div>
+        </div>
+
+        <!-- Comp -->
+        <div id="tab-comp" class="tab-content">
+          <div class="card">
+            <div class="section-label">Compensation Benchmarking + Close Likelihood</div>
+            <p style="font-size:12px;color:var(--text-2);margin-bottom:1rem;line-height:1.5;">Select a role and target company to see market TC ranges. Add the candidate current company and current TC to unlock a <strong>close likelihood score</strong> and full close strategy.</p>
+            <div class="form-2col">
+              <div class="field"><label>Role Family</label>
+                <select id="comp-role" onchange="updateCompBenchmark()">
+                  <option value="">&#8212; Select role &#8212;</option>
+                  <option value="swe">Software Engineering (IC)</option>
+                  <option value="pm">Product Management</option>
+                  <option value="em">Engineering Management</option>
+                  <option value="ds">Data Science / ML Engineering</option>
+                  <option value="de">Data Engineering</option>
+                  <option value="sre">Site Reliability / DevOps</option>
+                  <option value="sec">Security Engineering</option>
+                  <option value="se">Solutions / Sales Engineering</option>
+                  <option value="qa">QA / SDET</option>
+                  <option value="hw">Hardware Engineering</option>
+                </select>
+              </div>
+              <div class="field"><label>Target Company Type</label>
+                <select id="comp-co-type" onchange="updateCompBenchmark()">
+                  <option value="">&#8212; Select type &#8212;</option>
+                  <option value="bigtech">Big Tech</option>
+                  <option value="ai_native">AI-Native</option>
+                  <option value="midtech">Mid-size Tech</option>
+                  <option value="startup_late">Late-stage Startup</option>
+                  <option value="startup_b">Series B</option>
+                  <option value="startup_a">Series A</option>
+                  <option value="fintech">Fintech</option>
+                  <option value="enterprise">Enterprise Tech</option>
+                  <option value="finance">Finance / Banking</option>
+                  <option value="consulting">Consulting</option>
+                  <option value="defense">Defense / Gov Tech</option>
+                </select>
+              </div>
+            </div>
+            <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
+              <div class="section-label" style="margin-bottom:.75rem;">Candidate Comp Context &#8212; Unlocks Close Likelihood</div>
+              <div class="form-2col">
+                <div class="field"><label>Candidate Current Company</label>
+                  <select id="comp-cand-company" onchange="updateCompBenchmark()">
+                    <option value="">&#8212; Unknown / skip &#8212;</option>
+                  </select>
+                </div>
+                <div class="field"><label>Candidate Current TC</label>
+                  <select id="comp-cand-tc" onchange="updateCompBenchmark()">
+                    <option value="">&#8212; Unknown / skip &#8212;</option>
+                    <option value="under150">Under $150K</option>
+                    <option value="150_250">$150K &#8211; $250K</option>
+                    <option value="250_400">$250K &#8211; $400K</option>
+                    <option value="400_600">$400K &#8211; $600K</option>
+                    <option value="600_900">$600K &#8211; $900K</option>
+                    <option value="900_1200">$900K &#8211; $1.2M</option>
+                    <option value="over1200">$1.2M+</option>
+                  </select>
+                </div>
+                <div class="field"><label>Unvested Equity</label>
+                  <select id="comp-cand-equity" onchange="updateCompBenchmark()">
+                    <option value="">&#8212; Unknown / skip &#8212;</option>
+                    <option value="none">None / fully vested</option>
+                    <option value="under100">Under $100K</option>
+                    <option value="100_300">$100K &#8211; $300K</option>
+                    <option value="300_600">$300K &#8211; $600K</option>
+                    <option value="over600">$600K+</option>
+                  </select>
+                </div>
+                <div class="field"><label>Vest Cliff Timing</label>
+                  <select id="comp-vest-timing" onchange="updateCompBenchmark()">
+                    <option value="">&#8212; Unknown / skip &#8212;</option>
+                    <option value="now">Vesting now &#8212; optimal window</option>
+                    <option value="3mo">Within 3 months</option>
+                    <option value="6mo">3&#8211;6 months away</option>
+                    <option value="12mo">6&#8211;12 months away</option>
+                    <option value="far">12+ months away</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="comp-benchmark-output" class="output-block"></div>
+        </div>
+
+        <!-- Placements -->
+        <div id="tab-placements" class="tab-content">
+          <div class="card">
+            <div class="section-label">Log a Placement</div>
+            <div class="alert-box" style="margin-bottom:1rem;background:var(--warning-light);border-color:#fcd34d;color:#92400e;">Use initials or a candidate reference ID. Do not log full names. This data is stored locally in your browser only.</div>
+            <div class="form-2col">
+              <div class="field"><label>Candidate Reference (initials or ID)</label><input type="text" id="p-name" placeholder="e.g. A.M. or CAND-001"/></div>
+              <div class="field"><label>Previous Company</label><input type="text" id="p-prev-co" placeholder="e.g. Google"/></div>
+              <div class="field"><label>Previous Title</label><input type="text" id="p-prev-title" placeholder="e.g. Senior SWE"/></div>
+              <div class="field"><label>Role Family</label>
+                <select id="p-role-family">
+                  <option value="">&#8212; Select &#8212;</option>
+                  <option value="pm">PM</option>
+                  <option value="swe">SWE</option>
+                  <option value="em">EM</option>
+                  <option value="ds">DS/ML</option>
+                  <option value="de">DE</option>
+                  <option value="sre">SRE</option>
+                  <option value="sec">Security</option>
+                  <option value="se">SE</option>
+                  <option value="qa">QA</option>
+                  <option value="hw">HW</option>
+                </select>
+              </div>
+              <div class="field"><label>Level Placed</label><input type="text" id="p-level" placeholder="e.g. Senior SWE, L5 equivalent"/></div>
+              <div class="field"><label>Team / Org</label><input type="text" id="p-team" placeholder="e.g. Core Infrastructure"/></div>
+              <div class="field"><label>Date Placed</label><input type="text" id="p-date" placeholder="e.g. June 2025"/></div>
+            </div>
+            <div class="field"><label>Notes (optional)</label><textarea id="p-notes" style="min-height:60px;" placeholder="What worked, what was surprising, anything to remember for next time..."></textarea></div>
+            <div class="field"><label>Level Placed (meta)</label><input type="text" id="p-meta-level" placeholder="e.g. Senior, Staff, L5"/></div>
+            <button class="btn-primary" onclick="addPlacement()">Log placement</button>
+          </div>
+          <div id="placement-stats-row" style="display:none;margin-top:.875rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 16px;">
+            <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+              <div><div style="font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;">Total placed</div><div id="stat-total" style="font-size:20px;font-weight:700;color:var(--primary);">0</div></div>
+              <div><div style="font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;">Top source</div><div id="stat-top-source" style="font-size:14px;font-weight:600;color:var(--text);">—</div></div>
+              <div><div style="font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;">Most common level</div><div id="stat-top-level" style="font-size:14px;font-weight:600;color:var(--text);">—</div></div>
+            </div>
+          </div>
+          <div id="placement-list" style="margin-top:.5rem;"></div>
+          <div id="placements-output" class="output-block" style="display:block;margin-top:.875rem;"></div>
+          <div class="card" style="margin-top:.875rem;">
+            <div class="section-label">Calibration History</div>
+            <p style="font-size:12px;color:var(--text-2);margin-bottom:1rem;line-height:1.5;">Log what worked and what did not. This data surfaces in Sourcing and Comp tabs as calibration signals.</p>
+            <div class="form-2col">
+              <div class="field"><label>Role Family</label>
+                <select id="cal-role">
+                  <option value="">&#8212; Select &#8212;</option>
+                  <option value="pm">PM</option>
+                  <option value="swe">SWE</option>
+                  <option value="em">EM</option>
+                  <option value="ds">DS/ML</option>
+                  <option value="de">DE</option>
+                  <option value="sre">SRE</option>
+                  <option value="sec">Security</option>
+                  <option value="se">SE</option>
+                  <option value="qa">QA</option>
+                  <option value="hw">HW</option>
+                </select>
+              </div>
+              <div class="field"><label>Background Type</label>
+                <select id="cal-co-type">
+                  <option value="">&#8212; Select &#8212;</option>
+                  <option value="bigtech">Big Tech</option>
+                  <option value="ai_native">AI-Native</option>
+                  <option value="midtech">Mid-size Tech</option>
+                  <option value="startup_late">Late-stage Startup</option>
+                  <option value="startup_early">Early Startup</option>
+                  <option value="fintech">Fintech</option>
+                  <option value="enterprise">Enterprise Tech</option>
+                  <option value="finance">Finance / Banking</option>
+                  <option value="consulting">Consulting</option>
+                  <option value="defense">Defense / Gov Tech</option>
+                  <option value="academia">Academia / Research</option>
+                </select>
+              </div>
+            </div>
+            <div class="field" style="margin-top:.5rem;">
+              <label>Outcome</label>
+              <div style="display:flex;gap:1.5rem;margin-top:6px;">
+                <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;"><input type="radio" name="cal-outcome" value="worked"/> Worked well</label>
+                <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;"><input type="radio" name="cal-outcome" value="didnt"/> Did not work</label>
+              </div>
+            </div>
+            <div class="field"><label>Notes (optional)</label><input type="text" id="cal-note" placeholder="e.g. Strong background but struggled with ambiguity in the loop"/></div>
+            <button class="btn-primary" onclick="addCalibrationFromUI()">Log calibration entry</button>
+            <div id="calibration-list" style="margin-top:1rem;"></div>
+            <div id="cal-log" style="margin-top:0;"></div>
+          </div>
+        </div>
+
+      </div><!-- /tab-main -->
+    </div><!-- /tab-layout -->
+  </div><!-- /app-inner -->
+</div><!-- /app -->
+
+
 <script>
 /* ══════════════════════════════════════════════
    COMPANY REGISTRY
@@ -609,7 +1338,7 @@ var activeCompany = null;
 
 /* ══ WELCOME SCREEN ══ */
 function buildCompanyList(filter){
-  var list = document.getElementById('co-list');
+  var list = document.getElementById('ob-co-list');
   var html = '';
   var q = (filter||'').toLowerCase().trim();
   GROUP_ORDER.forEach(function(group){
@@ -629,7 +1358,7 @@ function buildCompanyList(filter){
 }
 
 function filterCompanies(){
-  var q = document.getElementById('co-search').value;
+  var q = document.getElementById('ob-co-search').value;
   buildCompanyList(q);
   // If active selection no longer visible, don't deselect
 }
@@ -639,12 +1368,12 @@ function selectCompany(id){
   var opt = document.getElementById('co-opt-'+id);
   if(opt) opt.classList.add('selected');
   activeCompany = COMPANIES.find(function(c){ return c.id === id; });
-  document.getElementById('custom-co-input').value = '';
+  document.getElementById('ob-custom-input').value = '';
   updateLaunchBtn();
 }
 
 function selectCustomCompany(){
-  var name = document.getElementById('custom-co-input').value.trim();
+  var name = document.getElementById('ob-custom-input').value.trim();
   if(!name) return;
   document.querySelectorAll('.company-option').forEach(function(el){ el.classList.remove('selected'); });
   activeCompany = {
@@ -659,7 +1388,7 @@ function selectCustomCompany(){
 }
 
 function updateLaunchBtn(){
-  var btn = document.getElementById('launch-btn');
+  var btn = document.getElementById('ob-co-next-btn');
   if(activeCompany){
     btn.disabled = false;
     btn.textContent = 'Launch for ' + activeCompany.name + ' →';
@@ -671,7 +1400,7 @@ function updateLaunchBtn(){
 
 function launchApp(){
   if(!activeCompany) return;
-  if(document.getElementById('welcome-screen')) document.getElementById('welcome-screen').style.display = 'none';
+  if(document.getElementById('onboarding')) document.getElementById('onboarding').style.display = 'none';
   document.getElementById('app').style.display = 'block';
   initApp();
 }
@@ -1963,7 +2692,7 @@ function clearPlacementForm(){
   document.getElementById('p-role-family').value='';
 }
 function renderPlacements(){
-  var listEl=document.getElementById('placement-list');
+  var listEl=document.getElementById('placements-output');
   var statsRow=document.getElementById('placement-stats-row');
   if(placements.length===0){ listEl.innerHTML='<div class="empty">No placements logged yet. Add your first one above.</div>'; statsRow.style.display='none'; return; }
   statsRow.style.display='grid';
@@ -2054,7 +2783,7 @@ function parseScJD() {
     for (var i = 0; i < found.length; i++) {
       html += '<span class="keyword-chip">'+found[i]+'</span>';
     }
-    document.getElementById('sc-required-chips').innerHTML = html;
+    document.getElementById('sc-skill-chips').innerHTML = html;
   }
 }
 
@@ -2069,7 +2798,7 @@ function renderDimensions() {
     html += '<span style="font-size:11px;color:var(--text-3);">%</span>';
     html += '</div>';
   }
-  document.getElementById('sc-dimensions').innerHTML = html;
+  document.getElementById('sc-dimensions-list').innerHTML = html;
   updateWeightTotal();
 }
 
@@ -2101,12 +2830,12 @@ function addCandidate() {
   for (var i = 0; i < SC_DIMENSIONS.length; i++) scores[i] = 50;
   scCandidates.push({id:id, name:'', resume:'', scores:scores, summary:''});
   renderCandidates();
-  if (scCandidates.length >= scMaxCandidates) document.getElementById('sc-add-btn').disabled = true;
+  if (scCandidates.length >= scMaxCandidates) document.getElementById('sc-add-cand-btn').disabled = true;
 }
 
 function removeCandidate(id) {
   scCandidates = scCandidates.filter(function(c){ return c.id !== id; });
-  document.getElementById('sc-add-btn').disabled = false;
+  document.getElementById('sc-add-cand-btn').disabled = false;
   renderCandidates();
   scoreAll();
 }
@@ -2197,7 +2926,7 @@ function renderCandidates() {
     html += '<textarea class="summary-area" placeholder="Recruiter notes — qualitative take, standout moments, concerns..." oninput="scCandidates['+ci+'].summary=this.value;">'+cand.summary+'</textarea>';
     html += '</div>';
   }
-  document.getElementById('sc-candidates').innerHTML = html;
+  document.getElementById('sc-candidates-grid').innerHTML = html;
 }
 
 function updateScore(ci, di, val) {
@@ -2638,7 +3367,7 @@ function scoreAll() {
     html += '</div>';
   }
 
-  document.getElementById('sc-results-content').innerHTML = html;
+  document.getElementById('sc-results').innerHTML = html;
 }
 
 /* ══ SCORECARD PRESCREEN QUESTIONS ══ */
