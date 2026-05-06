@@ -3076,6 +3076,7 @@ function updateStrategy(){
   h += '</div>';
 
   // Placeholder for AI-generated role-specific sections
+  h += '<div id="strategy-fit-output" style="margin-top:0;"></div>';
   h += '<div id="strategy-ai-output">';
   h += '<div class="src-loading" style="padding:1.5rem;"><div class="src-loading-dot"></div><div class="src-loading-dot"></div><div class="src-loading-dot"></div><span style="color:var(--text-2);font-size:13px;">Generating role-specific strategy...</span></div>';
   h += '</div>';
@@ -3085,6 +3086,118 @@ function updateStrategy(){
 
   // ── AI-generated role-specific strategy ───────────────────────────────
   generateRoleStrategy(coCompanyId, coName, coType, currentRole, roleLabel, level, levelLabel, motivation, motivationLabel, targetCoName, targetCoType, pushAway, pullToward, sourceFacts);
+  generateInfraFit(coName, coType, currentRole, roleLabel, level, levelLabel, targetCoName, targetCoType);
+}
+
+
+/* ═══════════════════════════════════════════════
+   INFRASTRUCTURE FIT ANALYSIS
+═══════════════════════════════════════════════ */
+
+function generateInfraFit(srcName, srcType, roleKey, roleLabel, level, levelLabel, tgtName, tgtType) {
+  var fitEl = document.getElementById('strategy-fit-output');
+  if(!fitEl) return;
+
+  // Show loading
+  fitEl.innerHTML = '<div class="output-section"><div class="output-section-label">Company & Role Alignment &#8212; ' + srcName + ' &#8594; ' + tgtName + '</div><div class="src-loading" style="padding:.75rem 0;"><div class="src-loading-dot"></div><div class="src-loading-dot"></div><div class="src-loading-dot"></div><span style="font-size:12px;color:var(--text-2);">Analysing alignment across 7 dimensions...</span></div></div>';
+
+  var systemPrompt = [
+    'You are a senior technical recruiter and organizational psychologist with deep knowledge of engineering and product cultures at major technology companies.',
+    'You analyze how well a candidate from one company would fit into another, across specific professional dimensions.',
+    'Be honest and specific. Acknowledge real gaps. Do not be generically positive.',
+    'Return ONLY valid JSON. No markdown. No apostrophes inside strings. No explanation before or after.'
+  ].join(' ');
+
+  var prompt = [
+    'Analyze the company and role alignment for a ' + levelLabel + ' ' + roleLabel + ' moving from ' + srcName + ' (' + srcType + ') to ' + tgtName + ' (' + tgtType + ').',
+    '',
+    'Return a JSON object with exactly these 7 keys. Each value is a single string of 2-4 sentences.',
+    'Be specific to the role function (' + roleLabel + ') and both companies. Not generic.',
+    '',
+    '{',
+    '"scale_complexity": "Compare system scale and complexity between both companies for a ' + roleLabel + '. Is it a step up, step down, or lateral in terms of technical challenge?",',
+    '"product_velocity": "Compare shipping cadence, release cycles, and product iteration speed. How will the candidate need to adjust their working style?",',
+    '"data_culture": "Compare how each company uses data, experimentation, and metrics to make decisions. Is the candidate moving toward or away from a data-driven culture?",',
+    '"team_structure": "Compare team size, ownership model, and how cross-functional collaboration works. What structural adjustments should the recruiter flag?",',
+    '"tech_stack": "For a ' + roleLabel + ', how much does the technical stack or tooling overlap between ' + srcName + ' and ' + tgtName + '? What will need to be learned?",',
+    '"domain_transferability": "How directly does the candidate domain expertise and work at ' + srcName + ' transfer to the problems at ' + tgtName + '? What is highly transferable and what is not?",',
+    '"comp_level_calibration": "Given the typical ' + levelLabel + ' ' + roleLabel + ' compensation and leveling at ' + srcName + ', what should the recruiter know about calibrating the offer at ' + tgtName + '?"',
+    '}'
+  ].join('\n');
+
+  fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1200,
+      system: systemPrompt,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  })
+  .then(function(r) {
+    if(!r.ok) return r.text().then(function(t){ throw new Error(t.slice(0,100)); });
+    return r.json();
+  })
+  .then(function(data) {
+    if(data.error){ fitEl.innerHTML = ''; return; }
+    var text = (data.content && data.content[0]) ? data.content[0].text : '';
+    text = text.replace(/```json/g,'').replace(/```/g,'').trim();
+    var m = text.match(/\{[\s\S]*\}/);
+    if(m) text = m[0];
+    try {
+      var d = JSON.parse(text);
+      renderInfraFit(d, srcName, tgtName, roleLabel, levelLabel);
+    } catch(e) {
+      fitEl.innerHTML = '';
+    }
+  })
+  .catch(function() { fitEl.innerHTML = ''; });
+}
+
+function renderInfraFit(d, srcName, tgtName, roleLabel, levelLabel) {
+  var fitEl = document.getElementById('strategy-fit-output');
+  if(!fitEl) return;
+
+  var dimensions = [
+    { key:'scale_complexity',     icon:'&#9881;',  label:'Scale & System Complexity' },
+    { key:'product_velocity',     icon:'&#128640;', label:'Product Velocity & Cadence' },
+    { key:'data_culture',         icon:'&#128202;', label:'Data & Experimentation Culture' },
+    { key:'team_structure',       icon:'&#129309;', label:'Team Structure & Ownership' },
+    { key:'tech_stack',           icon:'&#128736;', label:'Tech Stack Overlap' },
+    { key:'domain_transferability',icon:'&#127919;',label:'Domain & Skill Transferability' },
+    { key:'comp_level_calibration',icon:'&#128176;',label:'Compensation & Level Calibration' }
+  ];
+
+  var h = '<div class="output-section">';
+  h += '<div class="output-section-label">Company & Role Alignment &#8212; ' + srcName + ' &#8594; ' + tgtName + '</div>';
+  h += '<p style="font-size:12px;color:var(--text-2);margin-bottom:12px;line-height:1.5;">';
+  h += levelLabel + ' ' + roleLabel + ' perspective. Each dimension reflects what will feel familiar, what will require adjustment, and what the recruiter should flag proactively.';
+  h += '</p>';
+
+  dimensions.forEach(function(dim, idx) {
+    var text = d[dim.key] || '';
+    if(!text) return;
+
+    var isLast = idx === dimensions.length - 1;
+    h += '<div style="padding:13px 0;' + (!isLast ? 'border-bottom:1px solid var(--border);' : '') + '">';
+
+    // Dimension header
+    h += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">';
+    h += '<span style="font-size:16px;flex-shrink:0;">' + dim.icon + '</span>';
+    h += '<span style="font-size:12px;font-weight:700;color:var(--text);letter-spacing:.01em;">' + dim.label + '</span>';
+    h += '</div>';
+
+    // Narrative text
+    h += '<p style="font-size:13px;color:var(--text-2);line-height:1.7;margin:0;padding-left:24px;">' + text + '</p>';
+    h += '</div>';
+  });
+
+  h += '</div>';
+  fitEl.innerHTML = h;
 }
 
 function generateRoleStrategy(coId, coName, coType, roleKey, roleLabel, level, levelLabel, motivation, motivationLabel, targetCoName, targetCoType, pushAway, pullToward, sourceFacts) {
